@@ -15,6 +15,9 @@ const BASE_ALPHA = 0.15;
 const GLOW_ALPHA = 0.8;
 const GLOW_BLUR = 18;
 const SPEED = 0.3;
+const EXPLOSION_RADIUS = 200;
+const EXPLOSION_FORCE = 8;
+const FRICTION = 0.97;
 
 function createParticles(w: number, h: number): Particle[] {
   return Array.from({ length: PARTICLE_COUNT }, () => ({
@@ -43,6 +46,17 @@ export function ParticleBackground() {
       const my = mouse.current.y;
 
       for (const p of particles.current) {
+        // Apply friction to slow down after explosion
+        p.vx *= FRICTION;
+        p.vy *= FRICTION;
+
+        // Clamp to base speed minimum so particles keep drifting
+        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (speed < SPEED * 0.5 && speed > 0) {
+          p.vx = (p.vx / speed) * SPEED * 0.5;
+          p.vy = (p.vy / speed) * SPEED * 0.5;
+        }
+
         // Update position
         p.x += p.vx;
         p.y += p.vy;
@@ -116,8 +130,24 @@ export function ParticleBackground() {
       mouse.current.y = -9999;
     };
 
+    const onClick = (e: MouseEvent) => {
+      const cx = e.clientX;
+      const cy = e.clientY;
+      for (const p of particles.current) {
+        const dx = p.x - cx;
+        const dy = p.y - cy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < EXPLOSION_RADIUS && dist > 0) {
+          const force = (1 - dist / EXPLOSION_RADIUS) * EXPLOSION_FORCE;
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
+        }
+      }
+    };
+
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseleave', onMouseLeave);
+    window.addEventListener('click', onClick);
 
     const loop = () => {
       draw(ctx, window.innerWidth, window.innerHeight);
@@ -130,6 +160,7 @@ export function ParticleBackground() {
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseleave', onMouseLeave);
+      window.removeEventListener('click', onClick);
     };
   }, [draw]);
 
