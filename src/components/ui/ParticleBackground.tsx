@@ -31,7 +31,7 @@ export function ParticleBackground() {
   const particles = useRef<Particle[]>([]);
   const mouse = useRef({ x: -9999, y: -9999 });
   const animRef = useRef<number>(0);
-  const { theme, isDark } = useTheme();
+  const { isDark } = useTheme();
 
   const accentColor = isDark ? '139,92,246' : '124,58,237';
 
