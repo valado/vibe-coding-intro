@@ -16,7 +16,7 @@ export interface IntroSlideData extends BaseSlide {
   layout: 'intro';
   description: string;
   steps: Array<{
-    emoji: string;
+    icon: string;
     label: string;
     detail: string;
   }>;
@@ -48,18 +48,18 @@ export interface ClosingSlideData extends BaseSlide {
   layout: 'closing';
   subtitle: string;
   cta: string;
+  surveyUrl: string;
+  surveyLabel: string;
+  surveyDetail: string;
 }
 
-// Promo slide
-export interface PromoSlideData extends BaseSlide {
-  layout: 'promo';
+// Author slide
+export interface AuthorSlideData extends BaseSlide {
+  layout: 'author';
   role: string;
   socialCall2Action: string;
   linkedinUrl: string;
   xUrl: string;
-  surveyUrl: string;
-  surveyLabel: string;
-  surveyDetail: string;
   toolsLabel: string;
   position: 'opening' | 'closing';
   tools?: ReadonlyArray<{
@@ -77,4 +77,4 @@ export type SlideData =
   | RuleSlideData
   | SummarySlideData
   | ClosingSlideData
-  | PromoSlideData;
+  | AuthorSlideData;

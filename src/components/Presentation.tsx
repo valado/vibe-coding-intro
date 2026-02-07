@@ -18,7 +18,7 @@ import { IntroSlide } from './slides/IntroSlide';
 import { RuleSlide } from './slides/RuleSlide';
 import { SummarySlide } from './slides/SummarySlide';
 import { ClosingSlide } from './slides/ClosingSlide';
-import { PromoSlide } from './slides/PromoSlide';
+import { AuthorSlide } from './slides/AuthorSlide';
 
 export function Presentation() {
   const [current, setCurrent] = useState(0);
@@ -98,8 +98,8 @@ export function Presentation() {
         return <SummarySlide data={data} onGoTo={goTo} />;
       case 'closing':
         return <ClosingSlide data={data} />;
-      case 'promo':
-        return <PromoSlide data={data} />;
+      case 'author':
+        return <AuthorSlide data={data} />;
       default:
         return null;
     }

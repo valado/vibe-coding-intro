@@ -11,7 +11,7 @@ export const darkTheme: Theme = {
   accentSoft: 'rgba(139,92,246,0.12)',
   accentBorder: 'rgba(139,92,246,0.25)',
   accentGlow: 'rgba(139,92,246,0.3)',
-  watermark: 'rgba(139,92,246,0.06)',
+  watermark: 'rgba(139,92,246,0.18  )',
   heroGrad: 'radial-gradient(ellipse at 55% 40%, rgba(139,92,246,0.18) 0%, transparent 60%)',
   subtleGrad: 'radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.06) 0%, transparent 50%)',
   overlayBg: 'rgba(0,0,0,0.85)',

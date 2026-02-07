@@ -5,9 +5,8 @@ interface PromoSlideProps {
   data: PromoSlideData;
 }
 
-export function PromoSlide({ data }: PromoSlideProps) {
+export function AuthorSlide({ data }: PromoSlideProps) {
   const { theme } = useTheme();
-  const isClosing = data.position === 'closing';
 
   return (
     <div
@@ -216,7 +215,9 @@ export function PromoSlide({ data }: PromoSlideProps) {
                   e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                <div style={{ fontSize: '2.5rem' }}>{tool.icon}</div>
+                <div>
+                  <img src={tool.icon} aria-label="icon" />
+                </div>
                 <div
                   style={{
                     fontWeight: 700,

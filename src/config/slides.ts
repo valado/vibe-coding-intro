@@ -9,15 +9,12 @@ export const SLIDES: SlideData[] = [
     badge: '2026 Edition',
   },
   {
-    layout: 'promo',
+    layout: 'author',
     title: `Created by ${CREATOR_CONFIG.name}`,
     role: 'Senior Solution Architect & AI Practice Lead',
     socialCall2Action: 'Follow me for more insights on leveraging AI',
     linkedinUrl: CREATOR_CONFIG.linkedinUrl,
     xUrl: CREATOR_CONFIG.xUrl,
-    surveyUrl: CREATOR_CONFIG.surveyUrl,
-    surveyLabel: 'If you find this guide useful, please participate in a quick survey',
-    surveyDetail: 'Share your feedback and unlock a mystery 50% discount',
     position: 'opening',
     toolsLabel: 'Maker of',
     tools: CREATOR_CONFIG.tools,
@@ -28,9 +25,9 @@ export const SLIDES: SlideData[] = [
     description:
       'Vibe coding is the practice of building software by describing what you want in plain language and letting AI write the code. You set the direction \u2014 the AI handles the implementation.',
     steps: [
-      { emoji: '\ud83d\udcac', label: 'Describe', detail: 'Tell the AI what you want to build' },
-      { emoji: '\u26a1', label: 'Generate', detail: 'The AI writes the code for you' },
-      { emoji: '\ud83d\udd04', label: 'Iterate', detail: 'Review, refine, and repeat' },
+      { icon: 'MessageSquareText', label: 'Describe', detail: 'Tell the AI what you want to build' },
+      { icon: 'Sparkles', label: 'Generate', detail: 'The AI writes the code for you' },
+      { icon: 'RefreshCw', label: 'Iterate', detail: 'Review, refine, and repeat' },
     ],
   },
   {
@@ -185,23 +182,13 @@ export const SLIDES: SlideData[] = [
     ],
   },
   {
-    layout: 'promo',
-    title: `Follow ${CREATOR_CONFIG.name}`,
-    subtitle: "Enjoyed this guide? Let's stay connected",
-    linkedinUrl: CREATOR_CONFIG.linkedinUrl,
-    xUrl: CREATOR_CONFIG.xUrl,
-    surveyUrl: CREATOR_CONFIG.surveyUrl,
-    surveyLabel: 'Claim Your 50% Discount',
-    surveyDetail:
-      'Take a 2-minute survey and get 50% off our service \u2014 thank you for your time!',
-    position: 'closing',
-    tools: CREATOR_CONFIG.tools,
-  },
-  {
     layout: 'closing',
     title: 'Start Building Today',
     subtitle:
       'Pick a small project. Set up your tools. Start prompting.\nThe best way to learn vibe coding is to do it.',
     cta: 'Happy Vibe Coding!',
+    surveyUrl: CREATOR_CONFIG.surveyUrl,
+    surveyLabel: 'Enjoyed this guide? Take a 2-minute survey and get a mystery discount.',
+    surveyDetail: 'Take the Survey — Unlock 50% Off',
   },
 ];

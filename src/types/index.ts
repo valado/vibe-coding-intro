@@ -5,7 +5,7 @@ export type {
   RuleSlideData,
   SummarySlideData,
   ClosingSlideData,
-  PromoSlideData,
+  AuthorSlideData,
 } from './slide.types';
 
 export type { Theme, ThemeContextType } from './theme.types';

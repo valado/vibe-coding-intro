@@ -41,7 +41,8 @@ export function CoverSlide({ data }: CoverSlideProps) {
           height: 180,
           borderRadius: '50%',
           border: `1px solid ${theme.accentBorder}`,
-          opacity: 0.3,
+          backgroundColor: theme.accentSoft,
+          opacity: 0.7,
         }}
       />
       <div
@@ -53,7 +54,8 @@ export function CoverSlide({ data }: CoverSlideProps) {
           height: 110,
           borderRadius: '50%',
           border: `1px solid ${theme.accentBorder}`,
-          opacity: 0.2,
+          backgroundColor: theme.accentSoft,
+          opacity: 0.7,
         }}
       />
       <div style={{ position: 'relative', zIndex: 1 }}>
@@ -99,6 +101,26 @@ export function CoverSlide({ data }: CoverSlideProps) {
         >
           {data.subtitle}
         </p>
+
+        <div
+          className="s5"
+          style={{
+            marginTop: 28,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '8px 20px',
+            borderRadius: 24,
+            fontSize: '0.82rem',
+            fontWeight: 600,
+            letterSpacing: '0.04em',
+            color: theme.accent,
+            background: theme.accentSoft,
+            border: `1px solid ${theme.accentBorder}`,
+          }}
+        >
+          <span>This presentation was vibe-coded</span>
+        </div>
         <div
           className="s4"
           style={{

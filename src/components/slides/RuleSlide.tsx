@@ -34,8 +34,8 @@ export function RuleSlide({ data }: RuleSlideProps) {
         className="wm sc"
         style={{
           position: 'absolute',
-          top: -20,
-          left: -10,
+          top: 10,
+          left: 10,
           fontSize: '12rem',
           fontWeight: 900,
           color: theme.watermark,
