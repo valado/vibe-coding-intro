@@ -142,7 +142,7 @@ export function CoverSlide({ data }: CoverSlideProps) {
           >
             <ChevronRight size={16} />
           </span>
-          <span>Press arrow keys to navigate</span>
+          <span>Press arrow keys (or swipe) to navigate</span>
         </div>
       </div>
     </div>
