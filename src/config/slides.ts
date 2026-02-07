@@ -59,12 +59,16 @@ export const SLIDES: SlideData[] = [
       'Before writing any code, give your AI the big picture. Create a configuration file that describes your project\u2019s vision, coding standards, and technical decisions \u2014 just like onboarding a new developer.',
     points: [
       'Product Vision \u2014 What you\u2019re building and why',
-      'Alignment \u2014 List your expectations (e.g. which design system to use, code style, testing standards etc.)',
+      'Alignment \u2014 List your expectations (e.g. which design system to use, code style, code-of-conduct, testing standards etc.)',
       'Persist Architecture Decisions \u2014 Architecture Decision Record (ADR) within the project',
       'Tech Stack \u2014 Which frameworks and tools to use',
       'Guardrails \u2014 What the AI should and shouldn\u2019t do',
     ],
     tip: 'Create a project rules file (like CLAUDE.md or .cursorrules) in your project\u2019s root folder',
+    externalLink: {
+      label: 'Technical alignment generator tool',
+      url: 'https://tinytoolstack.com/app/instructionsgeneratorforagenticcoding',
+    },
   },
   {
     layout: 'rule',

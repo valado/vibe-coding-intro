@@ -22,6 +22,11 @@ export interface IntroSlideData extends BaseSlide {
   }>;
 }
 
+type ExternalLink = {
+  label: string;
+  url: string;
+};
+
 // Rule slide
 export interface RuleSlideData extends BaseSlide {
   layout: 'rule';
@@ -30,6 +35,7 @@ export interface RuleSlideData extends BaseSlide {
   description: string;
   points: string[];
   tip: string;
+  externalLink?: ExternalLink;
 }
 
 // Summary slide

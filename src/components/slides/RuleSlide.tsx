@@ -122,6 +122,45 @@ export function RuleSlide({ data }: RuleSlideProps) {
             <span>{data.tip}</span>
           </div>
         )}
+        {data.externalLink && (
+          <a
+            href={data.externalLink.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`s${(data.points?.length || 0) + (data.tip ? 6 : 5)}`}
+            style={{
+              marginTop: 20,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '10px 18px',
+              borderRadius: 10,
+              background: theme.accentSoft,
+              border: `1px solid ${theme.accentBorder}`,
+              color: theme.accent,
+              fontWeight: 600,
+              fontSize: '0.95rem',
+              textDecoration: 'none',
+              transition: 'filter 0.2s',
+            }}
+          >
+            {data.externalLink.label}
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </a>
+        )}
       </div>
     </div>
   );
