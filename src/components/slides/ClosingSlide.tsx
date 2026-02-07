@@ -10,7 +10,7 @@ export function ClosingSlide({ data }: ClosingSlideProps) {
 
   return (
     <div
-      className="r-pad"
+      className="r-pad slide-scroll"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -58,7 +58,7 @@ export function ClosingSlide({ data }: ClosingSlideProps) {
 
         {/* Survey / Discount CTA */}
         <div
-          className="s4"
+          className="s4 closing-survey"
           style={{
             marginTop: 48,
             padding: '28px 36px',
@@ -80,6 +80,7 @@ export function ClosingSlide({ data }: ClosingSlideProps) {
 
           <div className="s5" style={{ marginTop: 20 }}>
             <a
+              className="closing-cta-btn"
               href={data.surveyUrl}
               target="_blank"
               rel="noopener noreferrer"

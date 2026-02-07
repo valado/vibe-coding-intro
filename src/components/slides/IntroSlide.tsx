@@ -18,7 +18,7 @@ export function IntroSlide({ data }: IntroSlideProps) {
 
   return (
     <div
-      className="r-pad"
+      className="r-pad slide-scroll"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -69,7 +69,7 @@ export function IntroSlide({ data }: IntroSlideProps) {
                   style={{ display: 'flex', alignItems: 'center', flex: 1, minWidth: 0 }}
                 >
                   <div
-                    className={`s${i + 4}`}
+                    className={`step-card s${i + 4}`}
                     style={{
                       flex: 1,
                       padding: '28px 20px',

@@ -109,7 +109,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s, opacity 0.2s;
+  transition:
+    background 0.2s,
+    opacity 0.2s;
 }
 .nb:hover {
   background: rgba(139, 92, 246, 0.1);
@@ -209,6 +211,21 @@
   .wm {
     font-size: 8rem !important;
   }
+  .slide-main {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+  .slide-scroll {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    justify-content: flex-start !important;
+    padding-top: 150px !important;
+    padding-bottom: 60px !important;
+  }
+  .step-card {
+    height: auto !important;
+    min-height: 0 !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -220,5 +237,24 @@
   }
   .sum-grid {
     grid-template-columns: 1fr !important;
+  }
+  .author-socials {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .author-tools {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .author-tools > a {
+    max-width: none !important;
+  }
+  .closing-survey {
+    padding: 20px 16px !important;
+    margin-top: 28px !important;
+  }
+  .closing-cta-btn {
+    padding: 12px 20px !important;
+    font-size: 0.9rem !important;
   }
 }

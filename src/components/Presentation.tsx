@@ -170,7 +170,7 @@ export function Presentation() {
       </div>
 
       {/* Slide */}
-      <main key={current} className="fi" style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+      <main key={current} className="fi slide-main" style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
         {renderSlide()}
       </main>
 

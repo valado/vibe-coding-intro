@@ -37,7 +37,7 @@ export const SLIDES: SlideData[] = [
   {
     layout: 'rule',
     number: '01',
-    title: 'Use the Command Line',
+    title: 'Use the Command Line and Choose a Model',
     subtitle: 'Your direct line to AI power',
     description:
       'Chat interfaces are great for asking questions, but command-line tools give you superpowers. They read and write files directly in your project, maintain context across your entire codebase, and execute code in real-time.',
@@ -45,6 +45,8 @@ export const SLIDES: SlideData[] = [
       'Standartised alignment and steering possibilities (agents, skills, MCPs etc.)',
       'Persistent memory of your entire codebase',
       'Run, test, and deploy \u2014 all from one place',
+      'Use Agentic Mode',
+      'For planing use the latest Opus and depending on the complexity of the task Sonnet/Opus models for execution',
     ],
     tip: 'Look for CLI tools like Claude Code, Codex CLI, Gemini CLI, or Cursor\u2019s agent mode',
   },
@@ -120,6 +122,7 @@ export const SLIDES: SlideData[] = [
       'Connect browser automation via MCP servers',
       'Take screenshots and add them to the prompt for visual context',
       'Catch visual bugs the AI would otherwise miss',
+      'Workflow: Agent describe the UI based on the context -> Meta prompt for Nano Banana -> Give image to the agent to implement it',
     ],
     tip: 'Tools like Puppeteer or Playwright MCP give your AI the ability to see and interact with your app',
   },

@@ -27,7 +27,7 @@ export function AuthorModal({ onClose }: AuthorModalProps) {
           width: '90%',
           maxWidth: 600,
           maxHeight: '85vh',
-          overflow: 'hidden',
+          overflow: 'auto',
           backgroundColor: theme.surface,
           borderRadius: 16,
           border: `1px solid ${theme.border}`,

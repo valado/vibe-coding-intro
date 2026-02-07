@@ -10,7 +10,7 @@ export function AuthorSlide({ data }: AuthorSlideProps) {
 
   return (
     <div
-      className="r-pad"
+      className="r-pad slide-scroll"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -73,7 +73,7 @@ export function AuthorSlide({ data }: AuthorSlideProps) {
           >
             {data.socialCall2Action}
           </p>
-          <div style={{ display: 'flex', gap: 12 }}>
+          <div className="author-socials" style={{ display: 'flex', gap: 12 }}>
             <a
               href={data.linkedinUrl}
               target="_blank"
@@ -174,7 +174,7 @@ export function AuthorSlide({ data }: AuthorSlideProps) {
               {data.toolsLabel}
             </p>
             <div
-              className="s5"
+              className="s5 author-tools"
               style={{
                 display: 'flex',
                 gap: 16,

@@ -10,7 +10,7 @@ export function RuleSlide({ data }: RuleSlideProps) {
 
   return (
     <div
-      className="r-pad"
+      className="r-pad slide-scroll"
       style={{
         display: 'flex',
         flexDirection: 'column',
