@@ -36,7 +36,7 @@ export function RuleSlide({ data }: RuleSlideProps) {
           position: 'absolute',
           top: 10,
           left: 10,
-          fontSize: '12rem',
+          fontSize: '15rem',
           fontWeight: 900,
           color: theme.watermark,
           lineHeight: 1,

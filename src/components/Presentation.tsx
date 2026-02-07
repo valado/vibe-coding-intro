@@ -13,6 +13,8 @@ import { NavigationControls } from './ui/NavigationControls';
 import { Toast } from './ui/Toast';
 import { SlideOverview } from './ui/SlideOverview';
 import { KeyboardHelp } from './ui/KeyboardHelp';
+import { AuthorModal } from './ui/AuthorModal';
+import { DiscountModal } from './ui/DiscountModal';
 import { ParticleBackground } from './ui/ParticleBackground';
 import { CoverSlide } from './slides/CoverSlide';
 import { IntroSlide } from './slides/IntroSlide';
@@ -20,11 +22,14 @@ import { RuleSlide } from './slides/RuleSlide';
 import { SummarySlide } from './slides/SummarySlide';
 import { ClosingSlide } from './slides/ClosingSlide';
 import { AuthorSlide } from './slides/AuthorSlide';
+import { User, Gift } from 'lucide-react';
 
 export function Presentation() {
   const [current, setCurrent] = useState(0);
   const [showOverview, setShowOverview] = useState(false);
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
+  const [showAuthor, setShowAuthor] = useState(false);
+  const [showDiscount, setShowDiscount] = useState(false);
   const { theme } = useTheme();
 
   const total = SLIDES.length;
@@ -53,10 +58,14 @@ export function Presentation() {
   const handleEscape = useCallback(() => {
     if (showKeyboardHelp) {
       setShowKeyboardHelp(false);
+    } else if (showAuthor) {
+      setShowAuthor(false);
+    } else if (showDiscount) {
+      setShowDiscount(false);
     } else if (showOverview) {
       setShowOverview(false);
     }
-  }, [showKeyboardHelp, showOverview]);
+  }, [showKeyboardHelp, showAuthor, showDiscount, showOverview]);
 
   // Custom hooks
   useKeyboardNavigation({
@@ -66,7 +75,7 @@ export function Presentation() {
     onLast: handleLast,
     onHelp: handleHelp,
     onEscape: handleEscape,
-    disabled: showOverview || showKeyboardHelp,
+    disabled: showOverview || showKeyboardHelp || showAuthor || showDiscount,
   });
 
   const { handleTouchStart, handleTouchEnd } = useTouchNavigation({
@@ -140,6 +149,22 @@ export function Presentation() {
         >
           <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>?</span>
         </button>
+        <button
+          className="ib"
+          onClick={() => setShowAuthor(true)}
+          style={{ color: theme.textMuted }}
+          title="About the author"
+        >
+          <User size={17} />
+        </button>
+        <button
+          className="ib"
+          onClick={() => setShowDiscount(true)}
+          style={{ color: theme.textMuted }}
+          title="Discount offer"
+        >
+          <Gift size={17} />
+        </button>
         <ThemeToggle />
         <ShareButton onShare={share} copied={copied} />
       </div>
@@ -170,6 +195,12 @@ export function Presentation() {
           onSelectSlide={goTo}
         />
       )}
+
+      {/* Author info */}
+      {showAuthor && <AuthorModal onClose={() => setShowAuthor(false)} />}
+
+      {/* Discount offer */}
+      {showDiscount && <DiscountModal onClose={() => setShowDiscount(false)} />}
 
       {/* Keyboard help */}
       {showKeyboardHelp && <KeyboardHelp onClose={() => setShowKeyboardHelp(false)} />}

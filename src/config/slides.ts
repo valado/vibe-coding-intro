@@ -23,15 +23,15 @@ export const SLIDES: SlideData[] = [
     layout: 'intro',
     title: 'What is Vibe Coding?',
     description:
-      'Vibe coding is the practice of building software by describing what you want in plain language and letting AI write the code. You set the direction \u2014 AI handles the implementation.',
+      'Vibe coding is about communicating your intent \u2014 you focus on what to build, not how to build it. Describe the outcome you want in plain language and let AI handle the implementation details.',
     steps: [
       {
         icon: 'MessageSquareText',
-        label: 'Describe',
-        detail: 'Tell the AI what you want to build',
+        label: 'Intent',
+        detail: 'Define what you want, not how to build it',
       },
-      { icon: 'Sparkles', label: 'Generate', detail: 'The AI writes the code for you' },
-      { icon: 'RefreshCw', label: 'Iterate', detail: 'Review, refine, and repeat' },
+      { icon: 'Sparkles', label: 'Generate', detail: 'AI translates your intent into code' },
+      { icon: 'RefreshCw', label: 'Refine', detail: 'Review the outcome and sharpen your intent' },
     ],
   },
   {
@@ -57,7 +57,7 @@ export const SLIDES: SlideData[] = [
       'Before writing any code, give your AI the big picture. Create a configuration file that describes your project\u2019s vision, coding standards, and technical decisions \u2014 just like onboarding a new developer.',
     points: [
       'Product Vision \u2014 What you\u2019re building and why',
-      'Alignment \u2014 List your expectations',
+      'Alignment \u2014 List your expectations (e.g. which design system to use, code style, testing standards etc.)',
       'Persist Architecture Decisions \u2014 Architecture Decision Record (ADR) within the project',
       'Tech Stack \u2014 Which frameworks and tools to use',
       'Guardrails \u2014 What the AI should and shouldn\u2019t do',
@@ -70,7 +70,7 @@ export const SLIDES: SlideData[] = [
     title: 'Create Specialist Agents',
     subtitle: 'Focused experts outperform generalists',
     description:
-      'Instead of using one generic AI for everything, define task-specific personas. Give each agent a clear role and expertise area \u2014 just like assembling a real development team.',
+      'Instead of using one generic AI for everything, define task-specific personas. Give each agent a clear role and expertise area \u2014 just like assembling a real development team. Specialized agents also use your context window more efficiently, keeping each conversation focused and relevant.',
     points: [
       '"senior-react-developer" for user interfaces',
       '"datamodel-postgresql-architect" for data structure and storage',
