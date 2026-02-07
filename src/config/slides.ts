@@ -114,7 +114,7 @@ export const SLIDES: SlideData[] = [
   {
     layout: 'rule',
     number: '06',
-    title: 'Give Your AI Eyes',
+    title: 'Give Eyes To Your Agent',
     subtitle: 'Visual feedback changes everything',
     description:
       'Connect browser automation tools so your AI can see what it\u2019s building. It can take screenshots, interact with your app, and verify things look right \u2014 like having a QA tester built in.',
