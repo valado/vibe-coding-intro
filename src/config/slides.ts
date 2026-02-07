@@ -195,7 +195,7 @@ export const SLIDES: SlideData[] = [
       'Pick a small project. Set up your tools. Start prompting.\nThe best way to learn vibe coding is to do it.',
     cta: 'Happy Vibe Coding!',
     surveyUrl: CREATOR_CONFIG.surveyUrl,
-    surveyLabel: 'Enjoyed this guide? Take a 2-minute survey and get a mystery discount.',
+    surveyLabel: 'Enjoyed this guide? Take a 7-minute survey and get a mystery discount.',
     surveyDetail: 'Take the Survey — Unlock 50% Off',
   },
 ];
