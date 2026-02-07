@@ -23,9 +23,13 @@ export const SLIDES: SlideData[] = [
     layout: 'intro',
     title: 'What is Vibe Coding?',
     description:
-      'Vibe coding is the practice of building software by describing what you want in plain language and letting AI write the code. You set the direction \u2014 the AI handles the implementation.',
+      'Vibe coding is the practice of building software by describing what you want in plain language and letting AI write the code. You set the direction \u2014 AI handles the implementation.',
     steps: [
-      { icon: 'MessageSquareText', label: 'Describe', detail: 'Tell the AI what you want to build' },
+      {
+        icon: 'MessageSquareText',
+        label: 'Describe',
+        detail: 'Tell the AI what you want to build',
+      },
       { icon: 'Sparkles', label: 'Generate', detail: 'The AI writes the code for you' },
       { icon: 'RefreshCw', label: 'Iterate', detail: 'Review, refine, and repeat' },
     ],
@@ -38,12 +42,11 @@ export const SLIDES: SlideData[] = [
     description:
       'Chat interfaces are great for asking questions, but command-line tools give you superpowers. They read and write files directly in your project, maintain context across your entire codebase, and execute code in real-time.',
     points: [
-      'Direct access to read and write your project files',
+      'Standartised alignment and steering possibilities (agents, skills, MCPs etc.)',
       'Persistent memory of your entire codebase',
       'Run, test, and deploy \u2014 all from one place',
-      'Longer conversations with much more context',
     ],
-    tip: 'Look for CLI tools like Claude Code, Codex CLI, Aider, or Cursor\u2019s agent mode',
+    tip: 'Look for CLI tools like Claude Code, Codex CLI, Gemini CLI, or Cursor\u2019s agent mode',
   },
   {
     layout: 'rule',
@@ -54,7 +57,8 @@ export const SLIDES: SlideData[] = [
       'Before writing any code, give your AI the big picture. Create a configuration file that describes your project\u2019s vision, coding standards, and technical decisions \u2014 just like onboarding a new developer.',
     points: [
       'Product Vision \u2014 What you\u2019re building and why',
-      'Conventions \u2014 Naming rules, file structure, style',
+      'Alignment \u2014 List your expectations',
+      'Persist Architecture Decisions \u2014 Architecture Decision Record (ADR) within the project',
       'Tech Stack \u2014 Which frameworks and tools to use',
       'Guardrails \u2014 What the AI should and shouldn\u2019t do',
     ],
@@ -68,35 +72,35 @@ export const SLIDES: SlideData[] = [
     description:
       'Instead of using one generic AI for everything, define task-specific personas. Give each agent a clear role and expertise area \u2014 just like assembling a real development team.',
     points: [
-      '"Senior Frontend Developer" for user interfaces',
-      '"Database Architect" for data structure and storage',
-      '"QA Engineer" for testing and finding edge cases',
-      '"DevOps Specialist" for deployment and infrastructure',
+      '"senior-react-developer" for user interfaces',
+      '"datamodel-postgresql-architect" for data structure and storage',
+      '"qa-playwright-engineer" for testing and finding edge cases',
+      '"devsecops-pulumi-specialist" for deployment and infrastructure',
     ],
-    tip: 'Use system prompts or agent config files to define each specialist\u2019s role and constraints',
+    tip: 'Generate the agents using the same CLI tool and update its context with relevant information for its role',
   },
   {
     layout: 'rule',
     number: '04',
     title: 'Choose AI-Friendly Technologies',
-    subtitle: 'Not all tech stacks are created equal',
+    subtitle: 'Not all tech stacks are generated equal',
     description:
-      'AI coding tools work best with popular, well-documented technologies. The more the AI has learned about a framework during training, the better code it produces.',
+      'AI coding tools work best with popular, well-documented technologies. The more examples the AI has seen during training, the better the code it generates.',
     points: [
-      'Pick widely adopted frameworks with large communities',
+      'Pick widely adopted frameworks with large communities (e.g. React)',
       'Prefer typed languages (e.g. TypeScript over JavaScript)',
       'Use convention-based frameworks with clear patterns',
       'Stick to well-documented, stable libraries',
     ],
-    tip: 'Popular stacks like React + TypeScript, Next.js, or Python + FastAPI produce the best results',
+    tip: 'Popular stacks like React + TypeScript, Next.js or Python produce the best results',
   },
   {
     layout: 'rule',
     number: '05',
     title: 'Plan Before You Build',
-    subtitle: 'Measure twice, cut once',
+    subtitle: 'Think it through first',
     description:
-      'Never jump straight into code generation. Ask the AI to create an implementation plan first. Review it, refine it, and only then start building \u2014 one step at a time.',
+      'Never jump straight into code generation. Always create an implementation plan first. Review it, refine it and only then start building \u2014 one step at a time.',
     points: [
       'Break big features into small, manageable tasks',
       'Have the AI propose an architecture before coding',
@@ -114,8 +118,7 @@ export const SLIDES: SlideData[] = [
       'Connect browser automation tools so your AI can see what it\u2019s building. It can take screenshots, interact with your app, and verify things look right \u2014 like having a QA tester built in.',
     points: [
       'Connect browser automation via MCP servers',
-      'Let the AI take screenshots to verify UI changes',
-      'Automate user flow testing and form validation',
+      'Take screenshots and add them to the prompt for visual context',
       'Catch visual bugs the AI would otherwise miss',
     ],
     tip: 'Tools like Puppeteer or Playwright MCP give your AI the ability to see and interact with your app',
@@ -148,7 +151,7 @@ export const SLIDES: SlideData[] = [
       'Verify each task before starting the next',
       'Smaller context = better AI performance',
     ],
-    tip: 'If your instruction is longer than a short paragraph, it\u2019s probably too big \u2014 split it up',
+    tip: 'Clear the context after each task to avoid confusion and context overload.',
   },
   {
     layout: 'rule',
@@ -161,6 +164,7 @@ export const SLIDES: SlideData[] = [
       'Run the code and test it yourself every time',
       'Ask the AI to write tests for its own code',
       'Use linting and type checking as automated guardrails',
+      'Use an agent to review the code and explain what it does in plain language',
       'Review what changed before committing \u2014 understand the diff',
     ],
     tip: 'A quick "does this actually work?" check takes seconds and saves hours of debugging',
