@@ -13,6 +13,7 @@ import { NavigationControls } from './ui/NavigationControls';
 import { Toast } from './ui/Toast';
 import { SlideOverview } from './ui/SlideOverview';
 import { KeyboardHelp } from './ui/KeyboardHelp';
+import { ParticleBackground } from './ui/ParticleBackground';
 import { CoverSlide } from './slides/CoverSlide';
 import { IntroSlide } from './slides/IntroSlide';
 import { RuleSlide } from './slides/RuleSlide';
@@ -124,6 +125,7 @@ export function Presentation() {
         userSelect: 'none',
       }}
     >
+      <ParticleBackground />
       <ProgressBar current={current} total={total} />
 
       {/* Top controls */}
