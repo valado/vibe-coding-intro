@@ -89,11 +89,7 @@ export function Presentation() {
     onSlideChange: setCurrent,
   });
 
-  const { share, copied } = useShare({
-    title: data.title,
-    slideNumber: current,
-    totalSlides: total,
-  });
+  const { share, copied } = useShare();
 
   // Render appropriate slide component based on layout
   const renderSlide = () => {
@@ -170,7 +166,11 @@ export function Presentation() {
       </div>
 
       {/* Slide */}
-      <main key={current} className="fi slide-main" style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+      <main
+        key={current}
+        className="fi slide-main"
+        style={{ flex: 1, display: 'flex', overflow: 'hidden' }}
+      >
         {renderSlide()}
       </main>
 
