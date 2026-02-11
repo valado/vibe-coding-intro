@@ -1,6 +1,7 @@
 import { ChevronRight } from 'lucide-react';
 import { CoverSlideData } from '../../types';
 import { useTheme } from '../../theme/useTheme';
+import { parseGlossaryTerms } from '../../utils/glossaryParser';
 
 interface CoverSlideProps {
   data: CoverSlideData;
@@ -99,7 +100,7 @@ export function CoverSlide({ data }: CoverSlideProps) {
             lineHeight: 1.6,
           }}
         >
-          {data.subtitle}
+          {parseGlossaryTerms(data.subtitle)}
         </p>
 
         <div
@@ -119,7 +120,7 @@ export function CoverSlide({ data }: CoverSlideProps) {
             border: `1px solid ${theme.accentBorder}`,
           }}
         >
-          <span>This presentation was vibe-coded</span>
+          <span>{parseGlossaryTerms('This presentation was vibe-coded')}</span>
         </div>
         <div
           className="s4"

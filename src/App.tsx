@@ -3,6 +3,7 @@ import { ThemeProvider } from './theme/ThemeContext';
 import { Presentation } from './components/Presentation';
 import './styles/fonts.css';
 import './styles/global.css';
+import './styles/glossary.css';
 
 function App() {
   return (

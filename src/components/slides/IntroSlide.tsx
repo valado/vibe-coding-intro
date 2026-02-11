@@ -2,6 +2,7 @@ import type { LucideIcon } from 'lucide-react';
 import { MessageSquareText, RefreshCw, Sparkles } from 'lucide-react';
 import { useTheme } from '../../theme/useTheme';
 import { IntroSlideData } from '../../types';
+import { parseGlossaryTerms } from '../../utils/glossaryParser';
 
 const iconMap: Record<string, LucideIcon> = {
   MessageSquareText,
@@ -54,7 +55,7 @@ export function IntroSlide({ data }: IntroSlideProps) {
             maxWidth: 640,
           }}
         >
-          {data.description}
+          {parseGlossaryTerms(data.description)}
         </p>
         {data.steps && (
           <div
@@ -127,7 +128,7 @@ export function IntroSlide({ data }: IntroSlideProps) {
                       {step.label}
                     </div>
                     <div style={{ fontSize: '0.86rem', color: theme.textMuted, lineHeight: 1.5 }}>
-                      {step.detail}
+                      {parseGlossaryTerms(step.detail)}
                     </div>
                   </div>
                 </div>

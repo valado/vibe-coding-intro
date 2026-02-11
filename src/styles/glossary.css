@@ -1,0 +1,66 @@
+.glossary-term {
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  cursor: help;
+  border-radius: 3px;
+  padding: 0 2px;
+  transition: text-decoration-color 0.2s, background-color 0.2s;
+}
+
+.glossary-term:hover {
+  text-decoration-style: solid;
+}
+
+.glossary-tooltip {
+  animation: glossaryFadeIn 0.15s ease-out;
+}
+
+@keyframes glossaryFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Arrow base */
+.glossary-arrow {
+  position: absolute;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%) rotate(45deg);
+  background: var(--arrow-color);
+  border: 1px solid transparent;
+}
+
+/* Arrow pointing down (tooltip above) */
+.glossary-arrow-bottom {
+  bottom: -6px;
+  border-right-color: inherit;
+  border-bottom-color: inherit;
+  border-color: transparent;
+  border-right: 1px solid var(--arrow-border, rgba(139, 92, 246, 0.25));
+  border-bottom: 1px solid var(--arrow-border, rgba(139, 92, 246, 0.25));
+}
+
+/* Arrow pointing up (tooltip below) */
+.glossary-arrow-top {
+  top: -6px;
+  border-color: transparent;
+  border-left: 1px solid var(--arrow-border, rgba(139, 92, 246, 0.25));
+  border-top: 1px solid var(--arrow-border, rgba(139, 92, 246, 0.25));
+}
+
+/* Mobile: wider tooltip, larger tap targets */
+@media (max-width: 768px) {
+  .glossary-tooltip {
+    max-width: min(90vw, 320px) !important;
+  }
+
+  .glossary-term {
+    padding: 2px 4px;
+  }
+}

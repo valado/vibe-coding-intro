@@ -1,5 +1,6 @@
 import { RuleSlideData } from '../../types';
 import { useTheme } from '../../theme/useTheme';
+import { parseGlossaryTerms } from '../../utils/glossaryParser';
 
 interface RuleSlideProps {
   data: RuleSlideData;
@@ -87,7 +88,7 @@ export function RuleSlide({ data }: RuleSlideProps) {
             marginTop: 18,
           }}
         >
-          {data.description}
+          {parseGlossaryTerms(data.description)}
         </p>
         {data.points && (
           <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -103,7 +104,7 @@ export function RuleSlide({ data }: RuleSlideProps) {
                     flexShrink: 0,
                   }}
                 />
-                <span style={{ color: theme.text }}>{point}</span>
+                <span style={{ color: theme.text }}>{parseGlossaryTerms(point)}</span>
               </div>
             ))}
           </div>
@@ -119,7 +120,7 @@ export function RuleSlide({ data }: RuleSlideProps) {
             }}
           >
             <span style={{ fontSize: '1rem', flexShrink: 0 }}>💡</span>
-            <span>{data.tip}</span>
+            <span>{parseGlossaryTerms(data.tip)}</span>
           </div>
         )}
         {data.externalLink && (

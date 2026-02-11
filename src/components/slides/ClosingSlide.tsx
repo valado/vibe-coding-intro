@@ -1,5 +1,6 @@
 import { ClosingSlideData } from '../../types';
 import { useTheme } from '../../theme/useTheme';
+import { parseGlossaryTerms } from '../../utils/glossaryParser';
 
 interface ClosingSlideProps {
   data: ClosingSlideData;
@@ -45,7 +46,7 @@ export function ClosingSlide({ data }: ClosingSlideProps) {
             whiteSpace: 'pre-line',
           }}
         >
-          {data.subtitle}
+          {parseGlossaryTerms(data.subtitle)}
         </p>
         {data.cta && (
           <div
