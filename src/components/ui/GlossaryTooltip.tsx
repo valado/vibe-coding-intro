@@ -10,8 +10,7 @@ interface GlossaryTooltipProps {
 
 let activeCloseCallback: (() => void) | null = null;
 
-const isHoverDevice = () =>
-  window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+const isHoverDevice = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 export function GlossaryTooltip({ term, definition, children }: GlossaryTooltipProps) {
   const { theme } = useTheme();
@@ -44,7 +43,7 @@ export function GlossaryTooltip({ term, definition, children }: GlossaryTooltipP
     activeCloseCallback = doClose;
     calcPosition();
     setOpen(true);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calcPosition]);
 
   const doClose = useCallback(() => {
@@ -52,7 +51,6 @@ export function GlossaryTooltip({ term, definition, children }: GlossaryTooltipP
     if (activeCloseCallback === doClose) {
       activeCloseCallback = null;
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const clearTimers = useCallback(() => {
@@ -96,7 +94,7 @@ export function GlossaryTooltip({ term, definition, children }: GlossaryTooltipP
         doOpen();
       }
     },
-    [open, doOpen, doClose],
+    [open, doOpen, doClose]
   );
 
   // Close on tap outside or Escape (mobile)
@@ -133,24 +131,26 @@ export function GlossaryTooltip({ term, definition, children }: GlossaryTooltipP
           ref={tooltipRef}
           className="glossary-tooltip"
           role="tooltip"
-          style={{
-            '--arrow-color': theme.surface,
-            position: 'fixed',
-            left: pos.x,
-            top: pos.y,
-            transform: pos.flip ? 'translateX(-50%)' : 'translate(-50%, -100%)',
-            zIndex: 10000,
-            maxWidth: 320,
-            padding: '12px 16px',
-            borderRadius: 12,
-            background: theme.surface,
-            border: `1px solid ${theme.accentBorder}`,
-            boxShadow: `0 8px 32px rgba(0,0,0,0.25), 0 0 0 1px ${theme.accentBorder}`,
-            color: theme.text,
-            fontSize: '0.82rem',
-            lineHeight: 1.55,
-            pointerEvents: 'auto',
-          } as React.CSSProperties}
+          style={
+            {
+              '--arrow-color': theme.surface,
+              position: 'fixed',
+              left: pos.x,
+              top: pos.y,
+              transform: pos.flip ? 'translateX(-50%)' : 'translate(-50%, -100%)',
+              zIndex: 10000,
+              maxWidth: 320,
+              padding: '12px 16px',
+              borderRadius: 12,
+              background: theme.surface,
+              border: `1px solid ${theme.accentBorder}`,
+              boxShadow: `0 8px 32px rgba(0,0,0,0.25), 0 0 0 1px ${theme.accentBorder}`,
+              color: theme.text,
+              fontSize: '0.82rem',
+              lineHeight: 1.55,
+              pointerEvents: 'auto',
+            } as React.CSSProperties
+          }
           onMouseEnter={handleBubbleEnter}
           onMouseLeave={handleBubbleLeave}
         >
@@ -171,7 +171,7 @@ export function GlossaryTooltip({ term, definition, children }: GlossaryTooltipP
           </strong>
           {definition}
         </div>,
-        document.body,
+        document.body
       )
     : null;
 
