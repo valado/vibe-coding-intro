@@ -1,12 +1,21 @@
 import { SummarySlideData } from '../../types';
 import { useTheme } from '../../theme/useTheme';
 
+interface SummaryRule {
+  num: string;
+  title: string;
+  desc: string;
+  slideIndex: number;
+}
+
 interface SummarySlideProps {
   data: SummarySlideData;
   onGoTo: (slideIndex: number) => void;
+  ruleStartIndex: number;
+  advancedRules?: SummaryRule[];
 }
 
-export function SummarySlide({ data, onGoTo }: SummarySlideProps) {
+export function SummarySlide({ data, onGoTo, ruleStartIndex, advancedRules }: SummarySlideProps) {
   const { theme } = useTheme();
 
   return (
@@ -43,9 +52,9 @@ export function SummarySlide({ data, onGoTo }: SummarySlideProps) {
       >
         {data.rules.map((rule, i) => (
           <div
-            key={i}
+            key={rule.num}
             className={`sc-card s${i + 3}`}
-            onClick={() => onGoTo(i + 2)}
+            onClick={() => onGoTo(ruleStartIndex + i)}
             style={{
               background: theme.surface,
               border: `1px solid ${theme.border}`,
@@ -75,6 +84,54 @@ export function SummarySlide({ data, onGoTo }: SummarySlideProps) {
           </div>
         ))}
       </div>
+      {advancedRules && advancedRules.length > 0 && (
+        <>
+          <p
+            className="s2"
+            style={{ fontSize: '0.9rem', color: theme.textMuted, textAlign: 'center', marginTop: 24, marginBottom: 4, fontWeight: 600 }}
+          >
+            Advanced
+          </p>
+          <div
+            className="sum-grid"
+            style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 14, marginTop: 8 }}
+          >
+            {advancedRules.map((rule) => (
+              <div
+                key={rule.num}
+                className="sc-card"
+                onClick={() => onGoTo(rule.slideIndex)}
+                style={{
+                  background: theme.surface,
+                  border: `1px solid ${theme.border}`,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = theme.accentBorder;
+                  e.currentTarget.style.background = theme.surfaceHover;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = theme.border;
+                  e.currentTarget.style.background = theme.surface;
+                }}
+              >
+                <div
+                  style={{ fontWeight: 800, fontSize: '1.5rem', color: theme.accent, marginBottom: 6 }}
+                >
+                  {rule.num}
+                </div>
+                <div
+                  style={{ fontWeight: 700, fontSize: '0.92rem', color: theme.text, marginBottom: 4 }}
+                >
+                  {rule.title}
+                </div>
+                <div style={{ fontSize: '0.8rem', color: theme.textMuted, lineHeight: 1.4 }}>
+                  {rule.desc}
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

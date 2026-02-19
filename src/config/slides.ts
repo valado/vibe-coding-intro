@@ -1,5 +1,69 @@
-import { SlideData } from '../types';
+import { SlideData, RuleSlideData } from '../types';
 import { CREATOR_CONFIG } from './creator';
+
+export const ADVANCED_SLIDES: RuleSlideData[] = [
+  {
+    layout: 'rule',
+    number: 'A1',
+    title: 'The Rise of "Prompt Requests"',
+    subtitle: 'Empowering non-programmers to build',
+    description:
+      'Agentic engineering has significantly lowered the bar for entry into software development, allowing individuals who have never written code to contribute to complex projects.',
+    points: [
+      'Because agents can interpret intent and generate code, many contributions are now "prompt requests" — the user provides the prompt and the agent generates the PR',
+      'These contributions represent a step up for humanity by turning consumers into builders (citing Peter Steinberger - creator of OpenClaw)',
+    ],
+    tip: 'Encourage prompt requests from non-technical teammates — every builder strengthens the team',
+  },
+  {
+    layout: 'rule',
+    number: 'A2',
+    title: 'Building for the Agent (The New DX)',
+    subtitle: 'Make your codebase agent-navigable',
+    description:
+      'A core best practice is shifting your focus from making the codebase perfect for humans to making it easily navigable for an agent.',
+    points: [
+      "Empathise with the agent's perspective — they start every session fresh with no knowledge of your specific product or architecture",
+      "Don't fight the agent on implementation details like variable naming — forcing a different name only makes it harder for the agent to find that code later",
+      'Guide the agent with pointers to relevant files and architectural considerations rather than letting it wander blindly',
+      'Write code for the agent, not just for humans — agents will be the ones maintaining and improving your software in the future, so structure, naming, and clarity should optimise for their comprehension too',
+    ],
+    tip: 'Think of DX as "Developer + Agent Experience" — optimise for both',
+  },
+  {
+    layout: 'rule',
+    number: 'A3',
+    title: 'The Agent as a Highly Skilled Engineer',
+    subtitle: "Collaborate, don't just command",
+    description:
+      'In this paradigm, an agent is treated like a very capable engineer who generally makes good decisions but requires high-level oversight and discussion.',
+    points: [
+      'Approach the agent as a teammate — use the prompt "Do you have any questions for me?" to let it identify its own knowledge gaps',
+      'Leverage cheap refactor cycles — after a task, ask: "What can we refactor?" or "What would you have done differently?"',
+      'The human provides the vision, style, and "human touch" while the agent handles the data-shifting work',
+    ],
+    tip: 'Ask the agent what it would improve — cheap refactors catch non-optimal solutions early',
+  },
+  {
+    layout: 'rule',
+    number: 'A4',
+    title: 'Navigating the Tech Stack',
+    subtitle: 'Use the right tools for an agentic world',
+    description:
+      'Agents allow builders to move between different "tech galaxies" efficiently, provided they use the right tools for the job.',
+    points: [
+      'The ecosystem matters more than the language — a rich ecosystem of libraries, community support, and tooling is what makes agents truly effective',
+      "TypeScript is often preferred for agentic projects — it's hackable, approachable, and agents are highly proficient in it",
+      'Agents enable you to use languages you might not personally enjoy but that have beneficial characteristics (e.g. Go for resilient CLIs)',
+      'Building with agents favours established ecosystems — if the agent has no training data for your stack, it becomes much harder to assist you',
+    ],
+    tip: 'Master agentic engineering through play — treat the agent as an infinitely patient answering machine',
+    externalLink: {
+      label: 'Explore the Map of GitHub — see how ecosystems cluster',
+      url: 'https://anvaka.github.io/map-of-github/',
+    },
+  },
+];
 
 export const SLIDES: SlideData[] = [
   {

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 interface UseUrlSyncProps {
@@ -22,11 +22,17 @@ export function useUrlSync({ currentSlide, totalSlides, onSlideChange }: UseUrlS
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSlide]);
 
+  // Keep a ref to totalSlides so the effect can read the latest value
+  // without re-running when it changes (which would cause infinite loops
+  // when the slide count changes dynamically, e.g. toggling advanced slides).
+  const totalRef = useRef(totalSlides);
+  totalRef.current = totalSlides;
+
   // Sync current slide from URL on mount and when URL changes
   useEffect(() => {
     if (slideId) {
       const slideIndex = parseInt(slideId, 10);
-      if (!isNaN(slideIndex) && slideIndex >= 0 && slideIndex < totalSlides) {
+      if (!isNaN(slideIndex) && slideIndex >= 0 && slideIndex < totalRef.current) {
         if (slideIndex !== currentSlide) {
           onSlideChange(slideIndex);
         }
@@ -38,5 +44,5 @@ export function useUrlSync({ currentSlide, totalSlides, onSlideChange }: UseUrlS
     // Note: Only sync FROM URL when slideId changes, not when currentSlide changes
     // This prevents infinite loops
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slideId, totalSlides]);
+  }, [slideId]);
 }

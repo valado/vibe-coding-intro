@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useTheme } from '../theme/useTheme';
-import { SLIDES } from '../config/slides';
+import { SLIDES, ADVANCED_SLIDES } from '../config/slides';
 import { CUSTOM_CURSOR } from '../constants/cursor';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import { useTouchNavigation } from '../hooks/useTouchNavigation';
@@ -22,7 +22,7 @@ import { RuleSlide } from './slides/RuleSlide';
 import { SummarySlide } from './slides/SummarySlide';
 import { ClosingSlide } from './slides/ClosingSlide';
 import { AuthorSlide } from './slides/AuthorSlide';
-import { User, Gift } from 'lucide-react';
+import { User, Gift, GraduationCap } from 'lucide-react';
 
 export function Presentation() {
   const [current, setCurrent] = useState(0);
@@ -30,10 +30,17 @@ export function Presentation() {
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
   const [showAuthor, setShowAuthor] = useState(false);
   const [showDiscount, setShowDiscount] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const { theme } = useTheme();
 
-  const total = SLIDES.length;
-  const data = SLIDES[current];
+  const activeSlides = useMemo(() => {
+    if (!showAdvanced) return SLIDES;
+    // Insert advanced slides after last rule slide (index 11) and before summary (index 12)
+    return [...SLIDES.slice(0, 12), ...ADVANCED_SLIDES, ...SLIDES.slice(12)];
+  }, [showAdvanced]);
+
+  const total = activeSlides.length;
+  const data = activeSlides[current];
 
   const goTo = useCallback(
     (i: number) => {
@@ -101,7 +108,23 @@ export function Presentation() {
       case 'rule':
         return <RuleSlide data={data} />;
       case 'summary':
-        return <SummarySlide data={data} onGoTo={goTo} />;
+        return (
+          <SummarySlide
+            data={data}
+            onGoTo={goTo}
+            ruleStartIndex={3}
+            advancedRules={
+              showAdvanced
+                ? ADVANCED_SLIDES.map((s, i) => ({
+                    num: s.number,
+                    title: s.title,
+                    desc: s.subtitle,
+                    slideIndex: 12 + i,
+                  }))
+                : undefined
+            }
+          />
+        );
       case 'closing':
         return <ClosingSlide data={data} />;
       case 'author':
@@ -161,6 +184,24 @@ export function Presentation() {
         >
           <Gift size={17} />
         </button>
+        <button
+          className="ib"
+          onClick={() => {
+            if (showAdvanced) {
+              // Turning off: if on an advanced slide, go to the summary slide
+              const advancedStart = 12;
+              const advancedEnd = advancedStart + ADVANCED_SLIDES.length - 1;
+              setCurrent((c) =>
+                c >= advancedStart && c <= advancedEnd ? advancedStart : Math.min(c, SLIDES.length - 1)
+              );
+            }
+            setShowAdvanced((prev) => !prev);
+          }}
+          style={{ color: showAdvanced ? theme.accent : theme.textMuted }}
+          title={showAdvanced ? 'Hide advanced slides' : 'Show advanced slides'}
+        >
+          <GraduationCap size={17} />
+        </button>
         <ThemeToggle />
         <ShareButton onShare={share} copied={copied} />
       </div>
@@ -189,7 +230,7 @@ export function Presentation() {
       {/* Slide overview */}
       {showOverview && (
         <SlideOverview
-          slides={SLIDES}
+          slides={activeSlides}
           currentSlide={current}
           onClose={() => setShowOverview(false)}
           onSelectSlide={goTo}
