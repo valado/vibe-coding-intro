@@ -22,8 +22,8 @@ export function GlossaryTooltip({ term, definition, children }: GlossaryTooltipP
   });
   const triggerRef = useRef<HTMLSpanElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
-  const openTimer = useRef<ReturnType<typeof setTimeout>>();
-  const closeTimer = useRef<ReturnType<typeof setTimeout>>();
+  const openTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const closeTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const calcPosition = useCallback(() => {
     const el = triggerRef.current;

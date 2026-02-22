@@ -97,7 +97,7 @@ export function SlideOverview({
           {slides.map((slide, i) => (
             <button
               key={i}
-              ref={(el) => (buttonRefs.current[i] = el)}
+              ref={(el) => { buttonRefs.current[i] = el; }}
               className="ov-card"
               onClick={() => onSelectSlide(i)}
               onMouseEnter={() => setSelectedIndex(i)}
