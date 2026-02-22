@@ -22,7 +22,8 @@ import { RuleSlide } from './slides/RuleSlide';
 import { SummarySlide } from './slides/SummarySlide';
 import { ClosingSlide } from './slides/ClosingSlide';
 import { AuthorSlide } from './slides/AuthorSlide';
-import { User, Gift, GraduationCap } from 'lucide-react';
+import { PrintAllSlides } from './ui/PrintAllSlides';
+import { User, Gift, GraduationCap, Printer } from 'lucide-react';
 
 export function Presentation() {
   const [current, setCurrent] = useState(0);
@@ -136,6 +137,7 @@ export function Presentation() {
 
   return (
     <div
+      className="presentation-root"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       style={{
@@ -153,11 +155,16 @@ export function Presentation() {
         userSelect: 'none',
       }}
     >
-      <ParticleBackground />
-      <ProgressBar current={current} total={total} />
+      <div className="print-hide">
+        <ParticleBackground />
+      </div>
+      <div className="print-hide">
+        <ProgressBar current={current} total={total} />
+      </div>
 
       {/* Top controls */}
       <div
+        className="print-hide"
         style={{ position: 'absolute', top: 14, right: 16, display: 'flex', gap: 6, zIndex: 20 }}
       >
         <button
@@ -186,6 +193,14 @@ export function Presentation() {
         </button>
         <button
           className="ib"
+          onClick={() => window.print()}
+          style={{ color: theme.textMuted }}
+          title="Print to PDF"
+        >
+          <Printer size={17} />
+        </button>
+        <button
+          className="ib"
           onClick={() => {
             if (showAdvanced) {
               // Turning off: if on an advanced slide, go to the summary slide
@@ -209,20 +224,22 @@ export function Presentation() {
       {/* Slide */}
       <main
         key={current}
-        className="fi slide-main"
+        className="fi slide-main print-hide"
         style={{ flex: 1, display: 'flex', overflow: 'hidden' }}
       >
         {renderSlide()}
       </main>
 
       {/* Bottom navigation */}
-      <NavigationControls
-        current={current}
-        total={total}
-        onPrev={handlePrev}
-        onNext={handleNext}
-        onShowOverview={() => setShowOverview(true)}
-      />
+      <div className="print-hide">
+        <NavigationControls
+          current={current}
+          total={total}
+          onPrev={handlePrev}
+          onNext={handleNext}
+          onShowOverview={() => setShowOverview(true)}
+        />
+      </div>
 
       {/* Toast */}
       {copied && <Toast message="Copied to clipboard" />}
@@ -245,6 +262,9 @@ export function Presentation() {
 
       {/* Keyboard help */}
       {showKeyboardHelp && <KeyboardHelp onClose={() => setShowKeyboardHelp(false)} />}
+
+      {/* Print-only: all slides rendered statically */}
+      <PrintAllSlides slides={activeSlides} showAdvanced={showAdvanced} />
     </div>
   );
 }

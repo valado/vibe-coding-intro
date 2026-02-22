@@ -228,6 +228,125 @@
   }
 }
 
+@media print {
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+
+  /* Ensure the full DOM chain fills the print page */
+  html,
+  body,
+  #root {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Override root container inline styles so it flows across pages */
+  .presentation-root {
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  /* Hide all interactive UI */
+  .print-hide,
+  .ib,
+  .nb,
+  .toast,
+  .ov-overlay,
+  .ov-card {
+    display: none !important;
+  }
+
+  /* Show the print-only container */
+  .print-container {
+    display: block !important;
+  }
+
+  /* Disable all animations */
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Each slide fills exactly one landscape page */
+  .print-slide {
+    width: 100% !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+    position: relative !important;
+    display: flex !important;
+    page-break-after: always;
+    break-after: page;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .print-slide:last-child {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Override mobile breakpoint styles — always use desktop layout for print */
+  .r-pad {
+    padding: 32px 28px !important;
+  }
+  .t-lg {
+    font-size: 2.8rem !important;
+  }
+  .t-md {
+    font-size: 1.8rem !important;
+  }
+  .steps-row {
+    flex-direction: row !important;
+  }
+  .sum-grid {
+    grid-template-columns: 1fr 1fr 1fr !important;
+  }
+  .wm {
+    font-size: 12rem !important;
+  }
+  .step-card {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  /* Override slide-scroll: no scrolling, centered content, sane padding */
+  .slide-scroll {
+    overflow: hidden !important;
+    justify-content: center !important;
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+  }
+
+  /* Tighten spacing for print */
+  .pt {
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+    gap: 8px !important;
+  }
+  .tip {
+    font-size: 0.8rem !important;
+    padding: 10px 14px !important;
+    margin-top: 16px !important;
+  }
+  .sc-card {
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+  }
+}
+
 @media (max-width: 480px) {
   .t-lg {
     font-size: 1.7rem !important;
