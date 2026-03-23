@@ -24,7 +24,6 @@ import { ClosingSlide } from './slides/ClosingSlide';
 import { AuthorSlide } from './slides/AuthorSlide';
 import { PrintAllSlides } from './ui/PrintAllSlides';
 import { User, Gift, GraduationCap, Printer, Maximize, Minimize } from 'lucide-react';
-import bannerImg from '../public/banner.png';
 
 export function Presentation() {
   const [current, setCurrent] = useState(0);
@@ -256,7 +255,7 @@ export function Presentation() {
       </main>
 
       {/* Banner */}
-      <div style={{ textAlign: 'center', padding: '6px 0 0' }}>
+      {/* <div style={{ textAlign: 'center', padding: '6px 0 0' }}>
         <img
           src={bannerImg}
           alt=""
@@ -270,7 +269,7 @@ export function Presentation() {
             WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
           }}
         />
-      </div>
+      </div> */}
 
       {/* Navigation */}
       <div className="print-hide" style={{ display: 'flex', justifyContent: 'center' }}>
