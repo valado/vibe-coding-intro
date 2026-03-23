@@ -2,7 +2,7 @@ import { SummarySlideData } from '../../types';
 import { useTheme } from '../../theme/useTheme';
 
 interface SummaryRule {
-  num: string;
+  num?: string;
   title: string;
   desc: string;
   slideIndex: number;
