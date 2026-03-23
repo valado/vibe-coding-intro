@@ -11,15 +11,22 @@ export interface CoverSlideData extends BaseSlide {
   badge: string;
 }
 
-// Intro slide
+// Intro slide (comparison layout)
 export interface IntroSlideData extends BaseSlide {
   layout: 'intro';
   description: string;
-  steps: Array<{
+  left: {
     icon: string;
     label: string;
-    detail: string;
-  }>;
+    tagline: string;
+    points: string[];
+  };
+  right: {
+    icon: string;
+    label: string;
+    tagline: string;
+    points: string[];
+  };
 }
 
 type ExternalLink = {

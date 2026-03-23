@@ -85,18 +85,33 @@ export const SLIDES: SlideData[] = [
   },
   {
     layout: 'intro',
-    title: 'What is Vibe Coding?',
+    title: 'Vibe Coding vs Agentic Engineering',
     description:
-      'Vibe coding is about communicating your intent \u2014 you focus on what to build, not how to build it. Describe the outcome you want in plain language and let AI handle the implementation details.',
-    steps: [
-      {
-        icon: 'MessageSquareText',
-        label: 'Intent',
-        detail: 'Define what you want, not how to build it',
-      },
-      { icon: 'Sparkles', label: 'Generate', detail: 'AI translates your intent into code' },
-      { icon: 'RefreshCw', label: 'Refine', detail: 'Review the outcome and sharpen your intent' },
-    ],
+      'Two approaches to building with AI \u2014 one focuses on speed and intuition, the other on reliability and quality at scale.',
+    left: {
+      icon: 'Sparkles',
+      label: 'Vibe Coding',
+      tagline: 'Go with the flow',
+      points: [
+        'Communicate intent in plain language',
+        'Let AI handle implementation details',
+        'Fast iteration, rapid prototyping',
+        'Best for exploration and MVPs',
+        'Output quality varies with each run',
+      ],
+    },
+    right: {
+      icon: 'Settings',
+      label: 'Agentic Engineering',
+      tagline: 'Engineer the system',
+      points: [
+        'Design systems around non-deterministic AI',
+        'Deliver reliable, high-quality results consistently',
+        'Structured guardrails, context, and validation',
+        'Best for production-grade software',
+        'Repeatable quality through process and tooling',
+      ],
+    },
   },
   {
     layout: 'rule',

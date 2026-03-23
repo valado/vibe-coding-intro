@@ -1,17 +1,126 @@
 import type { LucideIcon } from 'lucide-react';
-import { MessageSquareText, RefreshCw, Sparkles } from 'lucide-react';
+import { Settings, Sparkles } from 'lucide-react';
 import { useTheme } from '../../theme/useTheme';
 import { IntroSlideData } from '../../types';
 import { parseGlossaryTerms } from '../../utils/glossaryParser';
 
 const iconMap: Record<string, LucideIcon> = {
-  MessageSquareText,
   Sparkles,
-  RefreshCw,
+  Settings,
 };
 
 interface IntroSlideProps {
   data: IntroSlideData;
+}
+
+function ComparisonCard({
+  side,
+  accentColor,
+  accentSoft,
+  accentBorder,
+}: {
+  side: IntroSlideData['left'];
+  accentColor: string;
+  accentSoft: string;
+  accentBorder: string;
+}) {
+  const { theme } = useTheme();
+  const Icon = iconMap[side.icon];
+
+  return (
+    <div
+      className="step-card"
+      style={{
+        flex: 1,
+        padding: '28px 24px',
+        borderRadius: 16,
+        background: theme.surface,
+        border: `1px solid ${theme.border}`,
+        transition: 'border-color 0.2s, box-shadow 0.2s',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = accentBorder;
+        e.currentTarget.style.boxShadow = `0 4px 24px ${theme.accentGlow}`;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = theme.border;
+        e.currentTarget.style.boxShadow = 'none';
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+        <div
+          style={{
+            width: 44,
+            height: 44,
+            borderRadius: 12,
+            background: accentSoft,
+            border: `1px solid ${accentBorder}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          {Icon && <Icon size={22} color={accentColor} strokeWidth={2} />}
+        </div>
+        <div>
+          <div style={{ fontWeight: 700, fontSize: '1.15rem', color: theme.text }}>
+            {side.label}
+          </div>
+          <div
+            style={{
+              fontSize: '0.78rem',
+              color: accentColor,
+              fontWeight: 600,
+              letterSpacing: '0.03em',
+            }}
+          >
+            {side.tagline}
+          </div>
+        </div>
+      </div>
+
+      <ul
+        style={{
+          listStyle: 'none',
+          padding: 0,
+          margin: '12px 0 0 0',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+        }}
+      >
+        {side.points.map((point, i) => (
+          <li
+            key={i}
+            style={{
+              fontSize: '0.9rem',
+              color: theme.textMuted,
+              lineHeight: 1.5,
+              paddingLeft: 16,
+              position: 'relative',
+            }}
+          >
+            <span
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 2,
+                color: accentColor,
+                fontWeight: 700,
+                fontSize: '0.75rem',
+              }}
+            >
+              &bull;
+            </span>
+            {parseGlossaryTerms(point)}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export function IntroSlide({ data }: IntroSlideProps) {
@@ -40,102 +149,59 @@ export function IntroSlide({ data }: IntroSlideProps) {
         }}
       />
       <div
-        style={{ position: 'relative', zIndex: 1, maxWidth: 800, margin: '0 auto', width: '100%' }}
+        style={{ position: 'relative', zIndex: 1, maxWidth: 900, margin: '0 auto', width: '100%' }}
       >
-        <h2 className="t-md s1" style={{ fontSize: '2.4rem', fontWeight: 800, color: theme.text }}>
+        <h2 className="t-md s1" style={{ fontSize: '2.2rem', fontWeight: 800, color: theme.text }}>
           {data.title}
         </h2>
         <p
           className="s2"
           style={{
-            fontSize: '1.08rem',
+            fontSize: '1.05rem',
             lineHeight: 1.7,
             color: theme.textMuted,
-            marginTop: 16,
-            maxWidth: 640,
+            marginTop: 12,
+            maxWidth: 680,
           }}
         >
           {parseGlossaryTerms(data.description)}
         </p>
-        {data.steps && (
+
+        <div
+          className="s3"
+          style={{
+            display: 'flex',
+            gap: 20,
+            marginTop: 32,
+            alignItems: 'stretch',
+          }}
+        >
+          <ComparisonCard
+            side={data.left}
+            accentColor={theme.accent}
+            accentSoft={theme.accentSoft}
+            accentBorder={theme.accentBorder}
+          />
           <div
-            className="steps-row s3"
-            style={{ display: 'flex', alignItems: 'stretch', gap: 16, marginTop: 40 }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              color: theme.textMuted,
+              letterSpacing: '0.05em',
+              opacity: 0.5,
+            }}
           >
-            {data.steps.map((step, i) => {
-              const Icon = iconMap[step.icon];
-              return (
-                <div
-                  key={i}
-                  style={{ display: 'flex', alignItems: 'center', flex: 1, minWidth: 0 }}
-                >
-                  <div
-                    className={`step-card s${i + 4}`}
-                    style={{
-                      flex: 1,
-                      padding: '28px 20px',
-                      borderRadius: 16,
-                      background: theme.surface,
-                      border: `1px solid ${theme.border}`,
-                      textAlign: 'center',
-                      transition: 'border-color 0.2s, box-shadow 0.2s',
-                      height: '200px',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = theme.accentBorder;
-                      e.currentTarget.style.boxShadow = `0 4px 24px ${theme.accentGlow}`;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = theme.border;
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: 48,
-                        height: 48,
-                        borderRadius: 14,
-                        background: theme.accentSoft,
-                        border: `1px solid ${theme.accentBorder}`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        margin: '0 auto 16px',
-                      }}
-                    >
-                      {Icon && <Icon size={22} color={theme.accent} strokeWidth={2} />}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: '0.68rem',
-                        fontWeight: 600,
-                        color: theme.accent,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.1em',
-                        marginBottom: 6,
-                      }}
-                    >
-                      Step {i + 1}
-                    </div>
-                    <div
-                      style={{
-                        fontWeight: 700,
-                        fontSize: '1.05rem',
-                        color: theme.text,
-                        marginBottom: 6,
-                      }}
-                    >
-                      {step.label}
-                    </div>
-                    <div style={{ fontSize: '0.86rem', color: theme.textMuted, lineHeight: 1.5 }}>
-                      {parseGlossaryTerms(step.detail)}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            VS
           </div>
-        )}
+          <ComparisonCard
+            side={data.right}
+            accentColor={theme.accent}
+            accentSoft={theme.accentSoft}
+            accentBorder={theme.accentBorder}
+          />
+        </div>
       </div>
     </div>
   );
