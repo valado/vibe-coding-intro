@@ -68,7 +68,7 @@ export const ADVANCED_SLIDES: RuleSlideData[] = [
 export const SLIDES: SlideData[] = [
   {
     layout: 'cover',
-    title: 'The Practical Guide\nto Vibe Coding',
+    title: 'From Vibes to Production',
     subtitle: 'The playbook for building software with AI',
     badge: '2026 Edition',
   },
@@ -255,6 +255,16 @@ export const SLIDES: SlideData[] = [
       { num: '08', title: 'Small Tasks', desc: 'One task, one outcome' },
       { num: '09', title: 'Verify', desc: 'Trust but always check' },
     ],
+  },
+  {
+    layout: 'rule',
+    number: '',
+    title: 'AI as a New Stakeholder',
+    subtitle: 'Our source code now has one more audience',
+    description:
+      'Agents are becoming first-class consumers of your codebase. Just as you write readable code for fellow developers, you now need to consider how easily an AI agent can parse, navigate, and reason about your source code.',
+    points: [],
+    tip: 'Write code as if the next person reading it has no institutional knowledge — because your agent doesn\'t',
   },
   {
     layout: 'closing',

@@ -31,42 +31,46 @@ export function RuleSlide({ data }: RuleSlideProps) {
           pointerEvents: 'none',
         }}
       />
-      <div
-        className="wm sc"
-        style={{
-          position: 'absolute',
-          top: 10,
-          left: 10,
-          fontSize: '15rem',
-          fontWeight: 900,
-          color: theme.watermark,
-          lineHeight: 1,
-          pointerEvents: 'none',
-          userSelect: 'none',
-        }}
-      >
-        {data.number}
-      </div>
-      <div style={{ position: 'relative', zIndex: 1, maxWidth: 800, margin: '0 auto' }}>
+      {data.number && (
         <div
-          className="s1"
+          className="wm sc"
           style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 36,
-            height: 36,
-            borderRadius: 10,
-            background: theme.accentSoft,
-            border: `1px solid ${theme.accentBorder}`,
-            color: theme.accent,
-            fontWeight: 700,
-            fontSize: '0.85rem',
-            marginBottom: 16,
+            position: 'absolute',
+            top: 10,
+            left: 10,
+            fontSize: '15rem',
+            fontWeight: 900,
+            color: theme.watermark,
+            lineHeight: 1,
+            pointerEvents: 'none',
+            userSelect: 'none',
           }}
         >
           {data.number}
         </div>
+      )}
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: 800, margin: '0 auto' }}>
+        {data.number && (
+          <div
+            className="s1"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 36,
+              height: 36,
+              borderRadius: 10,
+              background: theme.accentSoft,
+              border: `1px solid ${theme.accentBorder}`,
+              color: theme.accent,
+              fontWeight: 700,
+              fontSize: '0.85rem',
+              marginBottom: 16,
+            }}
+          >
+            {data.number}
+          </div>
+        )}
         <h2
           className="t-md s2"
           style={{ fontSize: '2.2rem', fontWeight: 800, color: theme.text, lineHeight: 1.15 }}

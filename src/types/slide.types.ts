@@ -30,7 +30,7 @@ type ExternalLink = {
 // Rule slide
 export interface RuleSlideData extends BaseSlide {
   layout: 'rule';
-  number: string;
+  number?: string;
   subtitle: string;
   description: string;
   points: string[];

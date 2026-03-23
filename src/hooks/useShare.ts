@@ -4,7 +4,7 @@ export function useShare() {
   const [copied, setCopied] = useState(false);
 
   const share = async () => {
-    const text = `The Practical Guide to Vibe Coding`;
+    const text = `From Vibes to Production`;
     const url = window.location.origin;
 
     try {

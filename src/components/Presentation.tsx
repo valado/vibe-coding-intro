@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { useTheme } from '../theme/useTheme';
 import { SLIDES, ADVANCED_SLIDES } from '../config/slides';
 import { CUSTOM_CURSOR } from '../constants/cursor';
@@ -23,7 +23,8 @@ import { SummarySlide } from './slides/SummarySlide';
 import { ClosingSlide } from './slides/ClosingSlide';
 import { AuthorSlide } from './slides/AuthorSlide';
 import { PrintAllSlides } from './ui/PrintAllSlides';
-import { User, Gift, GraduationCap, Printer } from 'lucide-react';
+import { User, Gift, GraduationCap, Printer, Maximize, Minimize } from 'lucide-react';
+import bannerImg from '../public/banner.png';
 
 export function Presentation() {
   const [current, setCurrent] = useState(0);
@@ -32,7 +33,23 @@ export function Presentation() {
   const [showAuthor, setShowAuthor] = useState(false);
   const [showDiscount, setShowDiscount] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const { theme } = useTheme();
+
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }, []);
+
+  // Sync state when user exits fullscreen via Escape or browser UI
+  useEffect(() => {
+    const handler = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', handler);
+    return () => document.removeEventListener('fullscreenchange', handler);
+  }, []);
 
   const activeSlides = useMemo(() => {
     if (!showAdvanced) return SLIDES;
@@ -217,6 +234,14 @@ export function Presentation() {
         >
           <GraduationCap size={17} />
         </button>
+        <button
+          className="ib"
+          onClick={toggleFullscreen}
+          style={{ color: theme.textMuted }}
+          title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen (F)'}
+        >
+          {isFullscreen ? <Minimize size={17} /> : <Maximize size={17} />}
+        </button>
         <ThemeToggle />
         <ShareButton onShare={share} copied={copied} />
       </div>
@@ -230,8 +255,25 @@ export function Presentation() {
         {renderSlide()}
       </main>
 
-      {/* Bottom navigation */}
-      <div className="print-hide">
+      {/* Banner */}
+      <div style={{ textAlign: 'center', padding: '6px 0 0' }}>
+        <img
+          src={bannerImg}
+          alt=""
+          style={{
+            maxWidth: '92%',
+            height: 'auto',
+            maxHeight: 70,
+            opacity: 0.9,
+            pointerEvents: 'none',
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+          }}
+        />
+      </div>
+
+      {/* Navigation */}
+      <div className="print-hide" style={{ display: 'flex', justifyContent: 'center' }}>
         <NavigationControls
           current={current}
           total={total}
