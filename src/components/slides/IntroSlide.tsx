@@ -168,7 +168,7 @@ export function IntroSlide({ data }: IntroSlideProps) {
         </p>
 
         <div
-          className="s3"
+          className="s3 intro-row"
           style={{
             display: 'flex',
             gap: 20,
@@ -183,9 +183,11 @@ export function IntroSlide({ data }: IntroSlideProps) {
             accentBorder={theme.accentBorder}
           />
           <div
+            className="intro-vs"
             style={{
               display: 'flex',
               alignItems: 'center',
+              justifyContent: 'center',
               fontSize: '0.85rem',
               fontWeight: 700,
               color: theme.textMuted,

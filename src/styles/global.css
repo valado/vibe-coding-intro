@@ -226,6 +226,12 @@
     height: auto !important;
     min-height: 0 !important;
   }
+  .intro-row {
+    flex-direction: column !important;
+  }
+  .intro-vs {
+    padding: 4px 0 !important;
+  }
 }
 
 @media print {
@@ -309,6 +315,9 @@
     font-size: 1.8rem !important;
   }
   .steps-row {
+    flex-direction: row !important;
+  }
+  .intro-row {
     flex-direction: row !important;
   }
   .sum-grid {
