@@ -63,6 +63,22 @@ export const ADVANCED_SLIDES: RuleSlideData[] = [
       url: 'https://anvaka.github.io/map-of-github/',
     },
   },
+  {
+    layout: 'rule',
+    number: 'A5',
+    title: 'Clean Architecture Is Your AI Multiplier',
+    subtitle: 'Domain-driven design makes agents dramatically more effective',
+    description:
+      'AI agents reason about code the same way a new engineer does — by reading structure, names, and boundaries. A clean, domain-driven architecture gives the agent an immediate mental model of your system, while a tangled codebase forces it to guess, hallucinate, and produce brittle code.',
+    points: [
+      'Bounded contexts act as natural scope limiters — agents can work within a single domain without accidentally coupling unrelated concerns',
+      'Ubiquitous language in your code (entities, value objects, aggregates) gives the agent precise vocabulary — it generates code that fits your domain instead of generic CRUD',
+      'Clear separation of layers (domain, application, infrastructure) lets agents know exactly where to place new logic without polluting boundaries',
+      'Well-defined interfaces and ports mean the agent can implement adapters and services without needing to understand the entire system — reducing hallucination surface area',
+      'Codebases with explicit domain models produce up to 2x more accurate AI-generated code compared to "big ball of mud" architectures',
+    ],
+    tip: 'Invest in clean architecture now — it pays compound interest every time an agent touches your codebase',
+  },
 ];
 
 export const SLIDES: SlideData[] = [
@@ -279,7 +295,7 @@ export const SLIDES: SlideData[] = [
     description:
       'Agents are becoming first-class consumers of your codebase. Just as you write readable code for fellow developers, you now need to consider how easily an AI agent can parse, navigate, and reason about your source code.',
     points: [],
-    tip: 'Write code as if the next person reading it has no institutional knowledge — because your agent doesn\'t',
+    tip: "Write code as if the next person reading it has no institutional knowledge — because your agent doesn't",
   },
   {
     layout: 'closing',
