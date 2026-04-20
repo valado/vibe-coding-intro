@@ -23,9 +23,11 @@ import { SummarySlide } from './slides/SummarySlide';
 import { ClosingSlide } from './slides/ClosingSlide';
 import { AuthorSlide } from './slides/AuthorSlide';
 import { PrintAllSlides } from './ui/PrintAllSlides';
-import { User, Gift, GraduationCap, Printer, Maximize, Minimize } from 'lucide-react';
+import { User, Gift, GraduationCap, Printer, Maximize, Minimize, Map } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export function Presentation() {
+  const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const [showOverview, setShowOverview] = useState(false);
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
@@ -240,6 +242,14 @@ export function Presentation() {
           title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen (F)'}
         >
           {isFullscreen ? <Minimize size={17} /> : <Maximize size={17} />}
+        </button>
+        <button
+          className="ib"
+          onClick={() => navigate('/mindmap')}
+          style={{ color: theme.textMuted }}
+          title="Agentic Engineering Mindmap"
+        >
+          <Map size={17} />
         </button>
         <ThemeToggle />
         <ShareButton onShare={share} copied={copied} />

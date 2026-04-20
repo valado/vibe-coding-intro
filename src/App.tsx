@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './theme/ThemeContext';
 import { Presentation } from './components/Presentation';
+import { MindmapPage } from './components/mindmap/MindmapPage';
 import './styles/fonts.css';
 import './styles/global.css';
 import './styles/glossary.css';
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Presentation />} />
           <Route path="/slide/:slideId" element={<Presentation />} />
+          <Route path="/mindmap" element={<MindmapPage />} />
         </Routes>
       </Router>
     </ThemeProvider>
