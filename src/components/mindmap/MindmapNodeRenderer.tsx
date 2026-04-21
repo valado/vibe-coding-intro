@@ -33,7 +33,7 @@ export function MindmapNodeRenderer({
   const H_BOX = n.boxHeight || (isRoot ? 118 : isTier ? 112 : isLeaf ? 38 : 90);
   const tierColor = n.color || n.tierColor || '#334155';
 
-  const baseStroke = isSelected ? theme.text : directMatch ? '#f59e0b' : isLeaf ? theme.border : `${tierColor}55`;
+  const baseStroke = isSelected ? theme.text : directMatch ? theme.accent : isLeaf ? theme.border : `${tierColor}55`;
   const strokeWidth = isSelected ? 3 : directMatch ? 2.6 : isSubcat ? 1.4 : isLeaf ? 1 : 0;
 
   return (
@@ -57,7 +57,7 @@ export function MindmapNodeRenderer({
           cy={5}
           rx={W_BOX / 2 + (isLeaf ? 8 : 18)}
           ry={H_BOX / 2 + (isLeaf ? 8 : 14)}
-          fill={directMatch ? '#f59e0b' : tierColor}
+          fill={directMatch ? theme.accent : tierColor}
           opacity={directMatch ? 0.18 : 0.16}
           filter="url(#soft)"
         />
@@ -76,7 +76,7 @@ export function MindmapNodeRenderer({
             fill={theme.surface}
             stroke={baseStroke}
             strokeWidth={strokeWidth}
-            style={{ filter: 'drop-shadow(0 9px 22px rgba(15,23,42,0.10))' }}
+            style={{ filter: 'drop-shadow(0 9px 22px rgba(0,0,0,0.10))' }}
           />
           <rect
             x={-W_BOX / 2}
@@ -108,15 +108,15 @@ export function MindmapNodeRenderer({
           height={H_BOX}
           rx={8}
           ry={8}
-          fill={isRoot ? '#0f172a' : isTier ? tierColor : isSelected ? '#0f172a' : theme.surface}
+          fill={isRoot ? '#1A1410' : isTier ? tierColor : isSelected ? '#1A1410' : theme.surface}
           stroke={baseStroke}
           strokeWidth={strokeWidth}
           style={{
             filter: isRoot
-              ? 'drop-shadow(0 16px 30px rgba(15,23,42,0.28))'
+              ? 'drop-shadow(0 16px 30px rgba(0,0,0,0.28))'
               : isTier
               ? `drop-shadow(0 14px 30px ${tierColor}36)`
-              : 'drop-shadow(0 3px 8px rgba(15,23,42,0.08))',
+              : 'drop-shadow(0 3px 8px rgba(0,0,0,0.08))',
           }}
         />
       )}
@@ -155,7 +155,7 @@ export function MindmapNodeRenderer({
             }}
           >
             <div style={{ fontSize: 18, fontWeight: 800 }}>{n.label}</div>
-            <div style={{ marginTop: 7, fontSize: 12, color: '#cbd5e1' }}>
+            <div style={{ marginTop: 7, fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>
               A practical journey from prototype to governed agent fleet.
             </div>
           </div>

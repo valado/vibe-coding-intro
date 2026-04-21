@@ -128,7 +128,7 @@ export function MindmapCanvas({
                 strokeOpacity={0.26}
                 strokeWidth={1.5}
                 opacity={0.86}
-                style={{ filter: 'drop-shadow(0 18px 36px rgba(15,23,42,0.09))' }}
+                style={{ filter: 'drop-shadow(0 18px 36px rgba(0,0,0,0.09))' }}
               />
               <rect
                 x={stage.x - STAGE_WIDTH / 2 - 20}

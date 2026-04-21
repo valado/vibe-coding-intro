@@ -56,7 +56,7 @@ export function TierFilterBar({ tiers, activeTiers, onToggleTier, top = 92 }: Ti
               fontWeight: 700,
               boxShadow: active
                 ? `0 8px 20px ${t.color}33`
-                : '0 2px 8px rgba(15,23,42,0.07)',
+                : '0 2px 8px rgba(0,0,0,0.07)',
             }}
           >
             <span

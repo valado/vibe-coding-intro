@@ -52,7 +52,7 @@ export function MindmapHeader({
     background: theme.overlayBg,
     border: `1px solid ${theme.border}`,
     borderRadius: 8,
-    boxShadow: '0 12px 34px rgba(15,23,42,0.10)',
+    boxShadow: '0 12px 34px rgba(0,0,0,0.10)',
     backdropFilter: 'blur(10px)',
   };
 
@@ -171,7 +171,7 @@ export function MindmapHeader({
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: 8,
-                background: matchedCount ? '#f59e0b' : theme.surfaceHover,
+                background: matchedCount ? theme.accent : theme.surfaceHover,
                 color: matchedCount ? '#ffffff' : theme.textMuted,
                 fontSize: 12,
                 fontWeight: 800,

@@ -73,6 +73,7 @@ export function MindmapPage() {
   const focusNode = useCallback(
     (id: string) => {
       setSelectedId(id);
+      if (id !== 'root') setPanelCollapsed(false);
       const n = nodes.find((n) => n.id === id);
       if (n) panZoom.focusPosition(n.x, n.y);
     },

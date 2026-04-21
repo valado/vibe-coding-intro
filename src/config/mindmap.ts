@@ -1,10 +1,10 @@
 import type { TierColors, MindMapRoot } from '../types/mindmap.types';
 
 export const TIER_COLORS: TierColors = {
-  solo: '#10b981',
-  team: '#3b82f6',
-  scaling: '#7c3aed',
-  enterprise: '#be123c',
+  solo: '#F5A623',
+  team: '#F97316',
+  scaling: '#D4500A',
+  enterprise: '#9A3412',
 };
 
 export const MIND_MAP: MindMapRoot = {

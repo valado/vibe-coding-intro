@@ -36,7 +36,7 @@ export function MindmapSidePanel({
     width: panelCollapsed ? 240 : 348,
     background: theme.overlayBg,
     borderRadius: 8,
-    boxShadow: '0 18px 48px rgba(15,23,42,0.16)',
+    boxShadow: '0 18px 48px rgba(0,0,0,0.16)',
     padding: panelCollapsed ? '10px 14px' : 18,
     zIndex: 18,
     border: `1px solid ${theme.border}`,
@@ -109,15 +109,15 @@ export function MindmapSidePanel({
           />
           <span
             style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
-            title={selected.id === 'root' ? 'Overview' : selectedPath.join(' / ')}
+            title={selected.id === 'root' ? 'Details' : selectedPath.join(' / ')}
           >
-            {selected.id === 'root' ? 'Overview' : selectedPath.join(' / ')}
+            {selected.id === 'root' ? 'Details' : selectedPath.join(' / ')}
           </span>
         </div>
         <button
           type="button"
           onClick={onTogglePanelCollapse}
-          aria-label={panelCollapsed ? 'Expand overview panel' : 'Collapse overview panel'}
+          aria-label={panelCollapsed ? 'Expand details panel' : 'Collapse details panel'}
           title={panelCollapsed ? 'Expand' : 'Collapse'}
           style={{
             display: 'inline-flex',
@@ -195,7 +195,7 @@ export function MindmapSidePanel({
             <div style={{ marginTop: 14, display: 'flex', gap: 7, flexWrap: 'wrap' }}>
               <button type="button" onClick={() => onFocusNode('root')} style={navBtnStyle}>
                 <ArrowLeft size={14} />
-                Overview
+                Details
               </button>
               {parentNode && (
                 <button type="button" onClick={() => onFocusNode(parentNode.id)} style={navBtnStyle}>

@@ -23,7 +23,7 @@ import { SummarySlide } from './slides/SummarySlide';
 import { ClosingSlide } from './slides/ClosingSlide';
 import { AuthorSlide } from './slides/AuthorSlide';
 import { PrintAllSlides } from './ui/PrintAllSlides';
-import { User, Gift, GraduationCap, Printer, Maximize, Minimize, Map } from 'lucide-react';
+import { User, Gift, GraduationCap, Printer, Maximize, Minimize, Map, Footprints } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export function Presentation() {
@@ -187,6 +187,14 @@ export function Presentation() {
       >
         <button
           className="ib"
+          onClick={() => navigate('/initial-steps')}
+          style={{ color: theme.textMuted }}
+          title="Initial Steps — From Idea to App"
+        >
+          <Footprints size={17} />
+        </button>
+        <button
+          className="ib"
           onClick={() => setShowKeyboardHelp(true)}
           style={{ color: theme.textMuted }}
           title="Keyboard shortcuts (?)"
@@ -280,6 +288,30 @@ export function Presentation() {
           }}
         />
       </div> */}
+
+      {/* Initial Steps banner */}
+      <div
+        className="print-hide"
+        onClick={() => navigate('/initial-steps')}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 8,
+          padding: '6px 16px',
+          cursor: 'pointer',
+          backgroundColor: theme.accentSoft,
+          borderTop: `1px solid ${theme.accentBorder}`,
+          transition: 'background-color 0.2s',
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.accentBorder)}
+        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = theme.accentSoft)}
+      >
+        <Footprints size={14} style={{ color: theme.accent }} />
+        <span style={{ fontSize: '0.78rem', fontWeight: 600, color: theme.accent }}>
+          New here? Follow the Initial Steps — your guide from idea to app, no coding needed
+        </span>
+      </div>
 
       {/* Navigation */}
       <div className="print-hide" style={{ display: 'flex', justifyContent: 'center' }}>
