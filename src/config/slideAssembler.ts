@@ -15,7 +15,7 @@ const PHILOSOPHICAL_CHAPTER: ChapterTitleSlideData = {
   layout: 'chapter-title',
   title: 'Philosophical',
   subtitle: 'The bigger picture',
-  color: '#8B5CF6',
+  color: '#B45309',
   complexity: 0,
   vision: 'Code has a new audience. What does that mean for how we write, structure, and think about software?',
   tierId: 'philosophical',

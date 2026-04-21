@@ -18,11 +18,11 @@ const RULE_USE_CLI: RuleSlideData = {
   description:
     'Chat interfaces are great for asking questions, but command-line tools give you superpowers. They read and write files directly in your project, maintain context across your entire codebase, and execute code in real-time.',
   points: [
-    'Standartised alignment and steering possibilities (agents, skills, MCPs etc.)',
+    'Standardised alignment and steering possibilities (agents, skills, MCPs etc.)',
     'Persistent memory of your entire codebase',
     'Run, test, and deploy \u2014 all from one place',
     'Use Agentic Mode',
-    'For planing use the latest Opus and depending on the complexity of the task Sonnet/Opus models for execution',
+    'For planning use the latest Opus and depending on the complexity of the task Sonnet/Opus models for execution',
   ],
   tip: 'Look for CLI tools like Claude Code, Codex CLI, Gemini CLI, or Cursor\u2019s agent mode',
 };
@@ -49,21 +49,21 @@ const RULE_SET_CONTEXT: RuleSlideData = {
   },
 };
 
-const RULE_SPECIALIST_AGENTS: RuleSlideData = {
+const RULE_CREATE_AGENT: RuleSlideData = {
   layout: 'rule',
   number: '03',
-  title: 'Create Specialist Agents',
-  subtitle: 'Focused experts outperform generalists',
+  title: 'Create Your Agent',
+  subtitle: 'Set up an AI coding agent in your tool of choice',
   mindmapId: 'skills-basic',
   description:
-    'Instead of using one generic AI for everything, define task-specific personas. Give each agent a clear role and expertise area \u2014 just like assembling a real development team. Specialized agents also use your context window more efficiently, keeping each conversation focused and relevant.',
+    'Before you can build anything, you need a running agent. Pick a CLI tool \u2014 Claude Code, Codex CLI, Gemini CLI \u2014 and create your first agent. This is where your AI teammate comes to life.',
   points: [
-    '"senior-react-developer" for user interfaces',
-    '"datamodel-postgresql-architect" for data structure and storage',
-    '"qa-playwright-engineer" for testing and finding edge cases',
-    '"devsecops-pulumi-specialist" for deployment and infrastructure',
+    'Install the CLI and authenticate (e.g. `claude` for Claude Code, `codex` for Codex CLI)',
+    'Point the agent at your project directory so it has access to your codebase',
+    'Configure the model \u2014 start with the most capable one available for your tool',
+    'Run your first prompt to verify everything works end-to-end',
   ],
-  tip: 'Generate the agents using the same CLI tool and update its context with relevant information for its role',
+  tip: 'Claude Code: `claude` \u00b7 Codex CLI: `codex` \u00b7 Gemini CLI: `gemini` \u2014 pick one and get it running in under 5 minutes',
 };
 
 const RULE_AI_FRIENDLY_TECH: RuleSlideData = {
@@ -71,7 +71,7 @@ const RULE_AI_FRIENDLY_TECH: RuleSlideData = {
   number: '04',
   title: 'Choose AI-Friendly Technologies',
   subtitle: 'Not all tech stacks are generated equal',
-  mindmapId: 'example-app',
+  mindmapId: 'ai-friendly-tech',
   description:
     'AI coding tools work best with popular, well-documented technologies. The more examples the AI has seen during training, the better the code it generates.',
   points: [
@@ -88,7 +88,7 @@ const RULE_PLAN_FIRST: RuleSlideData = {
   number: '05',
   title: 'Plan Before You Build',
   subtitle: 'Think it through first',
-  mindmapId: 'agents-basic',
+  mindmapId: 'planning',
   description:
     'Never jump straight into code generation. Always create an implementation plan first. Review it, refine it and only then start building \u2014 one step at a time.',
   points: [
@@ -122,6 +122,7 @@ const RULE_SAVE_PROGRESS: RuleSlideData = {
   number: '07',
   title: 'Save Your Progress Often',
   subtitle: 'Your undo button for everything',
+  mindmapId: 'version-control',
   description:
     'Every time something works, save a checkpoint. Version control is like a save-game system \u2014 if something breaks, you can always roll back to the last working state.',
   points: [
@@ -188,7 +189,7 @@ const ADVANCED_BUILDING_FOR_AGENT: RuleSlideData = {
   number: 'A2',
   title: 'Building for the Agent (The New DX)',
   subtitle: 'Make your codebase agent-navigable',
-  mindmapId: 'agents-adv',
+  mindmapId: 'building-for-agent',
   description:
     'A core best practice is shifting your focus from making the codebase perfect for humans to making it easily navigable for an agent.',
   points: [
@@ -254,318 +255,693 @@ const ADVANCED_CLEAN_ARCH: RuleSlideData = {
   tip: 'Invest in clean architecture now \u2014 it pays compound interest every time an agent touches your codebase',
 };
 
-// --- Placeholder slide helper ---
-
-function placeholder(
-  mindmapId: string,
-  title: string,
-  subtitle: string,
-  description: string
-): RuleSlideData {
-  return {
-    layout: 'rule',
-    title,
-    subtitle,
-    description,
-    points: [],
-    tip: '',
-    placeholder: true,
-    mindmapId,
-  };
-}
-
 // --- Tier-specific slide arrays ---
 
 export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
   solo: [
     // Core Methods
-    { ...RULE_USE_CLI, mindmapId: 'intro-tools' },
-    placeholder(
-      'vibe',
-      'Vibe Coding',
-      'Fast, intuition-led prompting loops',
-      'Fast, intuition-led prompting loops \u2014 describe, run, adjust.'
-    ),
-    { ...RULE_SMALL_INSTRUCTIONS, mindmapId: 'prompt-basic' },
-    { ...RULE_SET_CONTEXT, mindmapId: 'ctxeng-basic' },
-    { ...RULE_SPECIALIST_AGENTS, mindmapId: 'skills-basic' },
-    { ...RULE_PLAN_FIRST, mindmapId: 'agents-basic' },
+    { ...RULE_USE_CLI, number: 'B01', mindmapId: 'intro-tools' },
+    {
+      layout: 'rule',
+      number: 'B02',
+      title: 'Vibe Coding',
+      subtitle: 'Fast, intuition-led prompting loops',
+      mindmapId: 'vibe',
+      description:
+        'Vibe coding is the art of describing what you want in plain language and letting the AI figure out the implementation. It\u2019s the fastest way to go from idea to working prototype.',
+      points: [
+        'Describe the outcome you want, not the code you need \u2014 "make a landing page with a hero section and signup form"',
+        'Iterate in tight loops: prompt, see the result, refine, repeat',
+        'Don\u2019t worry about perfection \u2014 the goal is speed and exploration',
+        'Great for MVPs, prototypes, and learning what\u2019s possible',
+      ],
+      tip: 'Start every session with a clear goal: "By the end of this session, I want a working [X]"',
+    } as RuleSlideData,
+    { ...RULE_SMALL_INSTRUCTIONS, number: 'B03', mindmapId: 'prompt-basic' },
+    { ...RULE_SET_CONTEXT, number: 'B04', mindmapId: 'ctxeng-basic' },
+    { ...RULE_CREATE_AGENT, number: 'B05', mindmapId: 'skills-basic' },
+    { ...RULE_PLAN_FIRST, number: 'B06' },
     // Universal rules
-    { ...RULE_SAVE_PROGRESS },
-    { ...RULE_VERIFY_OUTPUT },
+    { ...RULE_SAVE_PROGRESS, number: 'B07' },
+    { ...RULE_VERIFY_OUTPUT, number: 'B08' },
     // Starter Use Cases
-    placeholder(
-      'figma',
-      'Figma \u2192 Code',
-      'From design to working UI',
-      'Screenshots or Figma file in, working UI out.'
-    ),
-    { ...RULE_AI_FRIENDLY_TECH, mindmapId: 'example-app' },
+    {
+      layout: 'rule',
+      number: 'B09',
+      title: 'Image / Design \u2192 Code',
+      subtitle: 'From any visual to working UI',
+      mindmapId: 'design-to-code',
+      description:
+        'One of the most powerful solo workflows: take any visual \u2014 a screenshot, sketch, wireframe, or design tool export \u2014 and turn it into a working frontend in minutes. Agents understand images natively.',
+      points: [
+        'Feed any image directly into the agent: screenshots, photos of whiteboard sketches, PDF mockups, or design tool exports',
+        'Most CLI tools and agentic IDEs support image input \u2014 drag and drop or paste from clipboard',
+        'Ask the agent to match the layout, spacing, and colours from the visual reference',
+        'Iterate visually: screenshot the result, compare side-by-side, ask the agent to fix differences',
+      ],
+      tip: 'A napkin sketch is enough to get started \u2014 the agent fills in the gaps and you refine from there',
+    } as RuleSlideData,
+    { ...RULE_AI_FRIENDLY_TECH, number: 'B10' },
   ],
   team: [
     // Shared Methods
-    placeholder(
-      'meta',
-      'Meta Prompting',
-      'Prompts that generate prompts',
-      'Prompts that generate or refine other prompts.'
-    ),
-    { ...RULE_GIVE_EYES, mindmapId: 'mcp' },
-    placeholder(
-      'plugins',
-      'Plugins / Commands',
-      'Reusable slash-commands',
-      'Reusable slash-commands shared across the team.'
-    ),
-    placeholder(
-      'spec-driven',
-      'Spec-driven Development',
-      'Write the spec first',
-      'Write the spec first; the agent implements to it.'
-    ),
-    placeholder(
-      'prd-light',
-      'PRD (lightweight)',
-      'One-page product brief',
-      'One-page product brief the agent can read.'
-    ),
+    {
+      layout: 'rule',
+      number: 'T01',
+      title: 'Meta Prompting',
+      subtitle: 'Prompts that generate prompts',
+      mindmapId: 'meta',
+      description:
+        'Meta prompting is the practice of using AI to create, refine, and optimise the prompts your team uses daily. Instead of hand-crafting every instruction, you teach the agent how to generate better instructions for itself.',
+      points: [
+        'Ask the agent to write a system prompt for a specific task \u2014 then critique and refine it together',
+        'Build a library of reusable prompt templates the whole team can share',
+        'Use meta prompts to convert vague requirements into structured agent instructions',
+        'Iterate on prompt quality the same way you iterate on code \u2014 version and review them',
+      ],
+      tip: 'Start with: "Write me a system prompt for an agent that does [X]. Include constraints, examples, and edge cases."',
+    } as RuleSlideData,
+    { ...RULE_GIVE_EYES, number: 'T02', mindmapId: 'mcp' },
+    {
+      layout: 'rule',
+      number: 'T03',
+      title: 'Plugins / Commands',
+      subtitle: 'Reusable slash-commands shared across the team',
+      mindmapId: 'plugins',
+      description:
+        'Slash commands and plugins let you package complex multi-step workflows into single, shareable actions. This turns tribal knowledge into team infrastructure.',
+      points: [
+        'Create custom slash commands for repetitive tasks \u2014 /review, /migrate, /deploy',
+        'Package best practices as plugins so every team member gets the same quality baseline',
+        'Version your plugins alongside your code \u2014 they\u2019re part of the project',
+        'Share commands across projects via your tool\u2019s plugin registry or a shared config repo',
+      ],
+      tip: 'Start with the 3 tasks your team does most often \u2014 those are your first plugins',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'T04',
+      title: 'Spec-driven Development',
+      subtitle: 'Write the spec first; the agent implements to it',
+      mindmapId: 'spec-driven',
+      description:
+        'Instead of describing features in conversation, write a specification document first. The agent implements against the spec, making results predictable and reviewable.',
+      points: [
+        'Write specs in Markdown with clear sections: purpose, inputs, outputs, constraints, examples',
+        'Include acceptance criteria \u2014 the agent uses these to self-verify its implementation',
+        'Specs become living documentation that evolves with the codebase',
+        'Multiple agents can implement against the same spec independently \u2014 great for parallel work',
+      ],
+      tip: 'A 20-minute spec saves hours of back-and-forth \u2014 the agent delivers right the first time',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'T05',
+      title: 'PRD (lightweight)',
+      subtitle: 'One-page product brief the agent can read',
+      mindmapId: 'prd-light',
+      description:
+        'A lightweight Product Requirements Document gives the agent just enough context to understand what you\u2019re building and why. It\u2019s not a 50-page waterfall spec \u2014 it\u2019s a focused brief.',
+      points: [
+        'Keep it to one page: problem statement, target user, key features, success criteria',
+        'Include what\u2019s explicitly out of scope \u2014 this prevents scope creep in agent output',
+        'Write for the agent: use clear, unambiguous language with concrete examples',
+        'Update the PRD as the project evolves \u2014 it\u2019s a living document',
+      ],
+      tip: 'Ask the agent to review your PRD for gaps before starting implementation',
+    } as RuleSlideData,
     {
       ...RULE_VERIFY_OUTPUT,
       mindmapId: 'tdd',
       title: 'Testing & TDD',
       subtitle: 'Tests as acceptance criteria',
-      number: undefined,
+      number: 'T06',
     },
-    placeholder(
-      'bdd',
-      'Agentic BDD',
-      'Given/When/Then for agents',
-      'Given/When/Then scenarios aimed at agents.'
-    ),
+    {
+      layout: 'rule',
+      number: 'T07',
+      title: 'Agentic BDD',
+      subtitle: 'Given/When/Then scenarios aimed at agents',
+      mindmapId: 'bdd',
+      description:
+        'Behaviour-Driven Development becomes even more powerful with agents. Write Given/When/Then scenarios and the agent implements both the feature and the test in one pass.',
+      points: [
+        'Write scenarios in Gherkin syntax \u2014 agents understand it natively',
+        'Each scenario is an executable acceptance criterion the agent must satisfy',
+        'The agent generates step definitions, feature code, and test harness together',
+        'Non-technical stakeholders can contribute scenarios in plain language',
+      ],
+      tip: 'Start with the happy path, then ask the agent: "What edge cases should I add?"',
+    } as RuleSlideData,
     // Carried forward
-    { ...RULE_AI_FRIENDLY_TECH },
-    { ...ADVANCED_TECH_STACK },
+    { ...ADVANCED_TECH_STACK, number: 'T08' },
     // Delivery
-    placeholder(
-      'as-npm',
-      'Delivery: npm Package',
-      'Versioned distribution',
-      'Versioned distribution through the language ecosystem you already use.'
-    ),
-    placeholder(
-      'as-plugin',
-      'Delivery: Plugin',
-      'Packaged for agent runtimes',
-      'Packaged for an agent runtime (Claude Code, Cursor, etc.).'
-    ),
+    {
+      layout: 'rule',
+      number: 'T09',
+      title: 'Delivery: npm Package',
+      subtitle: 'Versioned distribution through your ecosystem',
+      mindmapId: 'as-npm',
+      description:
+        'When your team builds reusable agent tooling, packaging it as an npm module (or equivalent) makes it versionable, testable, and shareable \u2014 just like any other dependency.',
+      points: [
+        'Publish shared prompt templates, agent configs, and utilities as packages',
+        'Use semantic versioning so consumers know when breaking changes land',
+        'Include TypeScript types for agent configurations \u2014 catch errors at compile time',
+        'Set up CI to test that agents produce expected output with each package release',
+      ],
+      tip: 'Treat agent tooling packages with the same rigour as your production libraries',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'T10',
+      title: 'Delivery: Plugin',
+      subtitle: 'Packaged for agent runtimes',
+      mindmapId: 'as-plugin',
+      description:
+        'Plugins package capabilities for a specific agent runtime \u2014 Claude Code, Cursor, Copilot, etc. They\u2019re the delivery vehicle for team-specific workflows.',
+      points: [
+        'Wrap complex multi-step workflows into a single plugin that any teammate can invoke',
+        'Plugins can include MCP server connections, custom prompts, and validation logic',
+        'Distribute via your tool\u2019s marketplace or internal registry',
+        'Version plugins alongside the codebase they support',
+      ],
+      tip: 'Build plugins for your team\u2019s top 3 pain points first \u2014 adoption follows value',
+    } as RuleSlideData,
     // Team Use Cases
-    placeholder(
-      'specs',
-      'Writing & Evolving Specs',
-      'Iterating on executable specifications',
-      'Iterating on executable specifications together.'
-    ),
-    placeholder(
-      'migration',
-      'Migration (e.g. \u2192 Go)',
-      'Cross-language refactor',
-      'Cross-language refactor driven by an agent with a test safety net.'
-    ),
+    {
+      layout: 'rule',
+      number: 'T11',
+      title: 'Writing & Evolving Specs',
+      subtitle: 'Iterating on executable specifications together',
+      mindmapId: 'specs',
+      description:
+        'In a team setting, specs become the shared contract between humans and agents. Writing and evolving them together is one of the most impactful team practices.',
+      points: [
+        'Start with a rough spec, let the agent identify gaps and inconsistencies',
+        'Review spec PRs like code PRs \u2014 the spec is the source of truth for agent behaviour',
+        'Use the agent to check if existing code still satisfies an updated spec',
+        'Evolve specs incrementally: each sprint refines the spec alongside the implementation',
+      ],
+      tip: 'A spec that the agent can read is a spec that any new team member can read too',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'T12',
+      title: 'Migration (e.g. \u2192 Go)',
+      subtitle: 'Cross-language refactor with a safety net',
+      mindmapId: 'migration',
+      description:
+        'Agents make cross-language migrations dramatically more feasible. Write tests in the target language first, then let the agent port the logic while the tests keep it honest.',
+      points: [
+        'Start by generating comprehensive tests from the existing codebase \u2014 these are your safety net',
+        'Migrate module by module, not all at once \u2014 the agent keeps context better on small units',
+        'Use the agent in both source and target languages simultaneously \u2014 it can reason about equivalence',
+        'Let the agent propose idiomatic patterns in the target language rather than literal translations',
+      ],
+      tip: 'The agent is fluent in many languages \u2014 use it to adopt the idioms of your target stack, not just translate syntax',
+    } as RuleSlideData,
   ],
   scaling: [
     // Advanced Methods
-    { ...ADVANCED_AGENT_AS_ENGINEER, mindmapId: 'agents-adv' },
-    { ...ADVANCED_BUILDING_FOR_AGENT, mindmapId: 'agents-adv' },
-    placeholder(
-      'steering',
-      'Agentic Steering',
-      'Keeping agents aligned to intent',
-      'Keeping agents aligned to intent during a run.'
-    ),
-    placeholder(
-      'alignment',
-      'Agentic Alignment',
-      'Constraints & guardrails',
-      'Constraints & guardrails for expected behaviour.'
-    ),
-    { ...ADVANCED_CLEAN_ARCH, mindmapId: 'ddd' },
-    placeholder(
-      'orchestration',
-      'Agent Orchestration / Symphony',
-      'Coordinating multiple agents',
-      'Coordinating multiple cooperating agents.'
-    ),
-    placeholder(
-      'scrum',
-      'Scrum with Agents',
-      'Sprint ceremonies with agents',
-      'Sprint ceremonies that include agents as contributors.'
-    ),
-    placeholder(
-      'linters',
-      'Custom Linters',
-      'Codify team taste',
-      'Rules that codify team taste for agent output.'
-    ),
-    { ...ADVANCED_PROMPT_REQUESTS, mindmapId: 'prompt-requests' },
-    placeholder(
-      'adr',
-      'ADR',
-      'Architecture Decision Records',
-      'Architectural Decision Records \u2014 the audit trail of why.'
-    ),
-    placeholder(
-      'prd-full',
-      'PRD (formal)',
-      'Full product spec',
-      'Full product spec feeding many agent workflows.'
-    ),
+    { ...ADVANCED_AGENT_AS_ENGINEER, number: 'O01' },
+    { ...ADVANCED_BUILDING_FOR_AGENT, number: 'O02' },
+    {
+      layout: 'rule',
+      number: 'O03',
+      title: 'Agentic Steering',
+      subtitle: 'Keeping agents aligned to intent during a run',
+      mindmapId: 'steering',
+      description:
+        'As agents take on longer, multi-step tasks, they can drift from the original intent. Agentic steering is the set of techniques to keep them on course without micromanaging every step.',
+      points: [
+        'Define checkpoints where the agent must summarise progress and confirm direction before continuing',
+        'Use "do you have any questions?" prompts at natural breakpoints to catch misunderstandings early',
+        'Set explicit constraints: "Do not modify files outside of /src/api" or "Stop and ask if the change affects more than 3 files"',
+        'Review intermediate output, not just the final result \u2014 course-correct while the context is still fresh',
+      ],
+      tip: 'The earlier you steer, the cheaper the correction \u2014 a 10-second check beats a 10-minute rollback',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'O04',
+      title: 'Agentic Alignment',
+      subtitle: 'Constraints & guardrails for expected behaviour',
+      mindmapId: 'alignment',
+      description:
+        'Alignment goes beyond individual steering \u2014 it\u2019s the organisational framework that ensures all agents across all teams behave consistently and within acceptable boundaries.',
+      points: [
+        'Define organisation-wide CLAUDE.md / .cursorrules files with shared constraints',
+        'Establish forbidden patterns: no direct database mutations, no secrets in code, no unapproved dependencies',
+        'Create positive examples: "When implementing API endpoints, follow this pattern..."',
+        'Automate alignment checks \u2014 run linters and validators on agent output before it merges',
+      ],
+      tip: 'Alignment documents are living contracts between your organisation and its agents \u2014 review them quarterly',
+    } as RuleSlideData,
+    { ...ADVANCED_CLEAN_ARCH, number: 'O05', mindmapId: 'ddd' },
+    {
+      layout: 'rule',
+      number: 'O06',
+      title: 'Agent Orchestration / Symphony',
+      subtitle: 'Coordinating multiple cooperating agents',
+      mindmapId: 'orchestration',
+      description:
+        'When a single agent isn\u2019t enough, orchestration coordinates multiple specialised agents working on different parts of the same problem \u2014 like a symphony where each instrument plays its part.',
+      points: [
+        'Decompose large tasks into subtasks that can be assigned to specialist agents in parallel',
+        'Use a planner agent to break down work and a reviewer agent to validate the combined output',
+        'Define clear interfaces between agents: one writes the API, another writes the tests, a third writes the docs',
+        'Monitor for conflicts: two agents editing the same file is a merge nightmare \u2014 use isolation (worktrees, branches)',
+      ],
+      tip: 'Start with 2 agents (implementer + reviewer) before scaling to a full orchestra',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'O07',
+      title: 'Scrum with Agents',
+      subtitle: 'Sprint ceremonies that include agents as contributors',
+      mindmapId: 'scrum',
+      description:
+        'Agents don\u2019t replace your scrum process \u2014 they accelerate it. Treat agent contributions like any team member\u2019s work: planned, reviewed, and tracked.',
+      points: [
+        'Include agent tasks in sprint planning \u2014 estimate them like you would human tasks (they\u2019re faster but need review)',
+        'Use the agent in refinement: "Break this epic into implementable stories with acceptance criteria"',
+        'Agent PRs go through the same review process as human PRs \u2014 no shortcuts',
+        'Track agent velocity separately at first \u2014 you\u2019ll learn what to delegate and what to keep human',
+      ],
+      tip: 'The best sprint retrospective question: "What could we have delegated to an agent this sprint?"',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'O08',
+      title: 'Custom Linters',
+      subtitle: 'Rules that codify team taste for agent output',
+      mindmapId: 'linters',
+      description:
+        'Standard linters catch syntax issues. Custom linters encode your team\u2019s opinions about architecture, naming, and patterns \u2014 ensuring agent output matches your standards automatically.',
+      points: [
+        'Write ESLint/Biome rules for patterns you keep correcting in agent output',
+        'Enforce architectural boundaries: "No imports from /infrastructure in /domain"',
+        'Add custom rules for naming conventions, file structure, and module boundaries',
+        'Run linters as pre-commit hooks so agents can self-correct before you review',
+      ],
+      tip: 'Every time you reject an agent\u2019s output for the same reason twice, write a linter rule',
+    } as RuleSlideData,
+    { ...ADVANCED_PROMPT_REQUESTS, number: 'O09', mindmapId: 'prompt-requests' },
+    {
+      layout: 'rule',
+      number: 'O10',
+      title: 'Architecture Decision Records',
+      subtitle: 'The audit trail of why',
+      mindmapId: 'adr',
+      description:
+        'ADRs document the reasoning behind architectural decisions. For agents, they\u2019re essential context \u2014 without them, the agent can\u2019t understand why the codebase is shaped the way it is.',
+      points: [
+        'Record every significant decision: "We chose PostgreSQL over MongoDB because..."',
+        'Include rejected alternatives and the reasoning \u2014 this prevents agents from suggesting them again',
+        'Store ADRs in the repo alongside the code they describe',
+        'Reference ADRs in your agent context files so they inform every session',
+      ],
+      tip: 'Ask the agent to draft the ADR after a decision \u2014 it\u2019s faster and surprisingly thorough',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'O11',
+      title: 'PRD (formal)',
+      subtitle: 'Full product spec feeding many agent workflows',
+      mindmapId: 'prd-full',
+      description:
+        'At scale, a formal PRD becomes the single source of truth that feeds multiple agent workflows: implementation, testing, documentation, and deployment.',
+      points: [
+        'Structure the PRD with machine-readable sections: user stories, acceptance criteria, API contracts, data models',
+        'Link PRD sections to specific agent tasks \u2014 each section generates a work stream',
+        'Use the PRD to automatically generate test suites, API stubs, and documentation scaffolds',
+        'Keep the PRD in version control \u2014 changes to the PRD trigger agent re-evaluation of affected components',
+      ],
+      tip: 'A formal PRD is expensive to write but cheap to maintain \u2014 the agents keep it honest',
+    } as RuleSlideData,
     // Platform Delivery
-    placeholder(
-      'as-mcp',
-      'Platform: MCP Server',
-      'Expose internal tools via MCP',
-      'Expose internal tools/data via the Model Context Protocol.'
-    ),
-    placeholder(
-      'skills-auth',
-      'Platform: Skills (authoring)',
-      'Author skills for the org',
-      'Author and version skills for the rest of the org.'
-    ),
+    {
+      layout: 'rule',
+      number: 'O12',
+      title: 'Platform: MCP Server',
+      subtitle: 'Expose internal tools via the Model Context Protocol',
+      mindmapId: 'as-mcp',
+      description:
+        'An MCP server lets you expose internal tools, databases, and APIs as capabilities that any agent can discover and use. It\u2019s the plumbing that connects agents to your organisation\u2019s infrastructure.',
+      points: [
+        'Wrap internal APIs as MCP tools with clear descriptions, parameters, and return types',
+        'Agents can discover and call these tools without custom integration code',
+        'Centralise access control \u2014 the MCP server enforces who can call what',
+        'Add observability: log every tool invocation for audit and debugging',
+      ],
+      tip: 'Start by exposing read-only tools (search, lookup) before adding write capabilities',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'O13',
+      title: 'Platform: Skills (authoring)',
+      subtitle: 'Author and version skills for the rest of the org',
+      mindmapId: 'skills-auth',
+      description:
+        'Skills are pre-packaged agent capabilities that encapsulate a complete workflow. Authoring skills for your org means turning expert knowledge into reusable, versioned capabilities any team can invoke.',
+      points: [
+        'Package domain-specific workflows: "/deploy-staging", "/run-security-scan", "/generate-changelog"',
+        'Include validation and guardrails inside the skill so consumers get safe output by default',
+        'Version skills and publish them to an internal registry \u2014 treat them like internal packages',
+        'Write skill documentation the way you\u2019d write API docs: inputs, outputs, side effects, examples',
+      ],
+      tip: 'The best skills are born from repetitive tasks \u2014 if you\u2019ve done it 5 times, package it',
+    } as RuleSlideData,
     // Open Questions
-    placeholder(
-      'monorepo',
-      'Monorepo?',
-      'Does a monorepo help or hurt agent context?',
-      'Does a monorepo help or hurt agent context?'
-    ),
-    placeholder(
-      'docker-eng',
-      'Docker-based Engineering?',
-      'Isolated per-task environments',
-      'Isolated per-task environments for every agent run.'
-    ),
-    placeholder(
-      'fe-be',
-      'Frontend / Backend mix?',
-      'Which layers benefit most?',
-      'Which layers benefit most from agent-first workflows?'
-    ),
-    placeholder(
-      'opps',
-      'Opportunities vs Challenges',
-      'Weighing the trade-offs',
-      'Weighing opportunities against the real risks.'
-    ),
+    {
+      layout: 'rule',
+      number: 'O14',
+      title: 'Monorepo?',
+      subtitle: 'Does a monorepo help or hurt agent context?',
+      mindmapId: 'monorepo',
+      description:
+        'Monorepos give agents access to the full picture \u2014 shared types, cross-project references, and consistent tooling. But they can also overwhelm context windows and create ambiguity.',
+      points: [
+        'Pro: Agents can follow type definitions and imports across packages without switching context',
+        'Pro: Shared lint rules, build configs, and testing setup apply consistently',
+        'Con: Large monorepos can exceed agent context limits \u2014 careful file selection becomes critical',
+        'Con: Agents may make cross-package changes that have unintended ripple effects',
+      ],
+      tip: 'Use workspace-aware tools (nx, turborepo) so the agent can scope its work to the relevant package',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'O15',
+      title: 'Docker-based Engineering?',
+      subtitle: 'Isolated per-task environments for every agent run',
+      mindmapId: 'docker-eng',
+      description:
+        'Running each agent task in an isolated Docker container ensures a clean slate every time, prevents cross-contamination, and makes agent output reproducible.',
+      points: [
+        'Each agent session starts with a fresh, deterministic environment \u2014 no leftover state from previous runs',
+        'Pin dependency versions in the container \u2014 eliminates "works on my machine" for agents too',
+        'Parallel agent runs can\u2019t interfere with each other \u2014 true isolation',
+        'Container logs provide a complete audit trail of every agent action',
+      ],
+      tip: 'Start with containerised CI agents before moving to containerised dev environments',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'O16',
+      title: 'Frontend / Backend mix?',
+      subtitle: 'Which layers benefit most from agent-first workflows?',
+      mindmapId: 'fe-be',
+      description:
+        'Not all layers of your stack benefit equally from agentic engineering. Understanding where agents excel helps you allocate them effectively.',
+      points: [
+        'Backend APIs, data models, and business logic: agents are highly effective \u2014 clear inputs, outputs, and testability',
+        'Frontend UI: agents are good at scaffolding but struggle with visual nuance \u2014 pair with screenshot feedback (Rule 06)',
+        'Infrastructure/DevOps: agents excel at generating IaC (Terraform, Pulumi) from high-level descriptions',
+        'Cross-cutting concerns (auth, logging, monitoring): agents are great at consistent implementation across services',
+      ],
+      tip: 'Let agents own the boilerplate, let humans own the design decisions',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'O17',
+      title: 'Opportunities vs Challenges',
+      subtitle: 'Weighing the real trade-offs at scale',
+      mindmapId: 'opps',
+      description:
+        'Scaling agentic engineering across an organisation brings transformative opportunities alongside genuine challenges. Being clear-eyed about both is essential.',
+      points: [
+        'Opportunity: 10x developer productivity on well-scoped, well-tested tasks',
+        'Opportunity: Democratisation \u2014 non-engineers can contribute via prompts',
+        'Challenge: Quality assurance at scale \u2014 who reviews agent output when there\u2019s too much to read?',
+        'Challenge: Knowledge erosion \u2014 if agents write all the code, does the team still understand the system?',
+      ],
+      tip: 'The biggest risk isn\u2019t bad code \u2014 it\u2019s losing the ability to evaluate whether the code is good',
+    } as RuleSlideData,
     // Use Cases
-    placeholder(
-      'autonom',
-      'Autonomous Agents',
-      'Long-running, goal-seeking agents',
-      'Long-running, goal-seeking agents across services.'
-    ),
-    placeholder(
-      'mcp-agent-mds',
-      'MCP for Agent.mds',
-      'Standardising agent descriptions',
-      'Standardising agent descriptions via MCP.'
-    ),
+    {
+      layout: 'rule',
+      number: 'O18',
+      title: 'Autonomous Agents',
+      subtitle: 'Long-running, goal-seeking agents across services',
+      mindmapId: 'autonom',
+      description:
+        'Autonomous agents operate with minimal human intervention, pursuing high-level goals across multiple services and codebases. They\u2019re the most advanced and highest-risk application of agentic engineering.',
+      points: [
+        'Define success criteria upfront \u2014 the agent pursues the goal until criteria are met or a human intervenes',
+        'Implement circuit breakers: hard limits on time, cost, files changed, and API calls',
+        'Use staged rollout: agent proposes \u2192 human approves \u2192 agent executes \u2192 human verifies',
+        'Log every decision and action for post-mortem analysis \u2014 autonomous doesn\u2019t mean opaque',
+      ],
+      tip: 'Start autonomous agents on low-stakes tasks (docs, tests, dependency updates) before handing them production features',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'O19',
+      title: 'MCP for Agent.mds',
+      subtitle: 'Standardising agent descriptions via MCP',
+      mindmapId: 'mcp-agent-mds',
+      description:
+        'Agent.md files describe an agent\u2019s purpose, capabilities, and constraints. Exposing these via MCP lets agents discover and understand each other \u2014 enabling multi-agent collaboration at scale.',
+      points: [
+        'Each agent has a standardised Agent.md: role, capabilities, inputs, outputs, constraints',
+        'MCP servers can serve Agent.mds as discoverable resources \u2014 agents find collaborators programmatically',
+        'Orchestrator agents read Agent.mds to decide which specialist to delegate to',
+        'Agent.mds become the "API docs" of your agent fleet \u2014 humans and machines read them alike',
+      ],
+      tip: 'Write Agent.mds for your existing agents today \u2014 it clarifies their purpose even without MCP',
+    } as RuleSlideData,
   ],
   enterprise: [
     // Ops & Governance
-    placeholder(
-      'devsecops',
-      'Dev / Sec / Ops',
-      'Security & operations for agents',
-      'Security & operations tailored to agent workflows.'
-    ),
-    placeholder(
-      'monitoring',
-      'Monitoring',
-      'Observability across agent runs',
-      'Observability across agent runs and tool calls.'
-    ),
-    placeholder(
-      'traceability',
-      'Traceability',
-      'From prompt to commit',
-      'From prompt to commit \u2014 who asked, who built, who reviewed.'
-    ),
-    placeholder(
-      'change-mgmt',
-      'Change Management',
-      'Controlled rollout',
-      'Controlled rollout of agent-generated change.'
-    ),
-    placeholder(
-      'central-alignment',
-      'Global / Central Alignment',
-      'One source of truth',
-      'One source of truth for agent behaviour across the company.'
-    ),
+    {
+      layout: 'rule',
+      number: 'E01',
+      title: 'Dev / Sec / Ops',
+      subtitle: 'Security & operations tailored to agent workflows',
+      mindmapId: 'devsecops',
+      description:
+        'Agents introduce new security surfaces: they execute code, call APIs, and access data. DevSecOps for agentic engineering means securing the agent lifecycle end-to-end.',
+      points: [
+        'Scan agent-generated code with SAST/DAST tools before it reaches any branch \u2014 automate this in CI',
+        'Apply least-privilege access: agents get only the permissions they need, scoped to the task',
+        'Audit every tool call and external API invocation \u2014 agents should never have silent side effects',
+        'Rotate credentials and secrets used by agents on the same schedule as human credentials',
+      ],
+      tip: 'Treat agent access like contractor access \u2014 scoped, time-limited, and fully logged',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'E02',
+      title: 'Monitoring',
+      subtitle: 'Observability across agent runs and tool calls',
+      mindmapId: 'monitoring',
+      description:
+        'You can\u2019t manage what you can\u2019t measure. Agent monitoring tracks cost, latency, error rates, and output quality across every agent session in your organisation.',
+      points: [
+        'Track tokens consumed, wall-clock time, and cost per agent task \u2014 set budgets and alerts',
+        'Monitor error rates: how often do agents fail, retry, or produce output that fails review?',
+        'Log the full prompt chain for every session \u2014 essential for debugging and post-mortems',
+        'Build dashboards that show agent utilisation across teams \u2014 identify bottlenecks and waste',
+      ],
+      tip: 'Start with cost monitoring \u2014 it\u2019s the metric leadership understands immediately',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'E03',
+      title: 'Traceability',
+      subtitle: 'From prompt to commit \u2014 who asked, who built, who reviewed',
+      mindmapId: 'traceability',
+      description:
+        'In a regulated environment, every change must be traceable to a human decision. Agent traceability means maintaining an unbroken chain from the original request to the deployed code.',
+      points: [
+        'Link every agent-generated commit to the ticket, prompt, and human who initiated it',
+        'Use Co-Authored-By headers in commits to mark agent contributions alongside the human sponsor',
+        'Store the full prompt and agent response as artefacts alongside the PR',
+        'Ensure review records are immutable \u2014 "who approved this agent\u2019s output?" must always be answerable',
+      ],
+      tip: 'Traceability is not overhead \u2014 it\u2019s the foundation of trust in an agentic workflow',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'E04',
+      title: 'Change Management',
+      subtitle: 'Controlled rollout of agent-generated change',
+      mindmapId: 'change-mgmt',
+      description:
+        'Agents can generate change at a pace that overwhelms traditional review processes. Change management for agents means governing the flow of change without bottlenecking it.',
+      points: [
+        'Implement progressive delivery: agent changes go through staging, canary, then production',
+        'Set rate limits on agent-generated PRs per team per sprint \u2014 prevent review fatigue',
+        'Require human approval gates for changes above a risk threshold (infra, security, data migrations)',
+        'Use automated rollback triggers: if agent-deployed code degrades metrics, revert automatically',
+      ],
+      tip: 'The speed of agent-generated change is a feature \u2014 but only if your review pipeline can keep up',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'E05',
+      title: 'Global / Central Alignment',
+      subtitle: 'One source of truth for agent behaviour across the company',
+      mindmapId: 'central-alignment',
+      description:
+        'At enterprise scale, alignment can\u2019t be left to individual teams. A central alignment framework ensures every agent in every team operates within the same guardrails.',
+      points: [
+        'Maintain a company-wide base configuration that all team-level agent configs inherit from',
+        'Define non-negotiable constraints centrally: security policies, coding standards, forbidden patterns',
+        'Allow teams to extend (but not weaken) the base constraints for their specific domain',
+        'Version and audit the central alignment config \u2014 changes propagate to all agents automatically',
+      ],
+      tip: 'Central alignment is like your engineering handbook \u2014 but agents actually read it every time',
+    } as RuleSlideData,
     // Compliance & Risk
-    placeholder(
-      'eu-souv',
-      'EU Sovereignty',
-      'Data & compute residency',
-      'Data & compute residency inside the EU.'
-    ),
-    placeholder(
-      'dsgvo',
-      'DSGVO / GDPR',
-      'Personal-data handling',
-      'Personal-data handling compliant with GDPR.'
-    ),
-    placeholder(
-      'more-risks',
-      'Further Risks',
-      'IP, licensing, secrets, liability',
-      'IP, licensing, secrets, auditability, liability.'
-    ),
-    // New Roles
-    placeholder(
-      'tech-po',
-      'Technische Product Owner',
-      'PO fluent in specs and agent limits',
-      'PO fluent in specs, constraints and agent limits.'
-    ),
-    placeholder(
-      'dev-journey',
-      'Developer Journey Owner',
-      'End-to-end developer experience',
-      'Owner of the end-to-end developer experience.'
-    ),
-    placeholder(
-      'devops-menschen',
-      'DevOps Menschen',
-      'Operators for the agent fleet',
-      'Operators who keep the agent fleet running.'
-    ),
+    {
+      layout: 'rule',
+      number: 'E06',
+      title: 'EU Sovereignty',
+      subtitle: 'Data & compute residency inside the EU',
+      mindmapId: 'eu-souv',
+      description:
+        'For EU-based enterprises, data sovereignty means ensuring that code, prompts, and context never leave EU jurisdiction. This constrains which AI providers and deployment models you can use.',
+      points: [
+        'Evaluate AI providers for EU data residency \u2014 where are prompts processed and stored?',
+        'Consider self-hosted models (open-weight) for the most sensitive workloads',
+        'Ensure prompt content (which may include proprietary code) is covered by your DPA',
+        'Document the data flow: which data leaves your network, where it goes, how long it\u2019s retained',
+      ],
+      tip: 'Sovereignty requirements narrow your provider choices \u2014 evaluate this before building your agent platform',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'E07',
+      title: 'DSGVO / GDPR',
+      subtitle: 'Personal-data handling compliant with GDPR',
+      mindmapId: 'dsgvo',
+      description:
+        'Agents that process personal data must comply with GDPR. This means prompt content, training data, and agent output all fall under data protection regulation.',
+      points: [
+        'Never include personal data (names, emails, IDs) in prompts unless the processing has a legal basis',
+        'Anonymise or pseudonymise data before feeding it to agents \u2014 use synthetic data where possible',
+        'Ensure your AI provider\u2019s terms include GDPR-compliant data processing agreements',
+        'Implement data subject access requests (DSARs) for any personal data an agent may have processed',
+      ],
+      tip: 'When in doubt, ask: "If this prompt were leaked, would it contain personal data?" If yes, redact it.',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'E08',
+      title: 'Further Risks',
+      subtitle: 'IP, licensing, secrets, auditability, liability',
+      mindmapId: 'more-risks',
+      description:
+        'Beyond privacy and sovereignty, agentic engineering introduces risks around intellectual property, licensing compliance, secret management, and legal liability for agent-generated output.',
+      points: [
+        'IP risk: Agent output may inadvertently reproduce copyrighted or licensed code \u2014 use licence scanners',
+        'Secret leakage: Agents may echo secrets from context into logs, PRs, or error messages \u2014 scrub outputs',
+        'Licensing compliance: Agent-suggested dependencies may carry viral licences (GPL) \u2014 automate licence checks',
+        'Liability: Who is responsible when agent-generated code causes a production incident? Define this upfront.',
+      ],
+      tip: 'Add a "risk review" step to your agent workflow for any change touching auth, payments, or personal data',
+    } as RuleSlideData,
+    // The Builder
+    {
+      layout: 'rule',
+      number: 'E09',
+      title: 'The Builder',
+      subtitle: 'The defining role of the agentic era',
+      mindmapId: 'builder-role',
+      description:
+        'A Builder is someone who deeply understands users and moves extremely fast by orchestrating agents. They combine product sense, user empathy, and agentic fluency into a single role \u2014 replacing the need for separate specialists.',
+      points: [
+        'Understands users deeply \u2014 their problems, workflows, and what \u201cgood\u201d looks like',
+        'Orchestrates multiple agents to ship end-to-end: from spec to deployment',
+        'Fluent in prompt engineering, context engineering, and agent steering \u2014 their core tools',
+        'Owns the full stack: product thinking, implementation via agents, and quality assurance',
+      ],
+      tip: 'A Builder doesn\u2019t write all the code \u2014 they direct agents that do, with taste and user empathy as their edge',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'E10',
+      title: 'Builder Team (3\u20135 max)',
+      subtitle: 'The new optimum team size',
+      mindmapId: 'builder-team',
+      description:
+        'The agentic era redefines team size. A small, tight squad of 3\u20135 Builders \u2014 each orchestrating their own agents \u2014 ships faster than legacy teams ten times their size. Communication overhead drops, ownership is clear, and velocity compounds.',
+      points: [
+        '3\u20135 Builders is the sweet spot \u2014 enough coverage for product, engineering, and operations without coordination tax',
+        'Each Builder owns a domain end-to-end, orchestrating agents for implementation, testing, and deployment',
+        'Small teams make faster decisions \u2014 fewer meetings, fewer handoffs, fewer misunderstandings',
+        'Agents handle the scaling \u2014 the team stays small while output grows exponentially',
+      ],
+      tip: 'If your team needs more than 5 Builders, split into two autonomous squads rather than growing one',
+    } as RuleSlideData,
     // Enterprise Use Cases
-    placeholder(
-      'trace-change',
-      'Traceability & Change Mgmt',
-      'End-to-end audit',
-      'End-to-end audit of every agent-initiated change.'
-    ),
-    placeholder(
-      'who-changed',
-      'Full Audit Trail',
-      'Who changed what, and why',
-      'Full audit: who changed what, and why.'
-    ),
+    {
+      layout: 'rule',
+      number: 'E11',
+      title: 'Full Audit Trail',
+      subtitle: 'Who changed what, and why',
+      mindmapId: 'who-changed',
+      description:
+        'A complete audit trail for agent-initiated changes is non-negotiable in regulated industries. Every change must be traceable from business request to deployed code.',
+      points: [
+        'Capture the full chain: ticket \u2192 prompt \u2192 agent session \u2192 PR \u2192 review \u2192 merge \u2192 deploy',
+        'Store prompts and agent responses as immutable artefacts \u2014 they\u2019re evidence',
+        'Tag every commit with the agent model, version, and session ID used to generate it',
+        'Generate compliance reports automatically from the audit trail \u2014 auditors love structured data',
+      ],
+      tip: 'Build the audit trail from day one \u2014 retrofitting traceability is orders of magnitude harder',
+    } as RuleSlideData,
   ],
   philosophical: [
     {
       layout: 'rule',
-      number: '',
+      number: 'P01',
       title: 'AI as a New Stakeholder',
       subtitle: 'Our source code now has one more audience',
+      mindmapId: 'ai-stakeholder',
       description:
         'Agents are becoming first-class consumers of your codebase. Just as you write readable code for fellow developers, you now need to consider how easily an AI agent can parse, navigate, and reason about your source code.',
-      points: [],
+      points: [
+        'Code is now written for two audiences: humans who review it and agents who modify it',
+        'Self-documenting code matters more than ever \u2014 agents rely on names, structure, and patterns to understand intent',
+        'Institutional knowledge locked in people\u2019s heads is invisible to agents \u2014 externalise it',
+        'The quality of your codebase directly determines the quality of agent output',
+      ],
       tip: "Write code as if the next person reading it has no institutional knowledge \u2014 because your agent doesn't",
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'P02',
+      title: 'The Human in the Loop',
+      subtitle: 'What only humans can do',
+      mindmapId: 'human-in-loop',
+      description:
+        'As agents handle more of the mechanical work, the human role shifts from typing code to making judgement calls. Understanding what only you can bring is the key to effective collaboration.',
+      points: [
+        'Vision and taste: agents optimise for what you define \u2014 they can\u2019t decide what\u2019s worth building',
+        'Ethical judgement: agents have no moral compass \u2014 they do what they\u2019re asked, even when they shouldn\u2019t',
+        'User empathy: agents can simulate user behaviour but can\u2019t feel frustration, delight, or confusion',
+        'Accountability: someone must own the decision to ship \u2014 an agent can\u2019t be held responsible',
+      ],
+      tip: 'The better you get at delegation, the more important your judgement becomes',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'P03',
+      title: 'The Knowledge Paradox',
+      subtitle: 'You need to understand what you\u2019re delegating',
+      mindmapId: 'knowledge-paradox',
+      description:
+        'The paradox of agentic engineering: the less you need to write code yourself, the more you need to understand it. Without deep understanding, you can\u2019t evaluate agent output or catch subtle errors.',
+      points: [
+        'Agents lower the floor (anyone can build) but don\u2019t raise the ceiling (expertise still matters for quality)',
+        'Reviewing agent-generated code requires as much skill as writing it \u2014 possibly more',
+        'Teams that stop learning the fundamentals become dependent on agents they can\u2019t correct',
+        'The most effective engineers use agents to amplify their existing knowledge, not replace it',
+      ],
+      tip: 'Never stop learning the craft \u2014 agents are force multipliers, not substitutes for understanding',
     } as RuleSlideData,
   ],
 };

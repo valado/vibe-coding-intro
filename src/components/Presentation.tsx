@@ -294,29 +294,31 @@ export function Presentation() {
         {renderSlide()}
       </main>
 
-      {/* Initial Steps banner */}
-      <div
-        className="print-hide"
-        onClick={() => navigate('/initial-steps')}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 8,
-          padding: '6px 16px',
-          cursor: 'pointer',
-          backgroundColor: theme.accentSoft,
-          borderTop: `1px solid ${theme.accentBorder}`,
-          transition: 'background-color 0.2s',
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.accentBorder)}
-        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = theme.accentSoft)}
-      >
-        <Footprints size={14} style={{ color: theme.accent }} />
-        <span style={{ fontSize: '0.78rem', fontWeight: 600, color: theme.accent }}>
-          New here? Follow the Initial Steps — your guide from idea to app, no coding needed
-        </span>
-      </div>
+      {/* Initial Steps banner — only on cover slide */}
+      {data.layout === 'cover' && (
+        <div
+          className="print-hide"
+          onClick={() => navigate('/initial-steps')}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            padding: '6px 16px',
+            cursor: 'pointer',
+            backgroundColor: theme.accentSoft,
+            borderTop: `1px solid ${theme.accentBorder}`,
+            transition: 'background-color 0.2s',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.accentBorder)}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = theme.accentSoft)}
+        >
+          <Footprints size={14} style={{ color: theme.accent }} />
+          <span style={{ fontSize: '0.78rem', fontWeight: 600, color: theme.accent }}>
+            New here? Follow the Initial Steps — your guide from idea to app, no coding needed
+          </span>
+        </div>
+      )}
 
       {/* Navigation */}
       <div className="print-hide" style={{ display: 'flex', justifyContent: 'center' }}>
