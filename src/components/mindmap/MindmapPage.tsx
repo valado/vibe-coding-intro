@@ -13,6 +13,7 @@ import { MindmapHeader } from './MindmapHeader';
 import { TierFilterBar } from './TierFilterBar';
 import { MindmapCanvas } from './MindmapCanvas';
 import { MindmapSidePanel } from './MindmapSidePanel';
+import type { MindMapNode } from '../../types/mindmap.types';
 
 export function MindmapPage() {
   const navigate = useNavigate();
@@ -164,7 +165,7 @@ export function MindmapPage() {
       />
 
       <MindmapSidePanel
-        selected={selected as { id: string; label: string; note?: string; subtitle?: string; children?: any[] }}
+        selected={selected as { id: string; label: string; note?: string; subtitle?: string; children?: MindMapNode[] }}
         selectedColor={selectedColor}
         selectedPath={selectedPath}
         panelCollapsed={panelCollapsed}
