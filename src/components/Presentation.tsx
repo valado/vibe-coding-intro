@@ -1,7 +1,8 @@
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import { useTheme } from '../theme/useTheme';
-import { SLIDES, ADVANCED_SLIDES } from '../config/slides';
+import { assembleSlides, getChapterStartIndex, getNextChapterId, TIER_ORDER } from '../config/slideAssembler';
 import { getCustomCursor } from '../constants/cursor';
+import { TierId, ChapterTitleSlideData } from '../types';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import { useTouchNavigation } from '../hooks/useTouchNavigation';
 import { useUrlSync } from '../hooks/useUrlSync';
@@ -22,8 +23,10 @@ import { RuleSlide } from './slides/RuleSlide';
 import { SummarySlide } from './slides/SummarySlide';
 import { ClosingSlide } from './slides/ClosingSlide';
 import { AuthorSlide } from './slides/AuthorSlide';
+import { TierSelectionSlide } from './slides/TierSelectionSlide';
+import { ChapterTitleSlide } from './slides/ChapterTitleSlide';
 import { PrintAllSlides } from './ui/PrintAllSlides';
-import { User, Gift, GraduationCap, Printer, Maximize, Minimize, Map, Footprints } from 'lucide-react';
+import { User, Gift, Printer, Maximize, Minimize, Map, Footprints, Home } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export function Presentation() {
@@ -33,8 +36,10 @@ export function Presentation() {
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
   const [showAuthor, setShowAuthor] = useState(false);
   const [showDiscount, setShowDiscount] = useState(false);
-  const [showAdvanced, setShowAdvanced] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [enabledChapters, setEnabledChapters] = useState<Set<TierId>>(
+    () => new Set(TIER_ORDER)
+  );
   const { theme } = useTheme();
 
   const toggleFullscreen = useCallback(() => {
@@ -45,21 +50,31 @@ export function Presentation() {
     }
   }, []);
 
-  // Sync state when user exits fullscreen via Escape or browser UI
   useEffect(() => {
     const handler = () => setIsFullscreen(!!document.fullscreenElement);
     document.addEventListener('fullscreenchange', handler);
     return () => document.removeEventListener('fullscreenchange', handler);
   }, []);
 
-  const activeSlides = useMemo(() => {
-    if (!showAdvanced) return SLIDES;
-    // Insert advanced slides after last rule slide (index 11) and before summary (index 12)
-    return [...SLIDES.slice(0, 12), ...ADVANCED_SLIDES, ...SLIDES.slice(12)];
-  }, [showAdvanced]);
+  const activeSlides = useMemo(() => assembleSlides(enabledChapters), [enabledChapters]);
+
+  const handleToggleChapter = useCallback((tierId: TierId) => {
+    setEnabledChapters((prev) => {
+      const next = new Set(prev);
+      if (next.has(tierId)) {
+        if (next.size <= 1) return prev; // keep at least one
+        next.delete(tierId);
+      } else {
+        next.add(tierId);
+      }
+      return next;
+    });
+  }, []);
 
   const total = activeSlides.length;
-  const data = activeSlides[current];
+  const clamped = Math.min(current, total - 1);
+  if (clamped !== current) setCurrent(clamped);
+  const data = activeSlides[clamped];
 
   const goTo = useCallback(
     (i: number) => {
@@ -93,7 +108,6 @@ export function Presentation() {
     }
   }, [showKeyboardHelp, showAuthor, showDiscount, showOverview]);
 
-  // Custom hooks
   useKeyboardNavigation({
     onNext: handleNext,
     onPrev: handlePrev,
@@ -117,7 +131,6 @@ export function Presentation() {
 
   const { share, copied } = useShare();
 
-  // Render appropriate slide component based on layout
   const renderSlide = () => {
     switch (data.layout) {
       case 'cover':
@@ -126,22 +139,41 @@ export function Presentation() {
         return <IntroSlide data={data} />;
       case 'rule':
         return <RuleSlide data={data} />;
+      case 'tier-selection':
+        return (
+          <TierSelectionSlide
+            data={data}
+            onGoTo={goTo}
+            enabledChapters={enabledChapters}
+            onToggleChapter={handleToggleChapter}
+          />
+        );
+      case 'chapter-title': {
+        const chapterData = data as ChapterTitleSlideData;
+        const nextId = getNextChapterId(chapterData.tierId, enabledChapters);
+        return (
+          <ChapterTitleSlide
+            data={chapterData}
+            onGoToChapterSelect={() => goTo(3)}
+            onSkipToNextChapter={
+              nextId ? () => goTo(getChapterStartIndex(nextId, enabledChapters)) : undefined
+            }
+            nextChapterLabel={
+              nextId
+                ? activeSlides.find(
+                    (s) => s.layout === 'chapter-title' && (s as ChapterTitleSlideData).tierId === nextId
+                  )?.title
+                : undefined
+            }
+          />
+        );
+      }
       case 'summary':
         return (
           <SummarySlide
             data={data}
             onGoTo={goTo}
-            ruleStartIndex={3}
-            advancedRules={
-              showAdvanced
-                ? ADVANCED_SLIDES.map((s, i) => ({
-                    num: s.number,
-                    title: s.title,
-                    desc: s.subtitle,
-                    slideIndex: 12 + i,
-                  }))
-                : undefined
-            }
+            ruleStartIndex={4}
           />
         );
       case 'closing':
@@ -187,6 +219,14 @@ export function Presentation() {
       >
         <button
           className="ib"
+          onClick={() => { setCurrent(0); navigate('/'); }}
+          style={{ color: theme.textMuted }}
+          title="Home"
+        >
+          <Home size={17} />
+        </button>
+        <button
+          className="ib"
           onClick={() => navigate('/initial-steps')}
           style={{ color: theme.textMuted }}
           title="Initial Steps — From Idea to App"
@@ -227,24 +267,6 @@ export function Presentation() {
         </button>
         <button
           className="ib"
-          onClick={() => {
-            if (showAdvanced) {
-              // Turning off: if on an advanced slide, go to the summary slide
-              const advancedStart = 12;
-              const advancedEnd = advancedStart + ADVANCED_SLIDES.length - 1;
-              setCurrent((c) =>
-                c >= advancedStart && c <= advancedEnd ? advancedStart : Math.min(c, SLIDES.length - 1)
-              );
-            }
-            setShowAdvanced((prev) => !prev);
-          }}
-          style={{ color: showAdvanced ? theme.accent : theme.textMuted }}
-          title={showAdvanced ? 'Hide advanced slides' : 'Show advanced slides'}
-        >
-          <GraduationCap size={17} />
-        </button>
-        <button
-          className="ib"
           onClick={toggleFullscreen}
           style={{ color: theme.textMuted }}
           title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen (F)'}
@@ -271,23 +293,6 @@ export function Presentation() {
       >
         {renderSlide()}
       </main>
-
-      {/* Banner */}
-      {/* <div style={{ textAlign: 'center', padding: '6px 0 0' }}>
-        <img
-          src={bannerImg}
-          alt=""
-          style={{
-            maxWidth: '92%',
-            height: 'auto',
-            maxHeight: 70,
-            opacity: 0.9,
-            pointerEvents: 'none',
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-          }}
-        />
-      </div> */}
 
       {/* Initial Steps banner */}
       <div
@@ -347,7 +352,7 @@ export function Presentation() {
       {showKeyboardHelp && <KeyboardHelp onClose={() => setShowKeyboardHelp(false)} />}
 
       {/* Print-only: all slides rendered statically */}
-      <PrintAllSlides slides={activeSlides} showAdvanced={showAdvanced} />
+      <PrintAllSlides slides={activeSlides} />
     </div>
   );
 }

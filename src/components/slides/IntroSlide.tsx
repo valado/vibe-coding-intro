@@ -1,39 +1,45 @@
 import type { LucideIcon } from 'lucide-react';
-import { Settings, Sparkles } from 'lucide-react';
+import { Settings, Sparkles, Compass, Layers } from 'lucide-react';
 import { useTheme } from '../../theme/useTheme';
-import { IntroSlideData } from '../../types';
+import { IntroSlideData, ContinuumStop } from '../../types';
 import { parseGlossaryTerms } from '../../utils/glossaryParser';
 
 const iconMap: Record<string, LucideIcon> = {
   Sparkles,
   Settings,
+  Compass,
+  Layers,
 };
 
 interface IntroSlideProps {
   data: IntroSlideData;
 }
 
-function ComparisonCard({
-  side,
+function ContinuumCard({
+  stop,
+  index,
+  total,
   accentColor,
-  accentSoft,
-  accentBorder,
 }: {
-  side: IntroSlideData['left'];
+  stop: ContinuumStop;
+  index: number;
+  total: number;
   accentColor: string;
-  accentSoft: string;
-  accentBorder: string;
 }) {
   const { theme } = useTheme();
-  const Icon = iconMap[side.icon];
+  const Icon = iconMap[stop.icon];
+  // Interpolate from light to full accent opacity
+  const progress = total > 1 ? index / (total - 1) : 0;
+  const opacity = 0.35 + progress * 0.65;
 
   return (
     <div
       className="step-card"
       style={{
         flex: 1,
-        padding: '28px 24px',
-        borderRadius: 16,
+        minWidth: 0,
+        padding: '20px 16px',
+        borderRadius: 14,
         background: theme.surface,
         border: `1px solid ${theme.border}`,
         transition: 'border-color 0.2s, box-shadow 0.2s',
@@ -41,43 +47,45 @@ function ComparisonCard({
         flexDirection: 'column',
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = accentBorder;
-        e.currentTarget.style.boxShadow = `0 4px 24px ${theme.accentGlow}`;
+        e.currentTarget.style.borderColor = accentColor;
+        e.currentTarget.style.boxShadow = `0 4px 20px ${theme.accentGlow}`;
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = theme.border;
         e.currentTarget.style.boxShadow = 'none';
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
         <div
           style={{
-            width: 44,
-            height: 44,
-            borderRadius: 12,
-            background: accentSoft,
-            border: `1px solid ${accentBorder}`,
+            width: 36,
+            height: 36,
+            borderRadius: 10,
+            background: `${accentColor}18`,
+            border: `1px solid ${accentColor}33`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexShrink: 0,
+            opacity,
           }}
         >
-          {Icon && <Icon size={22} color={accentColor} strokeWidth={2} />}
+          {Icon && <Icon size={18} color={accentColor} strokeWidth={2} />}
         </div>
         <div>
-          <div style={{ fontWeight: 700, fontSize: '1.15rem', color: theme.text }}>
-            {side.label}
+          <div style={{ fontWeight: 700, fontSize: '0.95rem', color: theme.text }}>
+            {stop.label}
           </div>
           <div
             style={{
-              fontSize: '0.78rem',
+              fontSize: '0.72rem',
               color: accentColor,
               fontWeight: 600,
               letterSpacing: '0.03em',
+              opacity,
             }}
           >
-            {side.tagline}
+            {stop.tagline}
           </div>
         </div>
       </div>
@@ -86,20 +94,20 @@ function ComparisonCard({
         style={{
           listStyle: 'none',
           padding: 0,
-          margin: '12px 0 0 0',
+          margin: '8px 0 0 0',
           display: 'flex',
           flexDirection: 'column',
-          gap: 10,
+          gap: 6,
         }}
       >
-        {side.points.map((point, i) => (
+        {stop.traits.map((trait, i) => (
           <li
             key={i}
             style={{
-              fontSize: '0.9rem',
+              fontSize: '0.82rem',
               color: theme.textMuted,
-              lineHeight: 1.5,
-              paddingLeft: 16,
+              lineHeight: 1.4,
+              paddingLeft: 14,
               position: 'relative',
             }}
           >
@@ -110,12 +118,13 @@ function ComparisonCard({
                 top: 2,
                 color: accentColor,
                 fontWeight: 700,
-                fontSize: '0.75rem',
+                fontSize: '0.7rem',
+                opacity,
               }}
             >
               &bull;
             </span>
-            {parseGlossaryTerms(point)}
+            {parseGlossaryTerms(trait)}
           </li>
         ))}
       </ul>
@@ -125,6 +134,7 @@ function ComparisonCard({
 
 export function IntroSlide({ data }: IntroSlideProps) {
   const { theme } = useTheme();
+  const stops = data.continuum;
 
   return (
     <div
@@ -149,7 +159,7 @@ export function IntroSlide({ data }: IntroSlideProps) {
         }}
       />
       <div
-        style={{ position: 'relative', zIndex: 1, maxWidth: 900, margin: '0 auto', width: '100%' }}
+        style={{ position: 'relative', zIndex: 1, maxWidth: 1000, margin: '0 auto', width: '100%' }}
       >
         <h2 className="t-md s1" style={{ fontSize: '2.2rem', fontWeight: 800, color: theme.text }}>
           {data.title}
@@ -157,52 +167,70 @@ export function IntroSlide({ data }: IntroSlideProps) {
         <p
           className="s2"
           style={{
-            fontSize: '1.05rem',
+            fontSize: '1.02rem',
             lineHeight: 1.7,
             color: theme.textMuted,
             marginTop: 12,
-            maxWidth: 680,
+            maxWidth: 720,
           }}
         >
           {parseGlossaryTerms(data.description)}
         </p>
 
-        <div
-          className="s3 intro-row"
-          style={{
-            display: 'flex',
-            gap: 20,
-            marginTop: 32,
-            alignItems: 'stretch',
-          }}
-        >
-          <ComparisonCard
-            side={data.left}
-            accentColor={theme.accent}
-            accentSoft={theme.accentSoft}
-            accentBorder={theme.accentBorder}
-          />
+        {/* Continuum arrow bar */}
+        <div className="s3" style={{ position: 'relative', marginTop: 32 }}>
+          {/* Gradient bar behind cards */}
           <div
-            className="intro-vs"
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: 24,
+              right: 24,
+              height: 3,
+              borderRadius: 2,
+              background: `linear-gradient(to right, ${theme.accentBorder}, ${theme.accent})`,
+              transform: 'translateY(-50%)',
+              zIndex: 0,
+              opacity: 0.4,
+            }}
+          />
+          {/* Arrow tip */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              right: 14,
+              transform: 'translateY(-50%)',
+              width: 0,
+              height: 0,
+              borderTop: '6px solid transparent',
+              borderBottom: '6px solid transparent',
+              borderLeft: `10px solid ${theme.accent}`,
+              opacity: 0.4,
+              zIndex: 0,
+            }}
+          />
+
+          {/* Cards row */}
+          <div
+            className="intro-row"
             style={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '0.85rem',
-              fontWeight: 700,
-              color: theme.textMuted,
-              letterSpacing: '0.05em',
-              opacity: 0.5,
+              gap: 14,
+              position: 'relative',
+              zIndex: 1,
             }}
           >
-            VS
+            {stops.map((stop, i) => (
+              <ContinuumCard
+                key={stop.label}
+                stop={stop}
+                index={i}
+                total={stops.length}
+                accentColor={theme.accent}
+              />
+            ))}
           </div>
-          <ComparisonCard
-            side={data.right}
-            accentColor={theme.accent}
-            accentSoft={theme.accentSoft}
-            accentBorder={theme.accentBorder}
-          />
         </div>
       </div>
     </div>

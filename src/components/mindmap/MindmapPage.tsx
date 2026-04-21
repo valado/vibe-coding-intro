@@ -1,6 +1,7 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../theme/useTheme';
+import { useShare } from '../../hooks/useShare';
 import { MIND_MAP } from '../../config/mindmap';
 import { computeLayout, INITIAL_VIEW, SVG_WIDTH, SVG_HEIGHT } from '../../utils/mindmapLayout';
 import { findNode, breadcrumb, ancestorChain } from '../../utils/mindmapTree';
@@ -11,14 +12,34 @@ import { MindmapHeader } from './MindmapHeader';
 import { TierFilterBar } from './TierFilterBar';
 import { MindmapCanvas } from './MindmapCanvas';
 import { MindmapSidePanel } from './MindmapSidePanel';
+import { AuthorModal } from '../ui/AuthorModal';
+import { DiscountModal } from '../ui/DiscountModal';
 import type { MindMapNode } from '../../types/mindmap.types';
 
 export function MindmapPage() {
   const navigate = useNavigate();
   const { theme } = useTheme();
+  const { share, copied } = useShare();
   const [selectedId, setSelectedId] = useState('root');
   const [panelCollapsed, setPanelCollapsed] = useState(true);
   const [headerHeight, setHeaderHeight] = useState(60);
+  const [showAuthor, setShowAuthor] = useState(false);
+  const [showDiscount, setShowDiscount] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', handler);
+    return () => document.removeEventListener('fullscreenchange', handler);
+  }, []);
+
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }, []);
   const contentTop = 16 + headerHeight + 12; // header top + height + gap
 
   const panZoom = usePanZoom({ svgWidth: SVG_WIDTH, svgHeight: SVG_HEIGHT, initialView: INITIAL_VIEW });
@@ -103,6 +124,12 @@ export function MindmapPage() {
         onToggleExpand={() => (collapse.collapsed.size === 0 ? collapse.collapseAll() : collapse.expandAll())}
         onBackToSlides={() => navigate('/')}
         onHeightChange={setHeaderHeight}
+        onShare={share}
+        copied={copied}
+        onShowAuthor={() => setShowAuthor(true)}
+        onShowDiscount={() => setShowDiscount(true)}
+        isFullscreen={isFullscreen}
+        onToggleFullscreen={toggleFullscreen}
       />
 
       <TierFilterBar
@@ -145,6 +172,9 @@ export function MindmapPage() {
         parentNode={parentNode}
         top={contentTop}
       />
+
+      {showAuthor && <AuthorModal onClose={() => setShowAuthor(false)} />}
+      {showDiscount && <DiscountModal onClose={() => setShowDiscount(false)} />}
     </div>
   );
 }

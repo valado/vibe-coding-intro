@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../theme/useTheme';
+import { useShare } from '../hooks/useShare';
 import { ThemeToggle } from './ui/ThemeToggle';
-import { ArrowLeft, Download, Bot, FileText, Brain, Wrench, Code, Rocket, CheckCircle } from 'lucide-react';
+import { ShareButton } from './ui/ShareButton';
+import { AuthorModal } from './ui/AuthorModal';
+import { DiscountModal } from './ui/DiscountModal';
+import { ArrowLeft, Download, Bot, FileText, Brain, Wrench, Code, Rocket, CheckCircle, User, Gift, Maximize, Minimize, Home } from 'lucide-react';
 
 const STEPS = [
   {
@@ -85,6 +90,18 @@ const STEPS = [
 export function InitialStepsPage() {
   const navigate = useNavigate();
   const { theme } = useTheme();
+  const { share, copied } = useShare();
+  const [showAuthor, setShowAuthor] = useState(false);
+  const [showDiscount, setShowDiscount] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().then(() => setIsFullscreen(true));
+    } else {
+      document.exitFullscreen().then(() => setIsFullscreen(false));
+    }
+  };
 
   return (
     <div
@@ -131,8 +148,26 @@ export function InitialStepsPage() {
           <ArrowLeft size={17} />
           <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>Back to Slides</span>
         </button>
-        <ThemeToggle />
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          <button className="ib" onClick={() => navigate('/')} style={{ color: theme.textMuted }} title="Home">
+            <Home size={17} />
+          </button>
+          <button className="ib" onClick={() => setShowAuthor(true)} style={{ color: theme.textMuted }} title="About the author">
+            <User size={17} />
+          </button>
+          <button className="ib" onClick={() => setShowDiscount(true)} style={{ color: theme.textMuted }} title="Discount offer">
+            <Gift size={17} />
+          </button>
+          <button className="ib" onClick={toggleFullscreen} style={{ color: theme.textMuted }} title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
+            {isFullscreen ? <Minimize size={17} /> : <Maximize size={17} />}
+          </button>
+          <ThemeToggle />
+          <ShareButton onShare={share} copied={copied} />
+        </div>
       </header>
+
+      {showAuthor && <AuthorModal onClose={() => setShowAuthor(false)} />}
+      {showDiscount && <DiscountModal onClose={() => setShowDiscount(false)} />}
 
       {/* Content */}
       <div style={{ maxWidth: 780, margin: '0 auto', padding: '40px 24px 80px' }}>

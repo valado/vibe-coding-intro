@@ -1,3 +1,5 @@
+export type TierId = 'solo' | 'team' | 'scaling' | 'enterprise' | 'philosophical';
+
 // Base slide type with common properties
 export interface BaseSlide {
   layout: string;
@@ -11,22 +13,18 @@ export interface CoverSlideData extends BaseSlide {
   badge: string;
 }
 
-// Intro slide (comparison layout)
+// Intro slide (continuum layout)
+export interface ContinuumStop {
+  label: string;
+  tagline: string;
+  icon: string;
+  traits: string[];
+}
+
 export interface IntroSlideData extends BaseSlide {
   layout: 'intro';
   description: string;
-  left: {
-    icon: string;
-    label: string;
-    tagline: string;
-    points: string[];
-  };
-  right: {
-    icon: string;
-    label: string;
-    tagline: string;
-    points: string[];
-  };
+  continuum: ContinuumStop[];
 }
 
 type ExternalLink = {
@@ -43,6 +41,24 @@ export interface RuleSlideData extends BaseSlide {
   points: string[];
   tip: string;
   externalLink?: ExternalLink;
+  placeholder?: boolean;
+  mindmapId?: string;
+}
+
+// Tier selection slide (jump-to-chapter navigation)
+export interface TierSelectionSlideData extends BaseSlide {
+  layout: 'tier-selection';
+  subtitle: string;
+}
+
+// Chapter title slide (divider between tier chapters)
+export interface ChapterTitleSlideData extends BaseSlide {
+  layout: 'chapter-title';
+  subtitle: string;
+  color: string;
+  complexity: number;
+  vision: string;
+  tierId: TierId;
 }
 
 // Summary slide
@@ -90,4 +106,6 @@ export type SlideData =
   | RuleSlideData
   | SummarySlideData
   | ClosingSlideData
-  | AuthorSlideData;
+  | AuthorSlideData
+  | TierSelectionSlideData
+  | ChapterTitleSlideData;

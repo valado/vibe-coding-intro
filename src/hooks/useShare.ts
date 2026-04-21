@@ -5,7 +5,7 @@ export function useShare() {
 
   const share = async () => {
     const text = `From Vibes to Production`;
-    const url = window.location.origin;
+    const url = window.location.href;
 
     try {
       if (navigator.share) {

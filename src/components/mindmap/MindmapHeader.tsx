@@ -1,5 +1,5 @@
 import { useRef, useEffect, useCallback } from 'react';
-import { Search, RotateCcw, Maximize2, List, ArrowLeft, Sun, Moon } from 'lucide-react';
+import { Search, RotateCcw, Maximize2, List, ArrowLeft, Sun, Moon, Share2, Check, User, Gift, Maximize, Minimize, Home } from 'lucide-react';
 import { useTheme } from '../../theme/useTheme';
 
 interface MindmapHeaderProps {
@@ -11,6 +11,12 @@ interface MindmapHeaderProps {
   onToggleExpand: () => void;
   onBackToSlides: () => void;
   onHeightChange?: (height: number) => void;
+  onShare: () => void;
+  copied: boolean;
+  onShowAuthor: () => void;
+  onShowDiscount: () => void;
+  isFullscreen: boolean;
+  onToggleFullscreen: () => void;
 }
 
 export function MindmapHeader({
@@ -22,6 +28,12 @@ export function MindmapHeader({
   onToggleExpand,
   onBackToSlides,
   onHeightChange,
+  onShare,
+  copied,
+  onShowAuthor,
+  onShowDiscount,
+  isFullscreen,
+  onToggleFullscreen,
 }: MindmapHeaderProps) {
   const { theme, isDark, toggleTheme } = useTheme();
   const headerRef = useRef<HTMLDivElement>(null);
@@ -193,8 +205,23 @@ export function MindmapHeader({
 
         <div className="mm-spacer" style={{ flex: 1 }} />
 
+        <button type="button" style={iconBtnStyle} onClick={onBackToSlides} title="Home" aria-label="Home">
+          <Home size={16} />
+        </button>
+        <button type="button" style={iconBtnStyle} onClick={onShowAuthor} title="About the author" aria-label="About the author">
+          <User size={16} />
+        </button>
+        <button type="button" style={iconBtnStyle} onClick={onShowDiscount} title="Discount offer" aria-label="Discount offer">
+          <Gift size={16} />
+        </button>
+        <button type="button" style={iconBtnStyle} onClick={onToggleFullscreen} title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'} aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
+          {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
+        </button>
         <button type="button" style={iconBtnStyle} onClick={toggleTheme} title={isDark ? 'Switch to light mode' : 'Switch to dark mode'} aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}>
           {isDark ? <Sun size={16} /> : <Moon size={16} />}
+        </button>
+        <button type="button" style={iconBtnStyle} onClick={onShare} title="Share" aria-label="Share">
+          {copied ? <Check size={16} /> : <Share2 size={16} />}
         </button>
         <button className="mm-labeled-btn" type="button" style={iconBtnStyle} onClick={onBackToSlides} title="Back to slides" aria-label="Back to slides">
           <ArrowLeft size={16} />

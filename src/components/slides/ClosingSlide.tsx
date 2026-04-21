@@ -114,6 +114,7 @@ export function ClosingSlide({ data }: ClosingSlideProps) {
             </a>
           </div>
         </div>
+
       </div>
     </div>
   );

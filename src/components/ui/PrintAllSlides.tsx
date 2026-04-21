@@ -1,18 +1,16 @@
-import { SlideData, RuleSlideData } from '../../types';
+import { SlideData } from '../../types';
 import { CoverSlide } from '../slides/CoverSlide';
 import { IntroSlide } from '../slides/IntroSlide';
 import { RuleSlide } from '../slides/RuleSlide';
 import { SummarySlide } from '../slides/SummarySlide';
 import { ClosingSlide } from '../slides/ClosingSlide';
 import { AuthorSlide } from '../slides/AuthorSlide';
-import { ADVANCED_SLIDES } from '../../config/slides';
 
 interface PrintAllSlidesProps {
   slides: SlideData[];
-  showAdvanced: boolean;
 }
 
-export function PrintAllSlides({ slides, showAdvanced }: PrintAllSlidesProps) {
+export function PrintAllSlides({ slides }: PrintAllSlidesProps) {
   const renderSlide = (data: SlideData) => {
     switch (data.layout) {
       case 'cover':
@@ -26,17 +24,7 @@ export function PrintAllSlides({ slides, showAdvanced }: PrintAllSlidesProps) {
           <SummarySlide
             data={data}
             onGoTo={() => {}}
-            ruleStartIndex={3}
-            advancedRules={
-              showAdvanced
-                ? ADVANCED_SLIDES.map((s: RuleSlideData, i: number) => ({
-                    num: s.number,
-                    title: s.title,
-                    desc: s.subtitle,
-                    slideIndex: 12 + i,
-                  }))
-                : undefined
-            }
+            ruleStartIndex={4}
           />
         );
       case 'closing':

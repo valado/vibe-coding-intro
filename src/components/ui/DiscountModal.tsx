@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
 import { useTheme } from '../../theme/useTheme';
-import { SLIDES } from '../../config/slides';
+import { CLOSING_SLIDE } from '../../config/slides';
 import { ClosingSlideData } from '../../types';
 
 interface DiscountModalProps {
@@ -10,9 +10,7 @@ interface DiscountModalProps {
 export function DiscountModal({ onClose }: DiscountModalProps) {
   const { theme } = useTheme();
 
-  const closingData = SLIDES.find((s) => s.layout === 'closing') as ClosingSlideData;
-
-  if (!closingData) return null;
+  const closingData = CLOSING_SLIDE as ClosingSlideData;
 
   return (
     <div

@@ -8,6 +8,7 @@ interface RuleSlideProps {
 
 export function RuleSlide({ data }: RuleSlideProps) {
   const { theme } = useTheme();
+  const isPlaceholder = data.placeholder === true;
 
   return (
     <div
@@ -21,6 +22,7 @@ export function RuleSlide({ data }: RuleSlideProps) {
         padding: '40px 32px',
         position: 'relative',
         overflow: 'hidden',
+        opacity: isPlaceholder ? 0.7 : 1,
       }}
     >
       <div
@@ -83,6 +85,25 @@ export function RuleSlide({ data }: RuleSlideProps) {
         >
           {data.subtitle}
         </p>
+        {isPlaceholder && (
+          <div
+            className="s3"
+            style={{
+              display: 'inline-block',
+              marginTop: 10,
+              padding: '4px 12px',
+              borderRadius: 8,
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              letterSpacing: '0.04em',
+              color: theme.textMuted,
+              background: theme.surface,
+              border: `1px dashed ${theme.border}`,
+            }}
+          >
+            Coming soon
+          </div>
+        )}
         <p
           className="s4"
           style={{

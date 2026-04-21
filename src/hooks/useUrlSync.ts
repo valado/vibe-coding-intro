@@ -23,8 +23,6 @@ export function useUrlSync({ currentSlide, totalSlides, onSlideChange }: UseUrlS
   }, [currentSlide]);
 
   // Keep a ref to totalSlides so the effect can read the latest value
-  // without re-running when it changes (which would cause infinite loops
-  // when the slide count changes dynamically, e.g. toggling advanced slides).
   const totalRef = useRef(totalSlides);
   totalRef.current = totalSlides;
 
@@ -37,12 +35,9 @@ export function useUrlSync({ currentSlide, totalSlides, onSlideChange }: UseUrlS
           onSlideChange(slideIndex);
         }
       } else {
-        // Invalid slide ID, redirect to first slide
         navigate('/', { replace: true });
       }
     }
-    // Note: Only sync FROM URL when slideId changes, not when currentSlide changes
-    // This prevents infinite loops
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slideId]);
 }
