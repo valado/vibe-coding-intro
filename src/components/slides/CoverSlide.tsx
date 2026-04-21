@@ -120,7 +120,7 @@ export function CoverSlide({ data }: CoverSlideProps) {
             border: `1px solid ${theme.accentBorder}`,
           }}
         >
-          <span>{parseGlossaryTerms('This presentation was vibe-coded')}</span>
+          <span>{parseGlossaryTerms('This presentation was also vibe-coded')}</span>
         </div>
         <div
           className="s4"

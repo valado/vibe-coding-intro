@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import { useTheme } from '../theme/useTheme';
 import { SLIDES, ADVANCED_SLIDES } from '../config/slides';
-import { CUSTOM_CURSOR } from '../constants/cursor';
+import { getCustomCursor } from '../constants/cursor';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import { useTouchNavigation } from '../hooks/useTouchNavigation';
 import { useUrlSync } from '../hooks/useUrlSync';
@@ -164,7 +164,7 @@ export function Presentation() {
         backgroundColor: theme.bg,
         color: theme.text,
         fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
-        cursor: CUSTOM_CURSOR,
+        cursor: getCustomCursor(theme.accent),
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',

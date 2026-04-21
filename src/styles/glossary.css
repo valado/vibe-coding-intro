@@ -42,16 +42,16 @@
   border-right-color: inherit;
   border-bottom-color: inherit;
   border-color: transparent;
-  border-right: 1px solid var(--arrow-border, rgba(139, 92, 246, 0.25));
-  border-bottom: 1px solid var(--arrow-border, rgba(139, 92, 246, 0.25));
+  border-right: 1px solid var(--arrow-border, rgba(249, 115, 22, 0.25));
+  border-bottom: 1px solid var(--arrow-border, rgba(249, 115, 22, 0.25));
 }
 
 /* Arrow pointing up (tooltip below) */
 .glossary-arrow-top {
   top: -6px;
   border-color: transparent;
-  border-left: 1px solid var(--arrow-border, rgba(139, 92, 246, 0.25));
-  border-top: 1px solid var(--arrow-border, rgba(139, 92, 246, 0.25));
+  border-left: 1px solid var(--arrow-border, rgba(249, 115, 22, 0.25));
+  border-top: 1px solid var(--arrow-border, rgba(249, 115, 22, 0.25));
 }
 
 /* Mobile: wider tooltip, larger tap targets */

@@ -36,7 +36,7 @@ export function ParticleBackground() {
   const animRef = useRef<number>(0);
   const { isDark } = useTheme();
 
-  const accentColor = isDark ? '139,92,246' : '124,58,237';
+  const accentColor = isDark ? '249,115,22' : '234,88,12';
 
   const draw = useCallback(
     (ctx: CanvasRenderingContext2D, w: number, h: number) => {
