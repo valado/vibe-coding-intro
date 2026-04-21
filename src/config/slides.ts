@@ -91,7 +91,7 @@ export const SLIDES: SlideData[] = [
   {
     layout: 'author',
     title: `Created by ${CREATOR_CONFIG.name}`,
-    role: 'Senior Solution Architect & AI Practice Lead',
+    role: CREATOR_CONFIG.role,
     socialCall2Action: 'Follow me for more insights on leveraging AI',
     linkedinUrl: CREATOR_CONFIG.linkedinUrl,
     xUrl: CREATOR_CONFIG.xUrl,

@@ -1,5 +1,6 @@
 export const CREATOR_CONFIG = {
   name: 'Vlad Daskalov',
+  role: 'Chief AI Officer',
   linkedinUrl: 'https://www.linkedin.com/in/v11d',
   xUrl: 'https://x.com/vldsklv',
   surveyUrl: 'https://forms.gle/fM81aBrYi393n8mE8',
