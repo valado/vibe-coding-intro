@@ -18,7 +18,7 @@ export function MindmapPage() {
   const navigate = useNavigate();
   const { theme } = useTheme();
   const [selectedId, setSelectedId] = useState('root');
-  const [panelCollapsed, setPanelCollapsed] = useState(false);
+  const [panelCollapsed, setPanelCollapsed] = useState(true);
 
   const panZoom = usePanZoom({ svgWidth: SVG_WIDTH, svgHeight: SVG_HEIGHT, initialView: INITIAL_VIEW });
 
