@@ -1,4 +1,5 @@
-import { Search, RotateCcw, ZoomIn, ZoomOut, Maximize2, List } from 'lucide-react';
+import { useRef, useEffect, useCallback } from 'react';
+import { Search, RotateCcw, Maximize2, List, ArrowLeft, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../../theme/useTheme';
 
 interface MindmapHeaderProps {
@@ -6,10 +7,10 @@ interface MindmapHeaderProps {
   onQueryChange: (value: string) => void;
   matchedCount: number | null;
   onResetView: () => void;
-  onZoomIn: () => void;
-  onZoomOut: () => void;
-  onExpandAll: () => void;
-  onCollapseAll: () => void;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
+  onBackToSlides: () => void;
+  onHeightChange?: (height: number) => void;
 }
 
 export function MindmapHeader({
@@ -17,12 +18,25 @@ export function MindmapHeader({
   onQueryChange,
   matchedCount,
   onResetView,
-  onZoomIn,
-  onZoomOut,
-  onExpandAll,
-  onCollapseAll,
+  isExpanded,
+  onToggleExpand,
+  onBackToSlides,
+  onHeightChange,
 }: MindmapHeaderProps) {
-  const { theme } = useTheme();
+  const { theme, isDark, toggleTheme } = useTheme();
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  const measureHeight = useCallback(() => {
+    if (headerRef.current && onHeightChange) {
+      onHeightChange(headerRef.current.offsetHeight);
+    }
+  }, [onHeightChange]);
+
+  useEffect(() => {
+    measureHeight();
+    window.addEventListener('resize', measureHeight);
+    return () => window.removeEventListener('resize', measureHeight);
+  }, [measureHeight]);
 
   const headerStyle: React.CSSProperties = {
     position: 'absolute',
@@ -78,76 +92,115 @@ export function MindmapHeader({
   };
 
   return (
-    <div style={headerStyle}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 260, marginRight: 4 }}>
-        <span style={{ fontSize: 18, fontWeight: 800, color: theme.text }}>
-          Agentic Engineering Maturity Map
-        </span>
-        <span style={{ fontSize: 12, fontWeight: 500, color: theme.textMuted }}>
-          Solo builder to regulated enterprise
-        </span>
-      </div>
+    <>
+      <style>{`
+        .mm-header .mm-btn-label {
+          display: inline;
+        }
+        .mm-header .mm-labeled-btn {
+          width: auto !important;
+          padding: 0 12px !important;
+        }
+        .mm-header .mm-search {
+          width: 290px;
+        }
+        .mm-header .mm-title {
+          min-width: 260px;
+        }
+        @media (max-width: 768px) {
+          .mm-header .mm-btn-label {
+            display: none !important;
+          }
+          .mm-header .mm-labeled-btn {
+            width: 38px !important;
+            padding: 0 !important;
+          }
+          .mm-header .mm-search {
+            width: 140px !important;
+          }
+          .mm-header .mm-title {
+            min-width: auto !important;
+          }
+          .mm-header .mm-title-sub {
+            display: none !important;
+          }
+          .mm-header .mm-spacer {
+            display: none !important;
+          }
+        }
+      `}</style>
+      <div ref={headerRef} className="mm-header" style={headerStyle}>
+        <div className="mm-title" style={{ display: 'flex', flexDirection: 'column', gap: 2, marginRight: 4 }}>
+          <span style={{ fontSize: 18, fontWeight: 800, color: theme.text }}>
+            Agentic Engineering Maturity Map
+          </span>
+          <span className="mm-title-sub" style={{ fontSize: 12, fontWeight: 500, color: theme.textMuted }}>
+            Solo builder to regulated enterprise
+          </span>
+        </div>
 
-      <label style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
-        <span
-          style={{
-            position: 'absolute',
-            left: 12,
-            top: 11,
-            color: theme.textMuted,
-            pointerEvents: 'none',
-          }}
-        >
-          <Search size={15} />
-        </span>
-        <input
-          aria-label="Search mind map"
-          style={inputStyle}
-          placeholder="Search MCP, DSGVO, agents..."
-          value={query}
-          onChange={(e) => onQueryChange(e.target.value)}
-        />
-        {matchedCount !== null && (
+        <label style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
           <span
             style={{
               position: 'absolute',
-              right: 9,
-              top: 8,
-              minWidth: 28,
-              height: 22,
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 8,
-              background: matchedCount ? '#f59e0b' : theme.surfaceHover,
-              color: matchedCount ? '#ffffff' : theme.textMuted,
-              fontSize: 12,
-              fontWeight: 800,
+              left: 12,
+              top: 11,
+              color: theme.textMuted,
+              pointerEvents: 'none',
             }}
           >
-            {matchedCount}
+            <Search size={15} />
           </span>
-        )}
-      </label>
+          <input
+            className="mm-search"
+            aria-label="Search mind map"
+            style={{ ...inputStyle, width: undefined }}
+            placeholder="Search MCP, DSGVO, agents..."
+            value={query}
+            onChange={(e) => onQueryChange(e.target.value)}
+          />
+          {matchedCount !== null && (
+            <span
+              style={{
+                position: 'absolute',
+                right: 9,
+                top: 8,
+                minWidth: 28,
+                height: 22,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 8,
+                background: matchedCount ? '#f59e0b' : theme.surfaceHover,
+                color: matchedCount ? '#ffffff' : theme.textMuted,
+                fontSize: 12,
+                fontWeight: 800,
+              }}
+            >
+              {matchedCount}
+            </span>
+          )}
+        </label>
 
-      <button type="button" style={btnStyle} onClick={onResetView} title="Reset view">
-        <RotateCcw size={16} />
-        Reset
-      </button>
-      <button type="button" style={iconBtnStyle} onClick={onZoomIn} title="Zoom in" aria-label="Zoom in">
-        <ZoomIn size={16} />
-      </button>
-      <button type="button" style={iconBtnStyle} onClick={onZoomOut} title="Zoom out" aria-label="Zoom out">
-        <ZoomOut size={16} />
-      </button>
-      <button type="button" style={btnStyle} onClick={onExpandAll}>
-        <Maximize2 size={16} />
-        Expand
-      </button>
-      <button type="button" style={btnStyle} onClick={onCollapseAll}>
-        <List size={16} />
-        Compact
-      </button>
-    </div>
+        <button className="mm-labeled-btn" type="button" style={iconBtnStyle} onClick={onResetView} title="Reset view" aria-label="Reset view">
+          <RotateCcw size={16} />
+          <span className="mm-btn-label">Reset</span>
+        </button>
+        <button className="mm-labeled-btn" type="button" style={iconBtnStyle} onClick={onToggleExpand} title={isExpanded ? 'Compact' : 'Expand all'} aria-label={isExpanded ? 'Compact' : 'Expand all'}>
+          {isExpanded ? <List size={16} /> : <Maximize2 size={16} />}
+          <span className="mm-btn-label">{isExpanded ? 'Compact' : 'Expand'}</span>
+        </button>
+
+        <div className="mm-spacer" style={{ flex: 1 }} />
+
+        <button type="button" style={iconBtnStyle} onClick={toggleTheme} title={isDark ? 'Switch to light mode' : 'Switch to dark mode'} aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}>
+          {isDark ? <Sun size={16} /> : <Moon size={16} />}
+        </button>
+        <button className="mm-labeled-btn" type="button" style={iconBtnStyle} onClick={onBackToSlides} title="Back to slides" aria-label="Back to slides">
+          <ArrowLeft size={16} />
+          <span className="mm-btn-label">Back to Slides</span>
+        </button>
+      </div>
+    </>
   );
 }

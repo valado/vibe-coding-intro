@@ -1,8 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
 import { useTheme } from '../../theme/useTheme';
-import { ThemeToggle } from '../ui/ThemeToggle';
 import { MIND_MAP } from '../../config/mindmap';
 import { computeLayout, INITIAL_VIEW, SVG_WIDTH, SVG_HEIGHT } from '../../utils/mindmapLayout';
 import { findNode, breadcrumb, ancestorChain } from '../../utils/mindmapTree';
@@ -20,6 +18,8 @@ export function MindmapPage() {
   const { theme } = useTheme();
   const [selectedId, setSelectedId] = useState('root');
   const [panelCollapsed, setPanelCollapsed] = useState(true);
+  const [headerHeight, setHeaderHeight] = useState(60);
+  const contentTop = 16 + headerHeight + 12; // header top + height + gap
 
   const panZoom = usePanZoom({ svgWidth: SVG_WIDTH, svgHeight: SVG_HEIGHT, initialView: INITIAL_VIEW });
 
@@ -93,54 +93,22 @@ export function MindmapPage() {
 
   return (
     <div style={containerStyle}>
-      {/* Back to slides button */}
-      <button
-        type="button"
-        onClick={() => navigate('/')}
-        title="Back to slides"
-        style={{
-          position: 'absolute',
-          top: 92,
-          right: 16,
-          zIndex: 20,
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 8,
-          padding: '8px 14px',
-          borderRadius: 8,
-          border: `1px solid ${theme.border}`,
-          background: theme.surface,
-          color: theme.text,
-          fontSize: 13,
-          fontWeight: 600,
-          cursor: 'pointer',
-          boxShadow: '0 2px 8px rgba(15,23,42,0.07)',
-        }}
-      >
-        <ArrowLeft size={16} />
-        Back to Slides
-      </button>
-
-      {/* Theme toggle */}
-      <div style={{ position: 'absolute', top: 92, right: 170, zIndex: 20 }}>
-        <ThemeToggle />
-      </div>
-
       <MindmapHeader
         query={search.query}
         onQueryChange={search.setQuery}
         matchedCount={search.matchedCount}
         onResetView={panZoom.resetView}
-        onZoomIn={panZoom.zoomIn}
-        onZoomOut={panZoom.zoomOut}
-        onExpandAll={collapse.expandAll}
-        onCollapseAll={collapse.collapseAll}
+        isExpanded={collapse.collapsed.size === 0}
+        onToggleExpand={() => (collapse.collapsed.size === 0 ? collapse.collapseAll() : collapse.expandAll())}
+        onBackToSlides={() => navigate('/')}
+        onHeightChange={setHeaderHeight}
       />
 
       <TierFilterBar
         tiers={MIND_MAP.children}
         activeTiers={collapse.activeTiers}
         onToggleTier={collapse.toggleTier}
+        top={contentTop}
       />
 
       <MindmapCanvas
@@ -174,6 +142,7 @@ export function MindmapPage() {
         visibleNodeCount={visibleNodes.length}
         onFocusNode={focusNode}
         parentNode={parentNode}
+        top={contentTop}
       />
     </div>
   );

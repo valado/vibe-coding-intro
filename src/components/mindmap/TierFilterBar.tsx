@@ -5,16 +5,26 @@ interface TierFilterBarProps {
   tiers: MindMapTier[];
   activeTiers: Set<string>;
   onToggleTier: (id: string) => void;
+  top?: number;
 }
 
-export function TierFilterBar({ tiers, activeTiers, onToggleTier }: TierFilterBarProps) {
+export function TierFilterBar({ tiers, activeTiers, onToggleTier, top = 92 }: TierFilterBarProps) {
   const { theme } = useTheme();
 
   return (
+    <>
+    <style>{`
+      @media (max-width: 768px) {
+        .mm-tier-bar .mm-tier-label {
+          display: none !important;
+        }
+      }
+    `}</style>
     <div
+      className="mm-tier-bar"
       style={{
         position: 'absolute',
-        top: 92,
+        top,
         left: 16,
         display: 'flex',
         gap: 8,
@@ -64,10 +74,11 @@ export function TierFilterBar({ tiers, activeTiers, onToggleTier }: TierFilterBa
             >
               {t.complexity}
             </span>
-            {t.label}
+            <span className="mm-tier-label">{t.label}</span>
           </button>
         );
       })}
     </div>
+    </>
   );
 }

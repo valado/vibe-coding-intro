@@ -12,6 +12,7 @@ interface MindmapSidePanelProps {
   visibleNodeCount: number;
   onFocusNode: (id: string) => void;
   parentNode: { id: string; label: string } | null;
+  top?: number;
 }
 
 export function MindmapSidePanel({
@@ -24,12 +25,13 @@ export function MindmapSidePanel({
   visibleNodeCount,
   onFocusNode,
   parentNode,
+  top = 92,
 }: MindmapSidePanelProps) {
   const { theme } = useTheme();
 
   const panelStyle: React.CSSProperties = {
     position: 'absolute',
-    top: 148,
+    top,
     right: 16,
     width: panelCollapsed ? 240 : 348,
     background: theme.overlayBg,
@@ -40,7 +42,7 @@ export function MindmapSidePanel({
     border: `1px solid ${theme.border}`,
     borderLeft: `5px solid ${selectedColor}`,
     backdropFilter: 'blur(10px)',
-    maxHeight: 'calc(100vh - 164px)',
+    maxHeight: `calc(100vh - ${top + 16}px)`,
     overflowY: 'auto',
     transition: 'width 160ms ease, padding 160ms ease',
   };
@@ -60,7 +62,20 @@ export function MindmapSidePanel({
   };
 
   return (
-    <div style={panelStyle}>
+    <>
+    <style>{`
+      @media (max-width: 768px) {
+        .mm-side-panel {
+          top: auto !important;
+          bottom: 16px !important;
+          left: 16px !important;
+          right: 16px !important;
+          width: auto !important;
+          max-height: 40vh !important;
+        }
+      }
+    `}</style>
+    <div className="mm-side-panel" style={panelStyle}>
       <div
         style={{
           display: 'flex',
@@ -193,5 +208,6 @@ export function MindmapSidePanel({
         </>
       )}
     </div>
+    </>
   );
 }
