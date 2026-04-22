@@ -91,7 +91,7 @@ export function usePanZoom({ svgWidth, svgHeight, initialView }: UsePanZoomOptio
         const dy = e.touches[0].clientY - e.touches[1].clientY;
         const dist = Math.hypot(dx, dy);
         const scale = dist / (pinchRef.current.initialDistance || 1);
-        const nextK = Math.min(2.5, Math.max(0.25, pinchRef.current.initialK * scale));
+        const nextK = Math.min(5, Math.max(0.15, pinchRef.current.initialK * scale));
         setView((v) => ({ ...v, k: nextK }));
       }
     };
@@ -124,7 +124,7 @@ export function usePanZoom({ svgWidth, svgHeight, initialView }: UsePanZoomOptio
       e.preventDefault();
       const delta = -e.deltaY * 0.0015;
       setView((v) => {
-        const nextK = Math.min(2.5, Math.max(0.25, v.k * (1 + delta)));
+        const nextK = Math.min(5, Math.max(0.15, v.k * (1 + delta)));
         return { ...v, k: nextK };
       });
     };
@@ -135,11 +135,11 @@ export function usePanZoom({ svgWidth, svgHeight, initialView }: UsePanZoomOptio
   const resetView = useCallback(() => setView(initialView), [initialView]);
 
   const zoomIn = useCallback(() => {
-    setView((v) => ({ ...v, k: Math.min(2.4, v.k + 0.1) }));
+    setView((v) => ({ ...v, k: Math.min(5, v.k + 0.1) }));
   }, []);
 
   const zoomOut = useCallback(() => {
-    setView((v) => ({ ...v, k: Math.max(0.28, v.k - 0.1) }));
+    setView((v) => ({ ...v, k: Math.max(0.15, v.k - 0.1) }));
   }, []);
 
   const focusPosition = useCallback((x: number, y: number) => {
