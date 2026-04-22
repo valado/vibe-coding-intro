@@ -14,7 +14,9 @@ export function usePanZoom({ svgWidth, svgHeight, initialView }: UsePanZoomOptio
   const pinchRef = useRef({ initialDistance: 0, initialK: 0 });
   const svgRef = useRef<SVGSVGElement>(null);
   const viewRef = useRef(view);
-  viewRef.current = view;
+  useEffect(() => {
+    viewRef.current = view;
+  }, [view]);
 
   const getUnitsPerPx = useCallback(() => {
     const svg = svgRef.current;
