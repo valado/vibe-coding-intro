@@ -193,6 +193,9 @@
 }
 
 @media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
   .r-pad {
     padding: 24px 20px !important;
   }

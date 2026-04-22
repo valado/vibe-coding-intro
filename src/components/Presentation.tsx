@@ -258,7 +258,7 @@ export function Presentation() {
           <Gift size={17} />
         </button>
         <button
-          className="ib"
+          className="ib hide-mobile"
           onClick={() => window.print()}
           style={{ color: theme.textMuted }}
           title="Print to PDF"
@@ -266,7 +266,7 @@ export function Presentation() {
           <Printer size={17} />
         </button>
         <button
-          className="ib"
+          className="ib hide-mobile"
           onClick={toggleFullscreen}
           style={{ color: theme.textMuted }}
           title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen (F)'}
