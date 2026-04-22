@@ -943,6 +943,54 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       ],
       tip: 'Never stop learning the craft \u2014 agents are force multipliers, not substitutes for understanding',
     } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'P04',
+      title: 'Code Is Free, Maintenance Is Not',
+      subtitle: 'The hidden cost of infinite generation',
+      mindmapId: 'code-is-free',
+      description:
+        'Generating code is now virtually free. An agent can produce thousands of lines in minutes. But every line you ship becomes a liability — it must be read, understood, tested, debugged, and maintained. The real cost of software was never writing it.',
+      points: [
+        'Code is a liability, not an asset — the best code is the code you didn\u2019t write',
+        'Agents make it dangerously easy to generate more than you can maintain',
+        'Deletion is now a core engineering skill — resist the urge to keep everything just because it was cheap to create',
+        'The bottleneck has shifted from production to comprehension — can your team still understand the codebase in six months?',
+      ],
+      tip: 'Just because code is free to write doesn\u2019t mean it\u2019s free to own — treat every generated line as a long-term commitment',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'P05',
+      title: 'From IC to Orchestrator',
+      subtitle: 'The role shift that changes everything',
+      mindmapId: 'ic-to-orchestrator',
+      description:
+        'Agentic coding transforms the engineer\u2019s role from individual contributor to orchestrator. Instead of writing code line by line, you design systems, decompose problems, and coordinate multiple agents. This demands more systems thinking, not less.',
+      points: [
+        'The skill shifts from "how do I implement this?" to "how do I decompose this so agents can implement it well?"',
+        'Orchestrators need stronger systems design — you must see the whole board, not just the next move',
+        'Managing agent workflows is a new form of architecture — context boundaries, task sequencing, and quality gates',
+        'The best orchestrators spend more time thinking and less time typing — and produce better outcomes because of it',
+      ],
+      tip: 'Think of yourself as the architect and director — your value is in the blueprint and the decisions, not the bricklaying',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'P06',
+      title: 'Should It Be Built at All?',
+      subtitle: 'When time is no longer the constraint',
+      mindmapId: 'should-it-be-built',
+      description:
+        'Agents can run 24/7, picking off low-priority backlog items that humans never had time for. When delivery cost drops to near zero, the bottleneck is no longer "can we build it?" but "should we build it?" Every feature still carries complexity, cognitive load, and maintenance — even if it was free to create.',
+      points: [
+        'Low-hanging fruits that sat in the backlog for years are now automatable — agents can deliver them in the background around the clock',
+        'Removing the time constraint exposes the real question: does this feature earn its place in the product?',
+        'More features ≠ better product — each one adds surface area for bugs, support burden, and user confusion',
+        'The new discipline is not prioritisation by effort, but prioritisation by value — because effort is approaching zero',
+      ],
+      tip: 'Just because an agent can build it overnight doesn\u2019t mean your users need it — the hardest skill is saying no when building is free',
+    } as RuleSlideData,
   ],
 };
 
