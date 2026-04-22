@@ -232,6 +232,9 @@
   .intro-vs {
     padding: 4px 0 !important;
   }
+  .tier-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 @media print {

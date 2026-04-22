@@ -98,7 +98,7 @@ export function TierSelectionSlide({ data, onGoTo, enabledChapters, onToggleChap
         </p>
 
         <div
-          className="s3"
+          className="s3 tier-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
@@ -121,9 +121,9 @@ export function TierSelectionSlide({ data, onGoTo, enabledChapters, onToggleChap
                   opacity: enabled ? 1 : 0.5,
                   transition: 'border-color 0.2s, box-shadow 0.2s, opacity 0.2s',
                   display: 'flex',
-                  flexDirection: isPhilosophical ? 'row' : 'column',
-                  alignItems: isPhilosophical ? 'center' : 'stretch',
-                  gap: isPhilosophical ? 16 : 8,
+                  flexDirection: 'column',
+                  alignItems: 'stretch',
+                  gap: 8,
                   gridColumn: isPhilosophical ? '1 / -1' : undefined,
                 }}
                 onMouseEnter={(e) => {
@@ -138,7 +138,7 @@ export function TierSelectionSlide({ data, onGoTo, enabledChapters, onToggleChap
                 }}
               >
                 {/* Header: checkbox + label + complexity */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: isPhilosophical ? 'none' : undefined }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <button
                     onClick={(e) => { e.stopPropagation(); onToggleChapter(ch.id); }}
                     style={{
@@ -183,22 +183,12 @@ export function TierSelectionSlide({ data, onGoTo, enabledChapters, onToggleChap
                   )}
                 </div>
 
-                {!isPhilosophical && (
-                  <>
-                    <div style={{ fontSize: '0.78rem', fontWeight: 600, color: ch.color, letterSpacing: '0.03em' }}>
-                      {ch.subtitle}
-                    </div>
-                    <div style={{ fontSize: '0.82rem', color: theme.textMuted, lineHeight: 1.5 }}>
-                      {ch.vision}
-                    </div>
-                  </>
-                )}
-
-                {isPhilosophical && (
-                  <div style={{ fontSize: '0.85rem', color: theme.textMuted, lineHeight: 1.5, flex: 1 }}>
-                    {ch.vision}
-                  </div>
-                )}
+                <div style={{ fontSize: '0.78rem', fontWeight: 600, color: ch.color, letterSpacing: '0.03em' }}>
+                  {ch.subtitle}
+                </div>
+                <div style={{ fontSize: '0.82rem', color: theme.textMuted, lineHeight: 1.5 }}>
+                  {ch.vision}
+                </div>
 
                 {/* Jump button — always rendered to prevent layout shift */}
                 <button
@@ -207,7 +197,7 @@ export function TierSelectionSlide({ data, onGoTo, enabledChapters, onToggleChap
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    alignSelf: isPhilosophical ? 'center' : 'flex-start',
+                    alignSelf: 'flex-start',
                     gap: 4,
                     padding: '6px 14px',
                     borderRadius: 8,

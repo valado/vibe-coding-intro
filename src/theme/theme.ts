@@ -28,7 +28,7 @@ export const lightTheme: Theme = {
   accentSoft: 'rgba(234,88,12,0.07)',
   accentBorder: 'rgba(234,88,12,0.18)',
   accentGlow: 'rgba(234,88,12,0.2)',
-  watermark: 'rgba(234,88,12,0.04)',
+  watermark: 'rgba(234,88,12,0.10)',
   heroGrad: 'radial-gradient(ellipse at 55% 40%, rgba(234,88,12,0.1) 0%, transparent 60%)',
   subtleGrad: 'radial-gradient(ellipse at 80% 20%, rgba(234,88,12,0.04) 0%, transparent 50%)',
   overlayBg: 'rgba(255,255,255,0.92)',

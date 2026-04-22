@@ -4,7 +4,7 @@ export function useShare() {
   const [copied, setCopied] = useState(false);
 
   const share = async () => {
-    const text = `From Vibes to Production`;
+    const text = `Agentic Engineering Journey`;
     const url = window.location.href;
 
     try {
