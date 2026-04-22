@@ -13,6 +13,8 @@ export function usePanZoom({ svgWidth, svgHeight, initialView }: UsePanZoomOptio
   const dragRef = useRef({ startX: 0, startY: 0, origX: 0, origY: 0, unitsPerPx: 1 });
   const pinchRef = useRef({ initialDistance: 0, initialK: 0 });
   const svgRef = useRef<SVGSVGElement>(null);
+  const viewRef = useRef(view);
+  viewRef.current = view;
 
   const getUnitsPerPx = useCallback(() => {
     const svg = svgRef.current;
@@ -58,8 +60,8 @@ export function usePanZoom({ svgWidth, svgHeight, initialView }: UsePanZoomOptio
         dragRef.current = {
           startX: t.clientX,
           startY: t.clientY,
-          origX: view.x,
-          origY: view.y,
+          origX: viewRef.current.x,
+          origY: viewRef.current.y,
           unitsPerPx: getUnitsPerPx(),
         };
       } else if (e.touches.length === 2) {
@@ -68,7 +70,7 @@ export function usePanZoom({ svgWidth, svgHeight, initialView }: UsePanZoomOptio
         const dy = e.touches[0].clientY - e.touches[1].clientY;
         pinchRef.current = {
           initialDistance: Math.hypot(dx, dy),
-          initialK: view.k,
+          initialK: viewRef.current.k,
         };
       }
     };
@@ -110,7 +112,7 @@ export function usePanZoom({ svgWidth, svgHeight, initialView }: UsePanZoomOptio
       el.removeEventListener('touchend', handleTouchEnd);
       el.removeEventListener('touchcancel', handleTouchEnd);
     };
-  }, [view.x, view.y, view.k, getUnitsPerPx]);
+  }, [getUnitsPerPx]);
 
   // --- Wheel zoom ---
   useEffect(() => {
