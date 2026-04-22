@@ -957,7 +957,7 @@ export const TIER_SELECTION_SLIDE: TierSelectionSlideData = {
 export const SLIDES: SlideData[] = [
   {
     layout: 'cover',
-    title: 'Agentic Engineering Journey',
+    title: 'Agentic Coding Journey',
     subtitle: 'The playbook for building software with AI',
     badge: '2026 Edition',
   },
