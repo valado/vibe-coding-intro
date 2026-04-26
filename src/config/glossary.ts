@@ -185,4 +185,22 @@ export const GLOSSARY: GlossaryEntry[] = [
       'Total Cost of Ownership — the full cost of a technology decision including purchase, operation, training, maintenance, and opportunity costs.',
     matchPatterns: ['TCO'],
   },
+  {
+    term: 'Tracer Bullet',
+    definition:
+      'A thin vertical slice through all layers of the system, delivering a testable end-to-end flow as early as possible — named after the military technique of using visible rounds to adjust aim.',
+    matchPatterns: ['Tracer Bullets', 'tracer bullet', 'Tracer bullets'],
+  },
+  {
+    term: 'Deep Module',
+    definition:
+      'A module with a simple interface hiding significant internal complexity — easier for agents to explore, test, and extend. Coined by John Ousterhout.',
+    matchPatterns: ['Deep Modules', 'deep module', 'Deep modules'],
+  },
+  {
+    term: 'Smart Zone / Dumb Zone',
+    definition:
+      'The cognitive quality range of an LLM based on token count — sharp and accurate at low context (smart zone), degrading as attention relationships scale quadratically (dumb zone).',
+    matchPatterns: ['Smart Zone', 'Dumb Zone', 'smart zone', 'dumb zone'],
+  },
 ];

@@ -93,6 +93,11 @@ export const MIND_MAP: MindMapRoot = {
               note: 'Understand and manage your personal API spend.',
             },
             {
+              id: 'llm-limits',
+              label: 'AI Limits',
+              note: 'Smart zone vs dumb zone — understand how LLM quality degrades with context size.',
+            },
+            {
               id: 'transition-solo',
               label: 'When to Level Up',
               note: 'Signals you\u2019ve outgrown solo workflows.',
@@ -130,9 +135,19 @@ export const MIND_MAP: MindMapRoot = {
               note: 'Reusable slash-commands shared across the team.',
             },
             {
+              id: 'grill-align',
+              label: 'The Grill',
+              note: 'Structured inquiry to reach a shared design concept before coding.',
+            },
+            {
               id: 'spec-driven',
               label: 'Spec-driven Development',
               note: 'Write the spec first; the agent implements to it.',
+            },
+            {
+              id: 'tracer-bullets',
+              label: 'Vertical Slices',
+              note: 'Cut tasks vertically through every layer for immediate feedback.',
             },
             {
               id: 'prd-light',
@@ -230,6 +245,11 @@ export const MIND_MAP: MindMapRoot = {
               id: 'ddd',
               label: 'Clean Architecture & DDD',
               note: 'Domain-driven design and clean architecture as an AI multiplier.',
+            },
+            {
+              id: 'deep-modules',
+              label: 'Deep Modules',
+              note: 'Simple interfaces hiding significant complexity — the architecture principle that makes AI effective.',
             },
             {
               id: 'orchestration',

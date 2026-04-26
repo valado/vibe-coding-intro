@@ -321,6 +321,23 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     {
       layout: 'rule',
       number: 'B12',
+      title: 'Understand Your AI\u2019s Limits',
+      subtitle: 'Smart zone, dumb zone, and the Memento effect',
+      mindmapId: 'llm-limits',
+      description:
+        'LLMs have a "smart zone" and a "dumb zone." Early in a conversation, attention relationships are manageable and output quality is high. As tokens accumulate, attention scales quadratically and quality degrades \u2014 regardless of the advertised context window.',
+      points: [
+        'The Smart Zone: at low token counts, the model is sharp, focused, and makes excellent decisions',
+        'The Dumb Zone: beyond ~100k tokens, models begin making poor choices as attention relationships strain processing power',
+        'The Memento Effect: LLMs reset to a blank slate when context is cleared \u2014 like the film character who loses all memory',
+        'Prefer clearing context over compacting it \u2014 compacting introduces noise ("sediment") that degrades future output',
+        'Store essential knowledge in fixed assets (CLAUDE.md, PRDs, specs) so you can clear context without losing alignment',
+      ],
+      tip: 'Start fresh after each task \u2014 your AI is sharpest with a clean context',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'B13',
       title: 'When to Level Up',
       subtitle: 'Signals that you\u2019ve outgrown solo workflows',
       mindmapId: 'transition-solo',
@@ -373,6 +390,22 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     {
       layout: 'rule',
       number: 'T04',
+      title: 'The Grill \u2014 Align Before You Build',
+      subtitle: 'Structured inquiry that prevents misalignment',
+      mindmapId: 'grill-align',
+      description:
+        'The primary failure mode in AI coding is misalignment \u2014 the AI builds something you didn\u2019t intend. Instead of letting the agent eagerly generate a plan, use a "Grilling" process where the AI interviews you about every aspect of the design before writing a single line of code.',
+      points: [
+        'Relentless Inquiry \u2014 prompt the AI to ask you tough questions about your plan until it fully understands the intent',
+        'Shared Design Concept \u2014 the invisible mental model of the thing being built, reached through dialogue, not documentation alone',
+        'Branch Resolution \u2014 walk down each branch of the "design tree" to resolve dependencies and edge cases before implementation',
+        'This process is more valuable than any static plan \u2014 it surfaces assumptions and contradictions that specs miss',
+      ],
+      tip: 'Use the prompt: "Grill me on this plan \u2014 ask tough questions until you fully understand what I want to build"',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'T05',
       title: 'Spec-driven Development',
       subtitle: 'Write the spec first; the agent implements to it',
       mindmapId: 'spec-driven',
@@ -388,7 +421,23 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'T05',
+      number: 'T06',
+      title: 'Cut Vertical, Not Horizontal',
+      subtitle: 'Tracer bullets through every layer',
+      mindmapId: 'tracer-bullets',
+      description:
+        'AI naturally tends to code "horizontally" \u2014 doing all database work first, then API, then UI. This is inefficient because feedback is delayed until the final layer. Instead, cut tasks as thin vertical slices that touch every layer of the system.',
+      points: [
+        'Tracer Bullets \u2014 each task should produce a thin, working end-to-end flow from UI to database and back',
+        'Vertical slices allow immediate testing of the entire integrated flow, catching integration issues from the earliest phase',
+        'Horizontal layers delay feedback \u2014 you don\u2019t know if the pieces fit together until the very end',
+        'Structure your Kanban board vertically: "User can log in" not "Build auth database schema"',
+      ],
+      tip: 'If your first task doesn\u2019t produce a testable end-to-end flow, it\u2019s sliced wrong',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'T07',
       title: 'PRD (lightweight)',
       subtitle: 'One-page product brief the agent can read',
       mindmapId: 'prd-light',
@@ -397,6 +446,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       points: [
         'Keep it to one page: problem statement, target user, key features, success criteria',
         'Include what\u2019s explicitly out of scope \u2014 this prevents scope creep in agent output',
+        'Think of the PRD as a "destination document" \u2014 pair it with a Kanban board as the "journey document" that breaks the destination into grabbable tasks',
         'Write for the agent: use clear, unambiguous language with concrete examples',
         'Update the PRD as the project evolves \u2014 it\u2019s a living document',
       ],
@@ -404,24 +454,25 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'T06',
+      number: 'T08',
       title: 'Testing & TDD',
-      subtitle: 'Your team\u2019s shared safety net',
+      subtitle: 'Your team\u2019s shared safety net \u2014 and the agent\u2019s speed limit',
       mindmapId: 'tdd',
       description:
-        'In a team setting, tests aren\u2019t just personal sanity checks \u2014 they\u2019re the contract between contributors. When multiple engineers and agents push code to the same repo, automated tests are the only reliable way to catch regressions before they ship.',
+        'In a team setting, tests aren\u2019t just personal sanity checks \u2014 they\u2019re the contract between contributors. TDD also acts as a "speed limit" for AI agents: forcing a Red-Green-Refactor cycle ensures the agent takes small, deliberate steps instead of outrunning its headlights.',
       points: [
         'Write tests first (TDD) so the agent has clear acceptance criteria before it starts coding',
+        'The speed limit: TDD forces the agent to prove each step works before moving on \u2014 the rate of feedback is your speed limit',
         'Run the full test suite in CI on every agent-generated PR \u2014 no exceptions, no manual-only checks',
         'Assign test ownership: each module has a human responsible for reviewing test quality, not just coverage numbers',
         'Use agents to generate test scaffolds, then review for edge cases \u2014 agents often miss boundary conditions and race conditions',
         'Set a coverage gate (e.g. 80%) that blocks merges \u2014 agents will write tests to satisfy it automatically',
       ],
-      tip: 'The fastest way to onboard an agent to your codebase is to point it at the test suite \u2014 tests are the best documentation',
+      tip: 'The rate of feedback is your speed limit \u2014 TDD ensures no step goes unchecked',
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'T07',
+      number: 'T09',
       title: 'Agentic BDD',
       subtitle: 'Given/When/Then scenarios aimed at agents',
       mindmapId: 'bdd',
@@ -436,11 +487,11 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       tip: 'Start with the happy path, then ask the agent: "What edge cases should I add?"',
     } as RuleSlideData,
     // Carried forward
-    { ...ADVANCED_TECH_STACK, number: 'T08' },
+    { ...ADVANCED_TECH_STACK, number: 'T10' },
     // Delivery
     {
       layout: 'rule',
-      number: 'T09',
+      number: 'T11',
       title: 'Delivery: npm Package',
       subtitle: 'Versioned distribution through your ecosystem',
       mindmapId: 'as-npm',
@@ -456,7 +507,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'T10',
+      number: 'T12',
       title: 'Delivery: Plugin',
       subtitle: 'Packaged for agent runtimes',
       mindmapId: 'as-plugin',
@@ -473,7 +524,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     // Team Use Cases
     {
       layout: 'rule',
-      number: 'T11',
+      number: 'T13',
       title: 'Writing & Evolving Specs',
       subtitle: 'Iterating on executable specifications together',
       mindmapId: 'specs',
@@ -489,7 +540,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'T12',
+      number: 'T14',
       title: 'Migration (e.g. \u2192 Go)',
       subtitle: 'Cross-language refactor with a safety net',
       mindmapId: 'migration',
@@ -505,7 +556,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'T13',
+      number: 'T15',
       title: 'Team Cost Management',
       subtitle: 'Shared accounts, shared visibility, shared budgets',
       mindmapId: 'cost-team',
@@ -521,7 +572,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'T14',
+      number: 'T16',
       title: 'When to Level Up',
       subtitle: 'Signals your team needs platform-level practices',
       mindmapId: 'transition-team',
@@ -576,6 +627,22 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     {
       layout: 'rule',
       number: 'O06',
+      title: 'Deep Modules, Simple Interfaces',
+      subtitle: 'The architecture principle that makes AI effective',
+      mindmapId: 'deep-modules',
+      description:
+        'Following John Ousterhout\u2019s philosophy, codebases should be organised into "deep modules" \u2014 components with simple interfaces hiding significant internal complexity. Deep modules are easier for AI to explore, test, and extend. Shallow modules create a spaghetti of dependencies that confuse agents.',
+      points: [
+        'Deep Modules \u2014 a simple interface with rich functionality behind it. The agent can use the module without understanding its internals',
+        'Shallow Modules \u2014 a complex interface with little hidden logic. These force the agent to track many dependencies, increasing hallucination risk',
+        'Humans should design the interfaces (the boundaries) and delegate the implementation (the internal logic) to the AI',
+        'This principle compounds with clean architecture \u2014 well-defined boundaries reduce the "hallucination surface area" for every agent interaction',
+      ],
+      tip: 'Design the interface yourself. Let the agent fill in the implementation.',
+    } as RuleSlideData,
+    {
+      layout: 'rule',
+      number: 'O07',
       title: 'Agent Orchestration / Symphony',
       subtitle: 'Coordinating multiple cooperating agents',
       mindmapId: 'orchestration',
@@ -591,7 +658,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'O07',
+      number: 'O08',
       title: 'Scrum with Agents',
       subtitle: 'Sprint ceremonies that include agents as contributors',
       mindmapId: 'scrum',
@@ -607,7 +674,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'O08',
+      number: 'O09',
       title: 'Custom Linters',
       subtitle: 'Rules that codify team taste for agent output',
       mindmapId: 'linters',
@@ -621,10 +688,10 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       ],
       tip: 'Every time you reject an agent\u2019s output for the same reason twice, write a linter rule',
     } as RuleSlideData,
-    { ...ADVANCED_PROMPT_REQUESTS, number: 'O09', mindmapId: 'prompt-requests' },
+    { ...ADVANCED_PROMPT_REQUESTS, number: 'O10', mindmapId: 'prompt-requests' },
     {
       layout: 'rule',
-      number: 'O10',
+      number: 'O11',
       title: 'Architecture Decision Records',
       subtitle: 'The audit trail of why',
       mindmapId: 'adr',
@@ -640,7 +707,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'O11',
+      number: 'O12',
       title: 'PRD (formal)',
       subtitle: 'Full product spec feeding many agent workflows',
       mindmapId: 'prd-full',
@@ -657,7 +724,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     // Platform Delivery
     {
       layout: 'rule',
-      number: 'O12',
+      number: 'O13',
       title: 'Platform: MCP Server',
       subtitle: 'Expose internal tools via the Model Context Protocol',
       mindmapId: 'as-mcp',
@@ -673,7 +740,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'O13',
+      number: 'O14',
       title: 'Platform: Skills (authoring)',
       subtitle: 'Author and version skills for the rest of the org',
       mindmapId: 'skills-auth',
@@ -690,7 +757,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     // Open Questions
     {
       layout: 'rule',
-      number: 'O14',
+      number: 'O15',
       title: 'Monorepo or Polyrepo',
       subtitle: 'A decision framework for agent-friendly repo structure',
       mindmapId: 'monorepo',
@@ -706,7 +773,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'O15',
+      number: 'O16',
       title: 'Containerised Agent Environments',
       subtitle: 'When to isolate agent runs in Docker',
       mindmapId: 'docker-eng',
@@ -722,7 +789,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'O16',
+      number: 'O17',
       title: 'Allocating Agents Across the Stack',
       subtitle: 'Where agents deliver the most value by layer',
       mindmapId: 'fe-be',
@@ -738,7 +805,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'O17',
+      number: 'O18',
       title: 'Opportunities vs Challenges',
       subtitle: 'Weighing the real trade-offs at scale',
       mindmapId: 'opps',
@@ -755,7 +822,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     // Use Cases
     {
       layout: 'rule',
-      number: 'O18',
+      number: 'O19',
       title: 'Autonomous Agents',
       subtitle: 'Long-running, goal-seeking agents across services',
       mindmapId: 'autonom',
@@ -771,7 +838,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'O19',
+      number: 'O20',
       title: 'MCP for Agent.mds',
       subtitle: 'Standardising agent descriptions via MCP',
       mindmapId: 'mcp-agent-mds',
@@ -787,7 +854,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'O20',
+      number: 'O21',
       title: 'Cost at Scale',
       subtitle: 'Chargeback models, budgets, and ROI tracking',
       mindmapId: 'cost-scaling',
@@ -803,7 +870,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     } as RuleSlideData,
     {
       layout: 'rule',
-      number: 'O21',
+      number: 'O22',
       title: 'When to Level Up',
       subtitle: 'Signals your org needs enterprise-grade controls',
       mindmapId: 'transition-scaling',
@@ -1079,7 +1146,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
         'Deletion is now a core engineering skill — resist the urge to keep everything just because it was cheap to create',
         'The bottleneck has shifted from production to comprehension — can your team still understand the codebase in six months?',
       ],
-      tip: 'Just because code is free to write doesn\u2019t mean it\u2019s free to own — treat every generated line as a long-term commitment',
+      tip: 'Bad code is the most expensive it\u2019s ever been \u2014 it inhibits the very productivity gains that AI promises',
     } as RuleSlideData,
     {
       layout: 'rule',
