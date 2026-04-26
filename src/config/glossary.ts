@@ -119,4 +119,70 @@ export const GLOSSARY: GlossaryEntry[] = [
       'The art of writing clear, specific instructions for AI — better prompts lead to better code output.',
     matchPatterns: ['prompting', 'Start prompting'],
   },
+  {
+    term: 'BDD',
+    definition:
+      'Behaviour-Driven Development — a practice where features are defined as Given/When/Then scenarios that serve as both specification and automated test.',
+    matchPatterns: ['BDD', 'Behaviour-Driven Development'],
+  },
+  {
+    term: 'Gherkin',
+    definition:
+      'A structured language for writing BDD scenarios using Given/When/Then steps — readable by both humans and test automation frameworks.',
+    matchPatterns: ['Gherkin'],
+  },
+  {
+    term: 'SAST',
+    definition:
+      'Static Application Security Testing — automated analysis of source code for security vulnerabilities before the code runs.',
+    matchPatterns: ['SAST'],
+  },
+  {
+    term: 'DAST',
+    definition:
+      'Dynamic Application Security Testing — automated security testing of a running application to find vulnerabilities like injection or misconfiguration.',
+    matchPatterns: ['DAST'],
+  },
+  {
+    term: 'DPA',
+    definition:
+      'Data Processing Agreement — a legally binding contract between a data controller and processor, required under GDPR when sharing personal data with third parties.',
+    matchPatterns: ['DPA'],
+  },
+  {
+    term: 'DSAR',
+    definition:
+      'Data Subject Access Request — a formal request from an individual to access, correct, or delete their personal data, as guaranteed by GDPR.',
+    matchPatterns: ['DSARs', 'DSAR'],
+  },
+  {
+    term: 'Circuit Breaker',
+    definition:
+      'A safety mechanism that automatically stops an agent when it exceeds predefined limits — time, cost, files changed, or API calls.',
+    matchPatterns: ['circuit breakers', 'Circuit breakers'],
+  },
+  {
+    term: 'Worktree',
+    definition:
+      'A Git feature that creates an additional working directory linked to the same repository — useful for running parallel agent tasks in isolation.',
+    matchPatterns: ['worktrees', 'worktree'],
+  },
+  {
+    term: 'TDD',
+    definition:
+      'Test-Driven Development — write tests before implementation so every piece of code has a clear, executable acceptance criterion from the start.',
+    matchPatterns: ['TDD'],
+  },
+  {
+    term: 'Chargeback',
+    definition:
+      'An accounting practice where platform costs (like API tokens) are allocated back to the teams that consumed them, creating cost awareness.',
+    matchPatterns: ['chargebacks', 'Chargeback'],
+  },
+  {
+    term: 'TCO',
+    definition:
+      'Total Cost of Ownership — the full cost of a technology decision including purchase, operation, training, maintenance, and opportunity costs.',
+    matchPatterns: ['TCO'],
+  },
 ];
