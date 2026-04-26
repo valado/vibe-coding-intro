@@ -77,9 +77,9 @@ export interface ClosingSlideData extends BaseSlide {
   layout: 'closing';
   subtitle: string;
   cta: string;
-  surveyUrl: string;
-  surveyLabel: string;
-  surveyDetail: string;
+  surveyUrl?: string;
+  surveyLabel?: string;
+  surveyDetail?: string;
 }
 
 // Author slide

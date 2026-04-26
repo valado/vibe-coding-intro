@@ -57,63 +57,66 @@ export function ClosingSlide({ data }: ClosingSlideProps) {
           </div>
         )}
 
-        {/* Survey / Discount CTA */}
-        <div
-          className="s4 closing-survey"
-          style={{
-            marginTop: 48,
-            padding: '28px 36px',
-            borderRadius: 16,
-            border: `1px solid ${theme.accentBorder}`,
-            background: theme.accentSoft,
-          }}
-        >
-          <p
+        {/* Survey CTA */}
+        {data.surveyUrl && (
+          <div
+            className="s4 closing-survey"
             style={{
-              fontSize: '0.95rem',
-              color: theme.textMuted,
-              margin: 0,
-              lineHeight: 1.6,
+              marginTop: 48,
+              padding: '28px 36px',
+              borderRadius: 16,
+              border: `1px solid ${theme.accentBorder}`,
+              background: theme.accentSoft,
             }}
           >
-            {data.surveyLabel}
-          </p>
+            {data.surveyLabel && (
+              <p
+                style={{
+                  fontSize: '0.95rem',
+                  color: theme.textMuted,
+                  margin: 0,
+                  lineHeight: 1.6,
+                }}
+              >
+                {data.surveyLabel}
+              </p>
+            )}
 
-          <div className="s5" style={{ marginTop: 20 }}>
-            <a
-              className="closing-cta-btn"
-              href={data.surveyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 12,
-                padding: '16px 32px',
-                borderRadius: 12,
-                background: `linear-gradient(135deg, ${theme.accent}, ${theme.accent}cc)`,
-                color: '#fff',
-                textDecoration: 'none',
-                fontWeight: 700,
-                fontSize: '1rem',
-                transition: 'all 0.2s',
-                cursor: 'pointer',
-                boxShadow: `0 4px 24px ${theme.accentGlow}`,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-3px) scale(1.03)';
-                e.currentTarget.style.boxShadow = `0 8px 32px ${theme.accentGlow}`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = `0 4px 24px ${theme.accentGlow}`;
-              }}
-            >
-              <span style={{ fontSize: '1.3rem' }}>🎁</span>
-              <span>{data.surveyDetail}</span>
-            </a>
+            <div className="s5" style={{ marginTop: 20 }}>
+              <a
+                className="closing-cta-btn"
+                href={data.surveyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '16px 32px',
+                  borderRadius: 12,
+                  background: `linear-gradient(135deg, ${theme.accent}, ${theme.accent}cc)`,
+                  color: '#fff',
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                  transition: 'all 0.2s',
+                  cursor: 'pointer',
+                  boxShadow: `0 4px 24px ${theme.accentGlow}`,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px) scale(1.03)';
+                  e.currentTarget.style.boxShadow = `0 8px 32px ${theme.accentGlow}`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.boxShadow = `0 4px 24px ${theme.accentGlow}`;
+                }}
+              >
+                <span>{data.surveyDetail || 'Take the Survey'}</span>
+              </a>
+            </div>
           </div>
-        </div>
+        )}
 
       </div>
     </div>
