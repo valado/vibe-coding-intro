@@ -392,3 +392,25 @@
     font-size: 0.9rem !important;
   }
 }
+
+@media (max-width: 768px) {
+  .scaleup-hero,
+  .scaleup-split,
+  .scaleup-section,
+  .scaleup-outcomes {
+    grid-template-columns: 1fr !important;
+  }
+  .scaleup-grid,
+  .scaleup-list {
+    grid-template-columns: 1fr !important;
+  }
+  .scaleup-title {
+    font-size: 2.35rem !important;
+  }
+  .scaleup-cta-row > a {
+    width: 100%;
+  }
+  .scaleup-band {
+    padding: 18px !important;
+  }
+}
