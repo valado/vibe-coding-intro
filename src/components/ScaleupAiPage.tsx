@@ -6,8 +6,7 @@ import {
   GitBranch,
   Layers3,
   LineChart,
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  Linkedin,
+  LinkedinIcon,
   LockKeyhole,
   Map,
   Network,
@@ -233,7 +232,7 @@ export function ScaleupAiPage() {
                 rel="noopener noreferrer"
                 style={ctaStyle}
               >
-                <Linkedin size={17} />
+                <LinkedinIcon size={17} />
                 Reach out on LinkedIn
               </a>
               <span style={{ color: theme.textMuted, fontSize: '0.9rem', lineHeight: 1.5 }}>
@@ -683,8 +682,7 @@ export function ScaleupAiPage() {
               textDecoration: 'none',
             }}
           >
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <Linkedin size={20} style={{ color: theme.accent }} />
+            <LinkedinIcon size={20} style={{ color: theme.accent }} />
             <p style={{ color: theme.text, fontSize: '0.96rem', fontWeight: 700 }}>Reach out on LinkedIn</p>
             <p style={{ color: theme.textMuted, fontSize: '0.84rem', lineHeight: 1.5 }}>
               Interested in joining the next workshop? Get in touch directly.
@@ -729,8 +727,7 @@ export function ScaleupAiPage() {
             rel="noopener noreferrer"
             style={ctaStyle}
           >
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <Linkedin size={17} />
+            <LinkedinIcon size={17} />
             Reach out on LinkedIn
           </a>
         </section>
