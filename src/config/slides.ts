@@ -24,25 +24,25 @@ const RULE_USE_CLI: RuleSlideData = {
     'Use Agentic Mode',
     'For planning use the latest Opus and depending on the complexity of the task Sonnet/Opus models for execution',
   ],
-  tip: 'Look for CLI tools like Claude Code, Codex CLI, Gemini CLI, or Cursor\xe2\x80\x99s agent mode',
+  tip: 'Look for CLI tools like Claude Code, Codex CLI, Gemini CLI, or Cursor’s agent mode',
 };
 
 const RULE_SET_CONTEXT: RuleSlideData = {
   layout: 'rule',
   number: '02',
-  title: 'Set Up Your AI\xe2\x80\x99s Context',
+  title: 'Set Up Your AI’s Context',
   subtitle: 'Onboard the AI like a new team member',
   mindmapId: 'ctxeng-basic',
   description:
-    'Before writing any code, give your AI the big picture. Create a configuration file that describes your project\xe2\x80\x99s vision, coding standards, and technical decisions — just like onboarding a new developer.',
+    'Before writing any code, give your AI the big picture. Create a configuration file that describes your project’s vision, coding standards, and technical decisions — just like onboarding a new developer.',
   points: [
-    'Product Vision — What you\xe2\x80\x99re building and why',
+    'Product Vision — What you’re building and why',
     'Alignment — List your expectations (e.g. which design system to use, code style, code-of-conduct, testing standards etc.)',
     'Persist Architecture Decisions — Architecture Decision Record (ADR) within the project',
     'Tech Stack — Which frameworks and tools to use',
-    'Guardrails — What the AI should and shouldn\xe2\x80\x99t do',
+    'Guardrails — What the AI should and shouldn’t do',
   ],
-  tip: 'Create a project rules file (like CLAUDE.md, .cursorrules, or Copilot instructions) in your project\xe2\x80\x99s root folder',
+  tip: 'Create a project rules file (like CLAUDE.md, .cursorrules, or Copilot instructions) in your project’s root folder',
   externalLink: {
     label: 'Technical alignment generator tool',
     url: 'https://tinytoolstack.com/app/instructionsgeneratorforagenticcoding',
@@ -77,7 +77,7 @@ const RULE_PLAN_FIRST: RuleSlideData = {
   points: [
     'Break big features into small, manageable tasks',
     'Have the AI propose an architecture before coding',
-    'Review the plan to catch issues before they\xe2\x80\x99re built',
+    'Review the plan to catch issues before they’re built',
     'Execute tasks one at a time, in sequence',
   ],
   tip: 'Most AI coding tools have a built-in "plan" or "architect" mode — always use it',
@@ -90,7 +90,7 @@ const RULE_GIVE_EYES: RuleSlideData = {
   subtitle: 'Visual feedback changes everything',
   mindmapId: 'mcp',
   description:
-    'Connect browser automation tools so your AI can see what it\xe2\x80\x99s building. It can take screenshots, interact with your app, and verify things look right — like having a QA tester built in.',
+    'Connect browser automation tools so your AI can see what it’s building. It can take screenshots, interact with your app, and verify things look right — like having a QA tester built in.',
   points: [
     'Connect browser automation via MCP servers',
     'Take screenshots and add them to the prompt for visual context',
@@ -114,7 +114,7 @@ const RULE_SAVE_PROGRESS: RuleSlideData = {
     'Write clear descriptions of what each save contains',
     'Tag stable versions you might want to return to',
   ],
-  tip: 'Set up your AI to auto-commit after tests pass — it\xe2\x80\x99s a game changer',
+  tip: 'Set up your AI to auto-commit after tests pass — it’s a game changer',
 };
 
 const RULE_SMALL_INSTRUCTIONS: RuleSlideData = {
@@ -215,12 +215,12 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       subtitle: 'Fast, intuition-led prompting loops',
       mindmapId: 'vibe',
       description:
-        'Vibe coding is the art of describing what you want in plain language and letting the AI figure out the implementation. It\xe2\x80\x99s the fastest way to go from idea to working prototype.',
+        'Vibe coding is the art of describing what you want in plain language and letting the AI figure out the implementation. It’s the fastest way to go from idea to working prototype.',
       points: [
         'Describe the outcome you want, not the code you need: "make a landing page with a hero section and signup form"',
         'Iterate in tight loops: prompt, see the result, refine, repeat',
         'Feed images directly into the agent (screenshots, sketches, wireframes) and ask it to match the visual',
-        'Great for MVPs, prototypes, and learning what\xe2\x80\x99s possible',
+        'Great for MVPs, prototypes, and learning what’s possible',
       ],
       tip: 'Start every session with a clear goal: "By the end of this session, I want a working [X]"',
     } as RuleSlideData,
@@ -241,7 +241,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       description:
         'Every prompt costs tokens, and tokens cost money. As a solo builder, understanding your spend prevents surprises and helps you choose the right model for each task.',
       points: [
-        'Check your provider\xe2\x80\x99s dashboard daily — most offer usage breakdowns by model and session',
+        'Check your provider’s dashboard daily — most offer usage breakdowns by model and session',
         'Use the most capable model (Opus) for planning and architecture, then switch to a faster model (Sonnet) for repetitive implementation tasks',
         'Keep context small — large file dumps burn tokens fast with diminishing returns',
         'Set a monthly budget alert (e.g. $50–$100) so you learn your actual usage pattern before it surprises you',
@@ -251,7 +251,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
     {
       layout: 'rule',
       number: 'B10',
-      title: 'Understand Your AI\xe2\x80\x99s Limits',
+      title: 'Understand Your AI’s Limits',
       subtitle: 'Smart zone, dumb zone, and the Memento effect',
       mindmapId: 'llm-limits',
       description:
@@ -292,7 +292,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       subtitle: 'Structured inquiry that prevents misalignment',
       mindmapId: 'grill-align',
       description:
-        'The primary failure mode in AI coding is misalignment — the AI builds something you didn\xe2\x80\x99t intend. Instead of letting the agent eagerly generate a plan, use a "Grilling" process where the AI interviews you about every aspect of the design before writing a single line of code.',
+        'The primary failure mode in AI coding is misalignment — the AI builds something you didn’t intend. Instead of letting the agent eagerly generate a plan, use a "Grilling" process where the AI interviews you about every aspect of the design before writing a single line of code.',
       points: [
         'Relentless Inquiry: prompt the AI to ask you tough questions about your plan until it fully understands the intent',
         'Shared Design Concept: the invisible mental model of the thing being built, reached through dialogue, not documentation alone',
@@ -328,10 +328,10 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       points: [
         'Tracer Bullets: each task should produce a thin, working end-to-end flow from UI to database and back',
         'Vertical slices allow immediate testing of the entire integrated flow, catching integration issues from the earliest phase',
-        'Horizontal layers delay feedback — you don\xe2\x80\x99t know if the pieces fit together until the very end',
+        'Horizontal layers delay feedback — you don’t know if the pieces fit together until the very end',
         'Structure your Kanban board vertically: "User can log in" not "Build auth database schema"',
       ],
-      tip: 'If your first task doesn\xe2\x80\x99t produce a testable end-to-end flow, it\xe2\x80\x99s sliced wrong',
+      tip: 'If your first task doesn’t produce a testable end-to-end flow, it’s sliced wrong',
     } as RuleSlideData,
     {
       layout: 'rule',
@@ -340,13 +340,13 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       subtitle: 'One-page product brief the agent can read',
       mindmapId: 'prd-light',
       description:
-        'A lightweight Product Requirements Document gives the agent just enough context to understand what you\xe2\x80\x99re building and why. It\xe2\x80\x99s not a 50-page waterfall spec — it\xe2\x80\x99s a focused brief.',
+        'A lightweight Product Requirements Document gives the agent just enough context to understand what you’re building and why. It’s not a 50-page waterfall spec — it’s a focused brief.',
       points: [
         'Keep it to one page: problem statement, target user, key features, success criteria',
-        'Include what\xe2\x80\x99s explicitly out of scope to prevent agent-driven scope creep',
+        'Include what’s explicitly out of scope to prevent agent-driven scope creep',
         'Think of the PRD as a "destination document" — pair it with a Kanban board as the "journey document" that breaks the destination into grabbable tasks',
         'Write for the agent: use clear, unambiguous language with concrete examples',
-        'Update the PRD as the project evolves — it\xe2\x80\x99s a living document',
+        'Update the PRD as the project evolves — it’s a living document',
       ],
       tip: 'Ask the agent to review your PRD for gaps before starting implementation',
     } as RuleSlideData,
@@ -354,10 +354,10 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       layout: 'rule',
       number: 'T07',
       title: 'Testing & TDD',
-      subtitle: 'Your team\xe2\x80\x99s shared safety net — and the agent\xe2\x80\x99s speed limit',
+      subtitle: 'Your team’s shared safety net — and the agent’s speed limit',
       mindmapId: 'tdd',
       description:
-        'In a team setting, tests aren\xe2\x80\x99t just personal sanity checks — they\xe2\x80\x99re the contract between contributors. TDD also acts as a "speed limit" for AI agents: forcing a Red-Green-Refactor cycle ensures the agent takes small, deliberate steps instead of outrunning its headlights.',
+        'In a team setting, tests aren’t just personal sanity checks — they’re the contract between contributors. TDD also acts as a "speed limit" for AI agents: forcing a Red-Green-Refactor cycle ensures the agent takes small, deliberate steps instead of outrunning its headlights.',
       points: [
         'Write tests first (TDD) so the agent has clear acceptance criteria before it starts coding',
         'The speed limit: TDD forces the agent to prove each step works before moving on',
@@ -366,7 +366,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
         'Use agents to generate test scaffolds, then review for edge cases (agents often miss boundary and race conditions)',
         'Set a coverage gate (e.g. 80%) that blocks merges — agents will write tests to satisfy it automatically',
       ],
-      tip: 'If the agent can\xe2\x80\x99t write a failing test first, the requirement isn\xe2\x80\x99t clear enough yet',
+      tip: 'If the agent can’t write a failing test first, the requirement isn’t clear enough yet',
     } as RuleSlideData,
     {
       layout: 'rule',
@@ -412,7 +412,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       subtitle: 'Constraints & guardrails for expected behaviour',
       mindmapId: 'alignment',
       description:
-        'Alignment goes beyond individual steering — it\xe2\x80\x99s the organisational framework that ensures all agents across all teams behave consistently and within acceptable boundaries.',
+        'Alignment goes beyond individual steering — it’s the organisational framework that ensures all agents across all teams behave consistently and within acceptable boundaries.',
       points: [
         'Define organisation-wide project rules files (CLAUDE.md, .cursorrules, Copilot instructions) with shared constraints',
         'Establish forbidden patterns: no direct database mutations, no secrets in code, no unapproved dependencies',
@@ -429,7 +429,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       subtitle: 'The architecture principle that makes AI effective',
       mindmapId: 'deep-modules',
       description:
-        'Following John Ousterhout\xe2\x80\x99s philosophy, codebases should be organised into "deep modules" — components with simple interfaces hiding significant internal complexity. Deep modules are easier for AI to explore, test, and extend. Shallow modules create a spaghetti of dependencies that confuse agents.',
+        'Following John Ousterhout’s philosophy, codebases should be organised into "deep modules" — components with simple interfaces hiding significant internal complexity. Deep modules are easier for AI to explore, test, and extend. Shallow modules create a spaghetti of dependencies that confuse agents.',
       points: [
         'Deep Modules: a simple interface with rich functionality behind it. The agent can use the module without understanding its internals',
         'Shallow Modules: a complex interface with little hidden logic. These force the agent to track many dependencies, increasing hallucination risk',
@@ -445,7 +445,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       subtitle: 'Coordinating multiple cooperating agents',
       mindmapId: 'orchestration',
       description:
-        'When a single agent isn\xe2\x80\x99t enough, orchestration coordinates multiple specialised agents working on different parts of the same problem — like a symphony where each instrument plays its part.',
+        'When a single agent isn’t enough, orchestration coordinates multiple specialised agents working on different parts of the same problem — like a symphony where each instrument plays its part.',
       points: [
         'Decompose large tasks into subtasks that can be assigned to specialist agents in parallel',
         'Use a planner agent to break down work and a reviewer agent to validate the combined output',
@@ -461,7 +461,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       subtitle: 'Expose internal tools via the Model Context Protocol',
       mindmapId: 'as-mcp',
       description:
-        'An MCP server lets you expose internal tools, databases, and APIs as capabilities that any agent can discover and use. It\xe2\x80\x99s the plumbing that connects agents to your organisation\xe2\x80\x99s infrastructure.',
+        'An MCP server lets you expose internal tools, databases, and APIs as capabilities that any agent can discover and use. It’s the plumbing that connects agents to your organisation’s infrastructure.',
       points: [
         'Wrap internal APIs as MCP tools with clear descriptions, parameters, and return types',
         'Agents can discover and call these tools without custom integration code',
@@ -481,10 +481,10 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       points: [
         'Opportunity: 10x developer productivity on well-scoped, well-tested tasks',
         'Opportunity: Democratisation — non-engineers can contribute via prompts',
-        'Challenge: Quality assurance at scale — who reviews agent output when there\xe2\x80\x99s too much to read?',
+        'Challenge: Quality assurance at scale — who reviews agent output when there’s too much to read?',
         'Challenge: Knowledge erosion — if agents write all the code, does the team still understand the system?',
       ],
-      tip: 'The biggest risk isn\xe2\x80\x99t bad code — it\xe2\x80\x99s losing the ability to evaluate whether the code is good',
+      tip: 'The biggest risk isn’t bad code — it’s losing the ability to evaluate whether the code is good',
     } as RuleSlideData,
     {
       layout: 'rule',
@@ -493,12 +493,12 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       subtitle: 'Long-running, goal-seeking agents across services',
       mindmapId: 'autonom',
       description:
-        'Autonomous agents operate with minimal human intervention, pursuing high-level goals across multiple services and codebases. They\xe2\x80\x99re the most advanced and highest-risk application of agentic engineering.',
+        'Autonomous agents operate with minimal human intervention, pursuing high-level goals across multiple services and codebases. They’re the most advanced and highest-risk application of agentic engineering.',
       points: [
         'Define success criteria upfront — the agent pursues the goal until criteria are met or a human intervenes',
         'Implement circuit breakers: hard limits on time, cost, files changed, and API calls',
         'Use staged rollout: agent proposes → human approves → agent executes → human verifies',
-        'Log every decision and action for post-mortem analysis — autonomous doesn\xe2\x80\x99t mean opaque',
+        'Log every decision and action for post-mortem analysis — autonomous doesn’t mean opaque',
       ],
       tip: 'Start autonomous agents on low-stakes tasks (docs, tests, dependency updates) before handing them production features',
     } as RuleSlideData,
@@ -517,7 +517,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
         'Fluent in prompt engineering, context engineering, and agent steering — these are their core tools',
         'Owns the full stack: product thinking, implementation via agents, and quality assurance',
       ],
-      tip: 'A Builder doesn\xe2\x80\x99t write all the code — they direct agents that do, with taste and user empathy as their edge',
+      tip: 'A Builder doesn’t write all the code — they direct agents that do, with taste and user empathy as their edge',
     } as RuleSlideData,
     {
       layout: 'rule',
@@ -561,14 +561,14 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       subtitle: 'Observability across agent runs and tool calls',
       mindmapId: 'monitoring',
       description:
-        'You can\xe2\x80\x99t manage what you can\xe2\x80\x99t measure. Agent monitoring tracks cost, latency, error rates, and output quality across every agent session in your organisation.',
+        'You can’t manage what you can’t measure. Agent monitoring tracks cost, latency, error rates, and output quality across every agent session in your organisation.',
       points: [
         'Track tokens consumed, wall-clock time, and cost per agent task; set budgets and alerts',
         'Monitor error rates: how often do agents fail, retry, or produce output that fails review?',
         'Log the full prompt chain for every session — essential for debugging and post-mortems',
         'Build dashboards that show agent utilisation across teams to identify bottlenecks and waste',
       ],
-      tip: 'Start with cost monitoring — it\xe2\x80\x99s the metric leadership understands immediately',
+      tip: 'Start with cost monitoring — it’s the metric leadership understands immediately',
     } as RuleSlideData,
     {
       layout: 'rule',
@@ -582,9 +582,9 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
         'Link every agent-generated commit to the ticket, prompt, and human who initiated it',
         'Use Co-Authored-By headers in commits to mark agent contributions alongside the human sponsor',
         'Store the full prompt and agent response as artefacts alongside the PR',
-        'Ensure review records are immutable — "who approved this agent\xe2\x80\x99s output?" must always be answerable',
+        'Ensure review records are immutable — "who approved this agent’s output?" must always be answerable',
       ],
-      tip: 'Traceability is not overhead — it\xe2\x80\x99s the foundation of trust in an agentic workflow',
+      tip: 'Traceability is not overhead — it’s the foundation of trust in an agentic workflow',
     } as RuleSlideData,
     {
       layout: 'rule',
@@ -609,7 +609,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       subtitle: 'One source of truth for agent behaviour across the company',
       mindmapId: 'central-alignment',
       description:
-        'At enterprise scale, alignment can\xe2\x80\x99t be left to individual teams. A central alignment framework ensures every agent in every team operates within the same guardrails.',
+        'At enterprise scale, alignment can’t be left to individual teams. A central alignment framework ensures every agent in every team operates within the same guardrails.',
       points: [
         'Maintain a company-wide base configuration that all team-level agent configs inherit from',
         'Define non-negotiable constraints centrally: security policies, coding standards, forbidden patterns',
@@ -648,7 +648,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
         'A complete audit trail for agent-initiated changes is non-negotiable in regulated industries. Every change must be traceable from business request to deployed code.',
       points: [
         'Capture the full chain: ticket → prompt → agent session → PR → review → merge → deploy',
-        'Store prompts and agent responses as immutable artefacts — they\xe2\x80\x99re evidence',
+        'Store prompts and agent responses as immutable artefacts — they’re evidence',
         'Tag every commit with the agent model, version, and session ID used to generate it',
         'Generate compliance reports automatically from the audit trail — auditors love structured data',
       ],
@@ -666,7 +666,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
         'Calculate TCO: API costs + tooling licenses + platform engineering time + training + compliance overhead',
         'Measure ROI against concrete baselines: time-to-merge, defect rate, developer satisfaction, onboarding speed',
         'Build the "cost of not adopting" case — competitors using agents ship faster, hire fewer, and iterate more',
-        'Present cost as investment, not expense: "We spend €X/month on agents and save Y engineering hours — that\xe2\x80\x99s Z FTE equivalent"',
+        'Present cost as investment, not expense: "We spend €X/month on agents and save Y engineering hours — that’s Z FTE equivalent"',
       ],
       tip: 'The most compelling metric for leadership: track time-to-merge and defect rate before and after agent adoption',
     } as RuleSlideData,
@@ -683,7 +683,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       points: [
         'Code is now written for two audiences: humans who review it and agents who modify it',
         'Self-documenting code matters more than ever — agents rely on names, structure, and patterns to understand intent',
-        'Institutional knowledge locked in people\xe2\x80\x99s heads is invisible to agents — externalise it',
+        'Institutional knowledge locked in people’s heads is invisible to agents — externalise it',
         'The quality of your codebase directly determines the quality of agent output',
       ],
       tip: "Write code as if the next person reading it has no institutional knowledge — because your agent doesn't",
@@ -697,10 +697,10 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       description:
         'As agents handle more of the mechanical work, the human role shifts from typing code to making judgement calls. Understanding what only you can bring is the key to effective collaboration.',
       points: [
-        'Vision and taste: agents optimise for what you define — they can\xe2\x80\x99t decide what\xe2\x80\x99s worth building',
-        'Ethical judgement: agents have no moral compass — they do what they\xe2\x80\x99re asked, even when they shouldn\xe2\x80\x99t',
-        'User empathy: agents can simulate user behaviour but can\xe2\x80\x99t feel frustration, delight, or confusion',
-        'Accountability: someone must own the decision to ship — an agent can\xe2\x80\x99t be held responsible',
+        'Vision and taste: agents optimise for what you define — they can’t decide what’s worth building',
+        'Ethical judgement: agents have no moral compass — they do what they’re asked, even when they shouldn’t',
+        'User empathy: agents can simulate user behaviour but can’t feel frustration, delight, or confusion',
+        'Accountability: someone must own the decision to ship — an agent can’t be held responsible',
       ],
       tip: 'The better you get at delegation, the more important your judgement becomes',
     } as RuleSlideData,
@@ -708,14 +708,14 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       layout: 'rule',
       number: 'P03',
       title: 'The Knowledge Paradox',
-      subtitle: 'You need to understand what you\xe2\x80\x99re delegating',
+      subtitle: 'You need to understand what you’re delegating',
       mindmapId: 'knowledge-paradox',
       description:
-        'The paradox of agentic engineering: the less you need to write code yourself, the more you need to understand it. Without deep understanding, you can\xe2\x80\x99t evaluate agent output or catch subtle errors.',
+        'The paradox of agentic engineering: the less you need to write code yourself, the more you need to understand it. Without deep understanding, you can’t evaluate agent output or catch subtle errors.',
       points: [
-        'Agents lower the floor (anyone can build) but don\xe2\x80\x99t raise the ceiling (expertise still matters for quality)',
+        'Agents lower the floor (anyone can build) but don’t raise the ceiling (expertise still matters for quality)',
         'Reviewing agent-generated code requires as much skill as writing it — possibly more',
-        'Teams that stop learning the fundamentals become dependent on agents they can\xe2\x80\x99t correct',
+        'Teams that stop learning the fundamentals become dependent on agents they can’t correct',
         'The most effective engineers use agents to amplify their existing knowledge, not replace it',
       ],
       tip: 'Never stop learning the craft — agents are force multipliers, not substitutes for understanding',
@@ -729,12 +729,12 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       description:
         'Generating code is now virtually free. An agent can produce thousands of lines in minutes. But every line you ship becomes a liability — it must be read, understood, tested, debugged, and maintained. The real cost of software was never writing it.',
       points: [
-        'Code is a liability, not an asset — the best code is the code you didn\xe2\x80\x99t write',
+        'Code is a liability, not an asset — the best code is the code you didn’t write',
         'Agents make it dangerously easy to generate more than you can maintain',
         'Deletion is now a core engineering skill — resist the urge to keep everything just because it was cheap to create',
         'The bottleneck has shifted from production to comprehension — can your team still understand the codebase in six months?',
       ],
-      tip: 'Bad code is the most expensive it\xe2\x80\x99s ever been — it inhibits the very productivity gains that AI promises',
+      tip: 'Bad code is the most expensive it’s ever been — it inhibits the very productivity gains that AI promises',
     } as RuleSlideData,
     {
       layout: 'rule',
@@ -743,7 +743,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
       subtitle: 'The role shift that changes everything',
       mindmapId: 'ic-to-orchestrator',
       description:
-        'Agentic coding transforms the engineer\xe2\x80\x99s role from individual contributor to orchestrator. Instead of writing code line by line, you design systems, decompose problems, and coordinate multiple agents. This demands more systems thinking, not less.',
+        'Agentic coding transforms the engineer’s role from individual contributor to orchestrator. Instead of writing code line by line, you design systems, decompose problems, and coordinate multiple agents. This demands more systems thinking, not less.',
       points: [
         'The skill shifts from "how do I implement this?" to "how do I decompose this so agents can implement it well?"',
         'Orchestrators need stronger systems design — you must see the whole board, not just the next move',
@@ -766,7 +766,7 @@ export const TIER_SLIDES: Record<TierId, RuleSlideData[]> = {
         'More features ≠ better product — each one adds surface area for bugs, support burden, and user confusion',
         'The new discipline is not prioritisation by effort, but prioritisation by value, because effort is approaching zero',
       ],
-      tip: 'Just because an agent can build it overnight doesn\xe2\x80\x99t mean your users need it — the hardest skill is saying no when building is free',
+      tip: 'Just because an agent can build it overnight doesn’t mean your users need it — the hardest skill is saying no when building is free',
     } as RuleSlideData,
   ],
 };
