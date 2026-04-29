@@ -285,6 +285,25 @@ export function Presentation() {
         <ShareButton onShare={share} copied={copied} />
       </div>
 
+      <a
+        href="https://posterus.ventures/imprint"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="print-hide"
+        style={{
+          position: 'fixed',
+          bottom: 10,
+          right: 14,
+          fontSize: '0.7rem',
+          color: theme.textMuted,
+          opacity: 0.5,
+          textDecoration: 'none',
+          zIndex: 20,
+        }}
+      >
+        Impressum
+      </a>
+
       {/* Slide */}
       <main
         key={current}

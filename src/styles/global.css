@@ -404,6 +404,9 @@
   .scaleup-list {
     grid-template-columns: 1fr !important;
   }
+  .scaleup-team-grid {
+    grid-template-columns: 1fr !important;
+  }
   .scaleup-title {
     font-size: 2.35rem !important;
   }
@@ -412,5 +415,13 @@
   }
   .scaleup-band {
     padding: 18px !important;
+  }
+  .scaleup-highlight-card,
+  .scaleup-risk-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .scaleup-risk-card {
+    grid-template-columns: 1fr !important;
   }
 }

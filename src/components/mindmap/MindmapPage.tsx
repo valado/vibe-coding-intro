@@ -175,6 +175,24 @@ export function MindmapPage() {
 
       {showAuthor && <AuthorModal onClose={() => setShowAuthor(false)} />}
       {showDiscount && <DiscountModal onClose={() => setShowDiscount(false)} />}
+
+      <a
+        href="https://posterus.ventures/imprint"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: 'fixed',
+          bottom: 10,
+          right: 14,
+          fontSize: '0.7rem',
+          color: theme.textMuted,
+          opacity: 0.5,
+          textDecoration: 'none',
+          zIndex: 20,
+        }}
+      >
+        Impressum
+      </a>
     </div>
   );
 }

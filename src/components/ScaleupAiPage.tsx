@@ -2,12 +2,15 @@ import {
   AlertTriangle,
   Bot,
   CheckCircle2,
+  ExternalLink,
   ClipboardCheck,
+  Gift,
   GitBranch,
   Layers3,
   LineChart,
   LinkedinIcon,
   LockKeyhole,
+  MessageCircle,
   Map,
   Network,
   Presentation,
@@ -18,6 +21,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../theme/useTheme';
+import { ThemeToggle } from './ui/ThemeToggle';
 
 const offerPillars = [
   {
@@ -58,6 +62,7 @@ const outcomes = [
   'Guardrail and governance templates to take back',
   'Clarity on risks, tradeoffs, and sequencing',
   'Peer connections with other technical leaders',
+  'An agent to guide you through the rollout',
 ];
 
 const formatSteps = [
@@ -154,6 +159,17 @@ export function ScaleupAiPage() {
 
       <div
         style={{
+          position: 'fixed',
+          top: 14,
+          right: 16,
+          zIndex: 30,
+        }}
+      >
+        <ThemeToggle />
+      </div>
+
+      <div
+        style={{
           position: 'relative',
           maxWidth: 1120,
           margin: '0 auto',
@@ -201,7 +217,7 @@ export function ScaleupAiPage() {
                 color: theme.text,
               }}
             >
-              Agentic Engineering for Technical Leaders
+              Agentic Engineering for (Technical) Leaders
             </h1>
             <p
               style={{
@@ -213,7 +229,7 @@ export function ScaleupAiPage() {
               }}
             >
               A focused half-day workshop for CTOs, technical founders, and senior engineering
-              leaders navigating the shift to AI-assisted development — run as a side event at the
+              leaders navigating the shift to AI-assisted development — run as a side event at a
               conference.
             </p>
             <div
@@ -233,7 +249,7 @@ export function ScaleupAiPage() {
                 style={ctaStyle}
               >
                 <LinkedinIcon size={17} />
-                Reach out on LinkedIn
+                Reach out
               </a>
               <span style={{ color: theme.textMuted, fontSize: '0.9rem', lineHeight: 1.5 }}>
                 Small groups. Peer-level conversation. Practical takeaways.
@@ -281,6 +297,77 @@ export function ScaleupAiPage() {
               quality, security exposure, review bottlenecks, and knowledge erosion.
             </p>
           </aside>
+        </section>
+
+        {/* Session highlights: Codex access + Q&A */}
+        <section
+          style={{
+            marginTop: 24,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: 14,
+          }}
+        >
+          <div
+            className="scaleup-highlight-card"
+            style={{
+              display: 'flex',
+              gap: 16,
+              alignItems: 'flex-start',
+              padding: '18px 20px',
+              borderRadius: 8,
+              border: `1px solid ${theme.accentBorder}`,
+              background: theme.accentSoft,
+            }}
+          >
+            <Gift size={22} style={{ color: theme.accent, flexShrink: 0, marginTop: 2 }} />
+            <div>
+              <p style={{ color: theme.text, fontWeight: 700, fontSize: '0.96rem' }}>
+                All participants get access to Codex
+              </p>
+              <p
+                style={{
+                  color: theme.textMuted,
+                  fontSize: '0.85rem',
+                  lineHeight: 1.55,
+                  marginTop: 5,
+                }}
+              >
+                Every attendee receives access to OpenAI Codex — provided by OpenAI — to use during
+                and after the session.
+              </p>
+            </div>
+          </div>
+          <div
+            className="scaleup-highlight-card"
+            style={{
+              display: 'flex',
+              gap: 16,
+              alignItems: 'flex-start',
+              padding: '18px 20px',
+              borderRadius: 8,
+              border: `1px solid ${theme.border}`,
+              background: theme.surface,
+            }}
+          >
+            <MessageCircle size={22} style={{ color: theme.accent, flexShrink: 0, marginTop: 2 }} />
+            <div>
+              <p style={{ color: theme.text, fontWeight: 700, fontSize: '0.96rem' }}>
+                Bring Your Problem — Open Q&amp;A
+              </p>
+              <p
+                style={{
+                  color: theme.textMuted,
+                  fontSize: '0.85rem',
+                  lineHeight: 1.55,
+                  marginTop: 5,
+                }}
+              >
+                We've planned dedicated time for open Q&amp;A. Come with a real problem, a
+                half-baked idea, or a burning question — we'll work through it together.
+              </p>
+            </div>
+          </div>
         </section>
 
         <section className="scaleup-section s3" style={{ marginTop: 34 }}>
@@ -435,6 +522,7 @@ export function ScaleupAiPage() {
             {risks.map((risk) => (
               <article
                 key={risk.title}
+                className="scaleup-risk-card"
                 style={{
                   borderRadius: 8,
                   border: `1px solid ${theme.border}`,
@@ -600,11 +688,119 @@ export function ScaleupAiPage() {
           </article>
         </section>
 
+        {/* Team / hosts */}
+        <section style={{ marginTop: 24 }}>
+          <p
+            style={{
+              color: theme.accent,
+              fontSize: '0.78rem',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              marginBottom: 14,
+            }}
+          >
+            The team
+          </p>
+          <div
+            className="scaleup-team-grid"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+              gap: 14,
+            }}
+          >
+            {[
+              {
+                name: 'Anna Arteeva',
+                role: 'Product Design Leader',
+                url: 'https://www.linkedin.com/in/annaarteeva/',
+              },
+              {
+                name: 'Paul Leibssle',
+                role: 'Full-stack Marketer',
+                url: 'https://www.linkedin.com/in/leibssle/',
+              },
+              {
+                name: 'Vlad Daskalov',
+                role: 'Chief AI Officer @ Auxilius.ai',
+                url: 'https://www.linkedin.com/in/v11d/',
+              },
+              {
+                name: 'Tilman Resch',
+                role: 'GTM @ OpenAI',
+                url: 'https://www.linkedin.com/in/tilman-resch/',
+              },
+            ].map((person) => (
+              <article
+                key={person.name}
+                style={{
+                  borderRadius: 8,
+                  border: `1px solid ${theme.border}`,
+                  background: theme.surface,
+                  padding: '18px 20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 16,
+                }}
+              >
+                <div
+                  style={{
+                    width: 46,
+                    height: 46,
+                    borderRadius: '50%',
+                    background: theme.accentSoft,
+                    border: `1.5px solid ${theme.accentBorder}`,
+                    display: 'grid',
+                    placeItems: 'center',
+                    fontSize: '1.1rem',
+                    fontWeight: 900,
+                    color: theme.accent,
+                    flexShrink: 0,
+                  }}
+                >
+                  {person.name.charAt(0)}
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ color: theme.text, fontWeight: 800, fontSize: '0.96rem' }}>
+                    {person.name}
+                  </p>
+                  <p style={{ color: theme.textMuted, fontSize: '0.83rem', marginTop: 3 }}>
+                    {person.role}
+                  </p>
+                </div>
+                <a
+                  href={person.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '7px 14px',
+                    borderRadius: 7,
+                    border: `1px solid ${theme.accentBorder}`,
+                    background: theme.accent,
+                    color: '#fff',
+                    textDecoration: 'none',
+                    fontWeight: 600,
+                    fontSize: '0.82rem',
+                    flexShrink: 0,
+                  }}
+                >
+                  <LinkedinIcon size={14} style={{ color: '#fff' }} />
+                  LinkedIn
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section
           style={{
             marginTop: 30,
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
+            gridTemplateColumns: '1fr 1fr',
             gap: 14,
           }}
         >
@@ -631,44 +827,6 @@ export function ScaleupAiPage() {
           </div>
           <Link
             to="/"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 10,
-              padding: 18,
-              borderRadius: 8,
-              border: `1px solid ${theme.border}`,
-              background: theme.surface,
-              textDecoration: 'none',
-            }}
-          >
-            <Presentation size={20} style={{ color: theme.accent }} />
-            <p style={{ color: theme.text, fontSize: '0.96rem', fontWeight: 700 }}>Slides</p>
-            <p style={{ color: theme.textMuted, fontSize: '0.84rem', lineHeight: 1.5 }}>
-              Step through the full Agentic Coding Journey presentation at your own pace.
-            </p>
-          </Link>
-          <Link
-            to="/mindmap"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 10,
-              padding: 18,
-              borderRadius: 8,
-              border: `1px solid ${theme.border}`,
-              background: theme.surface,
-              textDecoration: 'none',
-            }}
-          >
-            <Map size={20} style={{ color: theme.accent }} />
-            <p style={{ color: theme.text, fontSize: '0.96rem', fontWeight: 700 }}>Content overview</p>
-            <p style={{ color: theme.textMuted, fontSize: '0.84rem', lineHeight: 1.5 }}>
-              Explore the full topic map — rules, concepts, and practices — in an interactive mindmap.
-            </p>
-          </Link>
-          <a
-            href="https://www.linkedin.com/in/v11d/"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -680,14 +838,64 @@ export function ScaleupAiPage() {
               border: `1px solid ${theme.accentBorder}`,
               background: theme.accentSoft,
               textDecoration: 'none',
+              cursor: 'pointer',
+              transition: 'box-shadow 0.18s, transform 0.18s',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.boxShadow = `0 4px 20px ${theme.accentGlow}`;
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
             }}
           >
-            <LinkedinIcon size={20} style={{ color: theme.accent }} />
-            <p style={{ color: theme.text, fontSize: '0.96rem', fontWeight: 700 }}>Reach out on LinkedIn</p>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Presentation size={20} style={{ color: theme.accent }} />
+              <ExternalLink size={16} style={{ color: theme.accent }} />
+            </div>
+            <p style={{ color: theme.text, fontSize: '0.96rem', fontWeight: 700 }}>Slides</p>
             <p style={{ color: theme.textMuted, fontSize: '0.84rem', lineHeight: 1.5 }}>
-              Interested in joining the next workshop? Get in touch directly.
+              Step through the full Agentic Coding Journey presentation at your own pace.
             </p>
-          </a>
+          </Link>
+          <Link
+            to="/mindmap"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 10,
+              padding: 18,
+              borderRadius: 8,
+              border: `1px solid ${theme.accentBorder}`,
+              background: theme.accentSoft,
+              textDecoration: 'none',
+              cursor: 'pointer',
+              transition: 'box-shadow 0.18s, transform 0.18s',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.boxShadow = `0 4px 20px ${theme.accentGlow}`;
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Map size={20} style={{ color: theme.accent }} />
+              <ExternalLink size={16} style={{ color: theme.accent }} />
+            </div>
+            <p style={{ color: theme.text, fontSize: '0.96rem', fontWeight: 700 }}>
+              Content overview
+            </p>
+            <p style={{ color: theme.textMuted, fontSize: '0.84rem', lineHeight: 1.5 }}>
+              Explore the full topic map — rules, concepts, and practices — in an interactive
+              mindmap. This event focuses only on the 'Scaling Org'
+            </p>
+          </Link>
         </section>
 
         <section
@@ -728,10 +936,28 @@ export function ScaleupAiPage() {
             style={ctaStyle}
           >
             <LinkedinIcon size={17} />
-            Reach out on LinkedIn
+            Reach out
           </a>
         </section>
       </div>
+
+      <a
+        href="https://posterus.ventures/imprint"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: 'fixed',
+          bottom: 10,
+          right: 14,
+          fontSize: '0.7rem',
+          color: theme.textMuted,
+          opacity: 0.5,
+          textDecoration: 'none',
+          zIndex: 20,
+        }}
+      >
+        Impressum
+      </a>
     </main>
   );
 }
