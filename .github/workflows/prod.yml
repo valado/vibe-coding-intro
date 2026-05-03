@@ -3,6 +3,7 @@ name: CI-PROD
 env:
   S3_BUCKET: 'vibe-coding-guide'
   DISTRIBUTION_ID: 'E16RNQSPALW8O0'
+  DISTRIBUTION_ID2: 'E1Z8D54Q7DK129'
   AWS_DEFAULT_REGION: eu-central-1
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -36,3 +37,4 @@ jobs:
     needs: [build]
     steps:
       - run: aws cloudfront create-invalidation --distribution-id ${{ env.DISTRIBUTION_ID }} --paths "/*"
+      - run: aws cloudfront create-invalidation --distribution-id ${{ env.DISTRIBUTION_ID2 }} --paths "/*"
