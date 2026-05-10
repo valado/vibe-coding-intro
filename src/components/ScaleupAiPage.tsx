@@ -156,6 +156,7 @@ export function ScaleupAiPage() {
           pointerEvents: 'none',
         }}
       />
+      <div className="scaleup-noise-bg" />
 
       <div
         style={{

@@ -1,0 +1,483 @@
+{
+  "sessions": [
+    {
+      "id": "session-1",
+      "title": "Session 1 — Working With Existing Codebases",
+      "subtitle": "Collaborating with developers & contributing to production",
+      "slides": [
+        {
+          "id": "session-arc",
+          "title": "The Throughline",
+          "subtitle": "Non-engineers can now contribute to production. The question is how to do it without creating more work for engineers than you save.",
+          "points": [
+            "Real use cases — not demos that impress but don't ship",
+            "Connect to the tools your team already lives in",
+            "Design for reliability, not just the happy path",
+            "Navigate a codebase and work with Claude Code",
+            "Get your dev team on board and hand off cleanly"
+          ]
+        },
+        {
+          "id": "s1-forget-prompts",
+          "title": "Forget Perfect Prompts",
+          "subtitle": "The goal isn't a perfect sentence — it's a rich, relevant context",
+          "points": [
+            "A great prompt is not about syntax — it's about giving the model what it needs to do outstanding work",
+            "Best employee metaphor: you don't explain every task from scratch to your best employee — they're context-aware and need one sentence, not a manual",
+            "Context curation is the skill — deciding what information matters and surfacing it at the right moment",
+            "Prompt engineering is temporary; context engineering compounds over time"
+          ],
+          "tip": "You don't write better prompts. You build better context."
+        },
+        {
+          "id": "s1-context-size",
+          "title": "Context Size Matters",
+          "subtitle": "More isn't better — past ~30% of the window, performance degrades",
+          "points": [
+            "Context windows are large, but technically available space ≠ usable space",
+            "Beyond roughly 30% fill, models produce significantly poorer output and start to drift — this is context rot",
+            "Context rot: the model loses track of earlier instructions, contradicts itself, or ignores constraints",
+            "Curate aggressively: remove noise, keep signal, start fresh sessions rather than letting context decay"
+          ],
+          "tip": "If output quality is drifting mid-session, start fresh — don't keep adding context on top of rot."
+        },
+        {
+          "id": "s1-onboarding-model",
+          "title": "Onboard Your Model Like a New Team Member",
+          "subtitle": "Provide context as if you're briefing someone excellent — not instructing a tool",
+          "points": [
+            "A new team member needs: what the project is, the standards, what not to touch, and why decisions were made",
+            "Give the model the same — project goals, constraints, conventions, known edge cases",
+            "CLAUDE.md is your onboarding doc: written once, read at the start of every session",
+            "The more relevant context you give upfront, the less correction you need mid-session"
+          ],
+          "tip": "Write your CLAUDE.md for a brilliant engineer who's never seen your codebase. That's your target reader."
+        },
+        {
+          "id": "s1-right-tools",
+          "title": "Using the Right Tool",
+          "subtitle": "The model is one layer. Sub-agents, skills, MCP, RAG, and memory are the leverage.",
+          "points": [
+            "Sub-agents: parallel tasks, isolated context, specialised roles — work done concurrently without context bloat",
+            "Skills / Slash commands: repeatable workflows triggered by a single phrase — your automation layer",
+            "MCP (Model Context Protocol): give the model live access to tools — databases, APIs, file systems — at call time",
+            "RAG (Retrieval-Augmented Generation): inject relevant external knowledge exactly when needed, not by default",
+            "Graph / Memory: persistent state across sessions — the model remembers what matters between conversations"
+          ],
+          "tip": "Most prompts are the wrong level of abstraction. Ask: should this be a sub-agent? A skill? A tool call?"
+        },
+        {
+          "id": "s1-subagents",
+          "title": "Sub-Agents: Your AI Team",
+          "subtitle": "Don't run everything through one conversation — parallelise and specialise",
+          "points": [
+            "A sub-agent is a separate model call with its own context, task, and output — a fresh mind on a focused problem",
+            "Use them for: parallel workstreams, isolated tasks, specialised roles (researcher, writer, reviewer, coder)",
+            "Orchestrator → sub-agent pattern: the main session delegates; sub-agents execute independently",
+            "Each sub-agent gets a focused context — no context rot, no drift, no contamination from other threads"
+          ],
+          "tip": "Think of sub-agents as team members you brief individually — not one person you overload with everything."
+        },
+        {
+          "id": "wow-demo-trap",
+          "title": "The Wow Demo Trap",
+          "subtitle": "Most agent demos are impressive and useless",
+          "points": [
+            "They show a capability without answering: does this solve a real problem, often enough to be worth maintaining?",
+            "Theatre: an agent that summarises a Slack thread on demand",
+            "Real: an agent that creates a Jira ticket from a Slack message, routes it, and pings after 48 hours",
+            "The difference isn't technical complexity — it's whether the automation removes friction people actually felt"
+          ],
+          "tip": "If nobody was complaining about doing it manually before, automating it produces nothing."
+        },
+        {
+          "id": "use-case-tests",
+          "title": "What Makes a Use Case Real",
+          "subtitle": "Three tests before you build",
+          "points": [
+            "Frequency — Does this happen at least weekly? Automation compounds; rare tasks don't justify maintenance cost",
+            "Pain — Does someone actually dread doing this manually?",
+            "Determinism — Can you define what 'correct' looks like? If every output needs judgment, you're shifting work, not removing it",
+            "Reversibility — How bad is a mistake? High stakes → add a human approval step"
+          ],
+          "tip": "High frequency + high pain + high determinism = build it first."
+        },
+        {
+          "id": "ops-glue",
+          "title": "The Ops Glue Category",
+          "subtitle": "The highest-value use cases for non-technical teams",
+          "points": [
+            "Automations that connect tools teams already use — moving data and triggering actions between them",
+            "New form submission (Typeform) → structured Jira ticket with auto-assigned labels",
+            "Notion status → 'Ready for Review' → Slack notification with a summary",
+            "Weekly Sheets data → automated Notion report with commentary",
+            "These aren't glamorous. They compound every week. They catch what falls through the cracks."
+          ]
+        },
+        {
+          "id": "integration-stack",
+          "title": "Start Where Teams Already Are",
+          "subtitle": "The fastest path to adoption is zero migration",
+          "points": [
+            "If your team lives in Notion, Sheets, Jira, and Slack — those are your integration points",
+            "Make (formerly Integromat): visual workflow builder, 1000+ app connections, no code required — the right default",
+            "Zapier: simpler, fewer capabilities, good for very simple one-step automations",
+            "Claude API via Make/Zapier: add AI reasoning to any automation — classify, summarise, draft, decide"
+          ],
+          "tip": "Every automation that requires teams to change their tools will be adopted slowly or not at all."
+        },
+        {
+          "id": "integration-patterns",
+          "title": "Four Integration Patterns",
+          "subtitle": "Most ops automation fits one of these",
+          "points": [
+            "Capture → Classify → Route: incoming data → Claude classifies → sent to the right place (Jira, Slack, Notion)",
+            "Status change → Notify + Summarise: something changes → Claude writes a human-readable summary → notification",
+            "Scheduled synthesis: every Monday at 9am → pull Sheets data → Claude writes a summary → post to Notion + Slack",
+            "Threshold trigger: metric crosses a value → agent drafts a response or creates a task"
+          ]
+        },
+        {
+          "id": "silent-failures",
+          "title": "Why Most Automations Quietly Break",
+          "subtitle": "Silent failures are more dangerous than loud ones",
+          "points": [
+            "Loud: error thrown, workflow stops, someone notices",
+            "Silent: workflow runs, produces wrong output, nobody checks for weeks",
+            "Design against silent failure first — failing loudly is better than failing quietly",
+            "Every automation needs an answer to: what happens when it fails?"
+          ],
+          "tip": "For consequential automations: add a dry run mode and a human approval step before going live."
+        },
+        {
+          "id": "monitoring",
+          "title": "Monitoring Your Automations",
+          "subtitle": "Treat them like a product — they need observability",
+          "points": [
+            "Log every run: timestamp, input, output, status (success/fail) — a Sheets tab works fine",
+            "A Slack alert for any failure — Make has a built-in error handler, use it",
+            "Weekly review of the log — are failures increasing? Is output quality drifting?",
+            "Schedule 30 min/month to review your top 3 automations — most problems surface here before they become incidents"
+          ]
+        },
+        {
+          "id": "terminal-basics",
+          "title": "Terminal Basics",
+          "subtitle": "You don't need to master it — you need to stop fearing it",
+          "points": [
+            "The terminal is a text interface to your filesystem and running programs. That's it.",
+            "pwd (where am I), ls (what's here), cd foldername (move around), cat file.txt (read a file)",
+            "git status (what changed), git log (recent commits), git diff (exactly what changed), git pull (sync latest)",
+            "Reading errors: read the last line first, look for file names and line numbers, paste the full output into Claude"
+          ],
+          "tip": "Commands are just programs. You run them by typing their name."
+        },
+        {
+          "id": "navigating-codebases",
+          "title": "Navigating an Unfamiliar Repo",
+          "subtitle": "Most codebases follow conventions — learn the conventions",
+          "points": [
+            "Start with: README.md (what is this), package.json (what tools/scripts exist), src/ (where code lives)",
+            "VS Code Cmd+Shift+F: search text across the whole codebase. Cmd+P: find files by name.",
+            "Before touching anything: branch first (git checkout -b my-change), read the file, make one change at a time",
+            "Ask Claude Code: 'Give me a tour of this repo structure and explain what the main parts do'"
+          ],
+          "tip": "A PM who can read the codebase is worth more to an engineering team than one who can write a bit of code without understanding the system."
+        },
+        {
+          "id": "claude-code",
+          "title": "Claude Code as Your Engineering Partner",
+          "subtitle": "An AI coding assistant with access to your actual files",
+          "points": [
+            "Unlike chat, Claude Code reads your codebase directly — no copy-pasting code in and out",
+            "Can read, explain, and edit files; fix bugs from error messages; run commands and tests",
+            "Weak prompt: 'Fix the login page'",
+            "Strong prompt: describe the current behaviour, the expected behaviour, and any constraints — then Claude Code can execute it"
+          ],
+          "tip": "The more consequential the change, the more you need to understand what Claude did — not just that it did it."
+        },
+        {
+          "id": "dev-team",
+          "title": "Getting Your Dev Team on Board",
+          "subtitle": "Don't confirm the scepticism — don't give them a reason to",
+          "points": [
+            "Developers are sceptical because AI-generated code often creates rework — that's rational, not hostile",
+            "They want: a clear problem description, context on why it matters, scope boundaries, and validation",
+            "Write the spec before you build the prototype — show you can articulate the problem first",
+            "Label prototype quality honestly: 'This is a proof of concept. I expect the real implementation to look different.'"
+          ],
+          "tip": "The PM who brings a well-structured problem with user evidence is infinitely more useful than one who brings a prototype that sort-of works."
+        },
+        {
+          "id": "handoff",
+          "title": "Preparing for Engineering Handoff",
+          "subtitle": "The most useful artifact is not polished code",
+          "points": [
+            "What this does (1–2 sentences, user perspective) + the problem it solves with evidence",
+            "Key decisions made and why + what was explicitly not solved (scope boundary)",
+            "Known weaknesses and shortcuts + open questions for engineering",
+            "CLAUDE.md in your repo is your best handoff doc — precise, unambiguous language engineers can act on"
+          ],
+          "tip": "Before handoff: remove hardcoded credentials, replace placeholder data, record a Loom walkthrough — more useful than any written doc."
+        },
+        {
+          "id": "takeaways",
+          "title": "Key Takeaways",
+          "subtitle": "What to carry out of this session",
+          "points": [
+            "Ops glue — connecting tools teams already use — is the highest-value, lowest-risk automation category",
+            "Design every automation for silent failure. Log everything. Alert on errors. Review monthly.",
+            "Context is the product — curating what you give the model beats crafting the perfect prompt every time",
+            "Past ~30% context fill, quality degrades — start fresh rather than letting sessions drift into context rot",
+            "Non-engineers who can read code are more valuable to dev teams than ones who can write a little of it",
+            "The highest-value handoff artifact is a clear problem definition with evidence — not polished code"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "session-2",
+      "title": "Session 2 — Validate Like a PM, Ship Like an Engineer",
+      "subtitle": "Analytics, behaviour tracking, validation, and AI-assisted product decisions",
+      "slides": [
+        {
+          "id": "s2-arc",
+          "title": "The Throughline",
+          "subtitle": "Building is now cheap. Validation is the bottleneck.",
+          "points": [
+            "AI makes execution faster and cheaper — which means the quality of your decisions matters more, not less",
+            "Bad decisions just ship faster. This session is about raising decision quality while moving at AI speed.",
+            "What to measure → How to measure it → How fast to move",
+            "What questions to ask → What traps to avoid → How to find demand you can't see yet"
+          ]
+        },
+        {
+          "id": "s2-analytics",
+          "title": "Outcome vs. Behaviour Metrics",
+          "subtitle": "The insight is in the behaviour, not the outcome",
+          "points": [
+            "Outcome metrics tell you what happened — conversion, retention, revenue",
+            "Behaviour metrics tell you why — the sequence of actions that led to the outcome",
+            "Analytics tells you what users did. It doesn't tell you what they wanted to do but couldn't.",
+            "The gap between 'what users do' and 'what users want' is where product decisions live"
+          ],
+          "tip": "Instrument before you ship. The first week of data — often the most important — is gone if you add tracking retroactively."
+        },
+        {
+          "id": "s2-instrument",
+          "title": "What to Instrument",
+          "subtitle": "Five categories that cover most product insight",
+          "points": [
+            "Entry points — how did they arrive? (channel, referrer, campaign)",
+            "Activation events — the first action that correlates with long-term retention",
+            "Friction points — where do users stop, slow down, or retry?",
+            "Feature usage — which features are actually used, by whom, how often",
+            "Exit events — the last action before churning"
+          ]
+        },
+        {
+          "id": "s2-ai-telemetry",
+          "title": "Behaviour Tracking in AI Products",
+          "subtitle": "Traditional analytics misses what matters most",
+          "points": [
+            "Query tracking — what are users asking the agent? What categories emerge?",
+            "Rephrasing attempts — how many times does a user restate the same request? (= friction signal)",
+            "Fallback-to-manual — when does AI fail and the user does it themselves?",
+            "Abandonment after AI response — user got an answer and left; was it useful or useless?"
+          ],
+          "tip": "These signals are invisible to traditional analytics but are the richest source of product insight in AI products."
+        },
+        {
+          "id": "s2-validation-ladder",
+          "title": "The Validation Ladder",
+          "subtitle": "Reducing uncertainty before committing resources",
+          "points": [
+            "Belief → the assumption behind your current decision",
+            "Hypothesis → the testable version of that belief",
+            "Signal → the cheapest evidence that would update your belief",
+            "Conviction → enough evidence to commit resources"
+          ],
+          "tip": "AI accelerates every step of this ladder — but it doesn't replace the thinking at each level."
+        },
+        {
+          "id": "s2-ai-validation",
+          "title": "Using AI in Validation Workflows",
+          "subtitle": "Synthesis, hypothesis generation, and interview analysis at scale",
+          "points": [
+            "Generating hypotheses: 'What are 5 assumptions we haven't validated? Which is most likely to be wrong?'",
+            "Synthesising qualitative data: upload interview transcripts → cluster themes, surface contradictions",
+            "Paste support tickets → identify top friction points and unexpected use cases",
+            "Interview analysis: feed transcripts to Claude — 'What did users say that surprised them? What workarounds are they using?'"
+          ]
+        },
+        {
+          "id": "s2-speed-rigor",
+          "title": "Speed vs. Rigor",
+          "subtitle": "A function of reversibility and stakes — not a values debate",
+          "points": [
+            "Fast and wrong is expensive. Slow and right is also expensive.",
+            "Ask two questions: How reversible is this decision? What breaks if you're wrong?",
+            "Reversible + low stakes → ship fast and learn. Irreversible + high stakes → high rigor, no shortcuts.",
+            "Shared language with engineering: 'This is a Category 1 — ship dirty and measure. That one is Category 3 — slow down.'"
+          ],
+          "tip": "'If I'm wrong about this, how long does it take to undo it and what does it cost?' — If the answer is 'a day and nothing', ship."
+        },
+        {
+          "id": "s2-three-categories",
+          "title": "Three Decision Categories",
+          "subtitle": "Calibrate rigor to the type of decision",
+          "points": [
+            "Category 1 — Latency-sensitive: landing page copy, onboarding flow, UI variations. Ship fast, learn fast.",
+            "Category 2 — Trust-sensitive: agents acting on behalf of users, health/legal advice, personal data. Validate before shipping.",
+            "Category 3 — Infrastructure: data model, auth architecture, agent orchestration, API contracts. High rigor, slow down.",
+            "Category 3 decisions are irreversible in practice — 'quick and dirty' here creates years of debt"
+          ]
+        },
+        {
+          "id": "s2-pm-superpower",
+          "title": "The PM Superpower",
+          "subtitle": "AI handles the how. You own the what.",
+          "points": [
+            "AI can synthesise interviews, analyse data, generate hypotheses, A/B test copy, and prototype in hours",
+            "What AI cannot do: decide which beliefs are worth testing and in what order",
+            "That judgment — what to validate next — is the highest-leverage PM skill in the agent era",
+            "Level 1: What do we believe? Level 2: What would disprove it? Level 3: What's the cheapest test?"
+          ]
+        },
+        {
+          "id": "s2-uncomfortable-questions",
+          "title": "The Uncomfortable Question Protocol",
+          "subtitle": "The best validation question is the one you don't want to ask",
+          "points": [
+            "'Do you actually need this feature, or would you just use it if it existed?'",
+            "'If this product went away tomorrow, what would you do instead?'",
+            "'Would you pay for this if it wasn't free?'",
+            "'Have you ever actually used the feature we're building around?'"
+          ],
+          "tip": "For every major product decision: state the belief explicitly, then ask the question you least want users to answer honestly — and ask that question."
+        },
+        {
+          "id": "s2-antipatterns",
+          "title": "Anti-patterns: Using AI to Confirm What You Already Believe",
+          "subtitle": "AI is helpful and agreeable by default — if you prompt with your conclusion baked in, you'll get confirmation",
+          "points": [
+            "The leading prompt: 'Our users really value speed — suggest ways to highlight it.' Fix: ask what users care about, then test the assumption.",
+            "Survivorship bias: AI pattern-matches to successful products, not your specific users and market",
+            "Validating the wrong assumption: users said they want it, but won't change their workflow to get it",
+            "Moving fast past uncomfortable signals: running a test and ignoring a slightly negative result"
+          ],
+          "tip": "Define your decision rule before running the test. Write it down. Hold to it."
+        },
+        {
+          "id": "s2-red-teaming",
+          "title": "Red-Teaming Your Product with AI",
+          "subtitle": "If an AI conversation isn't challenging your assumptions, something is wrong",
+          "points": [
+            "Pre-mortem: 'Imagine it's 6 months from now. This feature failed. What happened?'",
+            "Failed user narrative: 'You are a user who tried this and stopped after 2 weeks. Walk me through what happened.'",
+            "Contrarian investor: 'You are an investor who passed on funding this. What was your reasoning?'",
+            "Explicit pushback: 'What's the strongest case against this?' or 'Argue against this feature decision.'"
+          ]
+        },
+        {
+          "id": "s2-latent-demand",
+          "title": "Latent Demand in the Agent Era",
+          "subtitle": "Demand suppressed by friction, unfamiliarity, or lack of vocabulary",
+          "points": [
+            "When agents drop friction 10x: tasks that were 'not worth it' become trivial, problems users learned to live with become solvable",
+            "Signal types: awkward asks, edge-case workarounds, unexpected usage patterns, 'Can it also...?' questions",
+            "The question you're not letting users ask is the question that will reveal latent demand",
+            "Anti-pattern: building only for expressed demand — nobody asked for the iPod; they wanted 1000 songs in their pocket"
+          ]
+        },
+        {
+          "id": "s2-ai-product-design",
+          "title": "AI-First Product Design Patterns",
+          "subtitle": "When execution is near-free, the product assumptions change",
+          "points": [
+            "The 10x friction question: 'What would our users do with this if it was 10x faster and 10x cheaper?'",
+            "Designing for delegation, not just automation — user hands off judgment, not just a task",
+            "Confirmation steps: show the plan before execution, especially for irreversible actions",
+            "Interrupt points, trust calibration, explainability on demand: 'Why did you do that?' should always have an answer"
+          ]
+        },
+        {
+          "id": "s2-design-system-why",
+          "title": "Why a Design System?",
+          "subtitle": "AI writes UI fast. Without a design system, inconsistency compounds just as fast.",
+          "points": [
+            "Without a design system, AI-generated UI diverges with every new feature — different spacing, different patterns, different names for the same thing",
+            "With a design system, every component is predictable, composable, and correct by default",
+            "Design systems reduce the decision surface for AI agents — fewer wrong choices, fewer hallucinated patterns",
+            "A well-documented component library is prompt-ready: the agent knows exactly what exists and how to use it"
+          ],
+          "tip": "A design system is now as much infrastructure for AI agents as it is for human developers."
+        },
+        {
+          "id": "s2-foundation",
+          "title": "MUI or shadcn/ui?",
+          "subtitle": "Both are production-grade and agent-friendly — the choice is about philosophy",
+          "points": [
+            "MUI (Material UI): comprehensive, opinionated, Google Material Design — extensive props, great TypeScript support, rapid development",
+            "shadcn/ui: copy-paste components built on Radix + Tailwind — fully customisable, you own the code, no version lock-in",
+            "MUI: faster to start, steeper to customise to a unique brand; shadcn: full control, slightly more initial setup",
+            "Both are actively maintained, accessible at their core, and familiar to AI agents trained on public documentation"
+          ],
+          "tip": "Full brand control and ownership → shadcn/ui. Speed and coverage → MUI. Both compound well over time."
+        },
+        {
+          "id": "s2-storybook",
+          "title": "Storybook: Your Living Documentation",
+          "subtitle": "Every component, isolated, tested, and described — for humans and for agents",
+          "points": [
+            "Storybook renders components in isolation — outside your app, without side effects, in every possible state",
+            "Each story = one state of one component: default, loading, error, empty, disabled, with long text",
+            "Stories serve as both visual tests and specifications — if it's in Storybook, it's documented behaviour",
+            "Agents can use Storybook stories as context: the full prop surface and every state, without reading source code",
+            "Storybook a11y addon runs axe-core on every story automatically — accessibility regressions caught at the component level"
+          ],
+          "tip": "A component without a Storybook story isn't a component — it's a guess. Agents will guess wrong."
+        },
+        {
+          "id": "s2-a11y",
+          "title": "Accessibility for the EU",
+          "subtitle": "EAA 2025 mandates WCAG 2.1 AA compliance — legal requirement, not best practice",
+          "points": [
+            "EU Accessibility Act (EAA) came into force June 2025 — most digital products serving EU users must comply",
+            "WCAG 2.1 AA: keyboard navigation, screen reader support, colour contrast ratios, focus management, no motion traps",
+            "Radix UI (under shadcn/ui) handles the hard parts: ARIA roles, focus traps, keyboard events, announcements — out of the box",
+            "MUI has deep a11y investment: every component ships with correct ARIA and keyboard behaviour by default",
+            "Your job: don't override the accessibility built in. Test with axe-core or the Storybook a11y addon on every component."
+          ],
+          "tip": "Build with Radix-based components and you start from AA compliant. Override Radix's defaults and you break compliance."
+        },
+        {
+          "id": "s2-agent-ready",
+          "title": "Delivering an Agent-Ready Library",
+          "subtitle": "A design system an AI can use without guessing or hallucinating",
+          "points": [
+            "Every component has a Storybook story covering every prop, every state, and every variant — no undocumented behaviour",
+            "Prop names are consistent and predictable across components — an agent that knows Button can infer IconButton",
+            "Component names map directly to design intent: Button not Btn, Heading not H1Wrapper, Avatar not UserCircle",
+            "Export a tokens file (colours, spacing, typography scales) — agents use tokens, not raw hex values or pixel counts",
+            "Write a design-system.md: the philosophy, naming conventions, what not to do, and how to request new components"
+          ],
+          "tip": "The test: can an AI agent build a new page using only your components and documentation — without asking questions? If yes, the library is agent-ready."
+        },
+        {
+          "id": "s2-takeaways",
+          "title": "Key Takeaways",
+          "subtitle": "What to carry out of this session",
+          "points": [
+            "Analytics tells you what happened. Behaviour tracking tells you why. AI telemetry tells you what users wanted but couldn't get.",
+            "Speed vs. rigor isn't a values debate — it's a function of reversibility and stakes",
+            "The PM superpower is knowing what to validate, not how. AI handles the how.",
+            "The most valuable validation questions are the ones you don't want to ask",
+            "AI-speed development makes inconsistency compound faster — a design system is infrastructure for agents, not just humans",
+            "Roadmap question: 'What would users do if this was free of friction, effort, and time?' That gap is your roadmap."
+          ]
+        }
+      ]
+    }
+  ]
+}

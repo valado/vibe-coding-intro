@@ -4,6 +4,7 @@ import { Presentation } from './components/Presentation';
 import { MindmapPage } from './components/mindmap/MindmapPage';
 import { InitialStepsPage } from './components/InitialStepsPage';
 import { ScaleupAiPage } from './components/ScaleupAiPage';
+import { NonTechiesPage } from './components/NonTechiesPage';
 import './styles/fonts.css';
 import './styles/global.css';
 import './styles/glossary.css';
@@ -18,6 +19,7 @@ function App() {
           <Route path="/mindmap" element={<MindmapPage />} />
           <Route path="/initial-steps" element={<InitialStepsPage />} />
           <Route path="/scaleup-ai" element={<ScaleupAiPage />} />
+          <Route path="/non-techies/:sessionId" element={<NonTechiesPage />} />
         </Routes>
       </Router>
     </ThemeProvider>
