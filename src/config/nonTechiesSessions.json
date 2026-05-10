@@ -479,5 +479,129 @@
         }
       ]
     }
+    ,
+    {
+      "id": "session-3",
+      "title": "Session 3 — Aligning Humans and Agents Across an Organisation",
+      "subtitle": "Making AI adoption compound at the team level, not just the individual level",
+      "slides": [
+        {
+          "id": "s3-arc",
+          "title": "The Throughline",
+          "subtitle": "Individual AI adoption doesn't compound — productivity gains stay personal, not organisational",
+          "points": [
+            "Most teams have individuals who are great with AI and organisations that aren't",
+            "The gap: when a person leaves or switches projects, their best workflows leave with them",
+            "This session is about making alignment distributable — shared context, shared skills, shared governance",
+            "The goal: one improvement benefits every agent session across the org, not just the person who made it"
+          ]
+        },
+        {
+          "id": "s3-three-layers",
+          "title": "Three Layers of Alignment Distribution",
+          "subtitle": "How shared AI context reaches every team member without a meeting",
+          "points": [
+            "Plugin (org-wide): shared Claude configuration, custom skills, slash commands, curated permissions — the standard everyone starts from",
+            "Repo (project-wide): canonical CLAUDE.md templates, shared memory, project archetypes — context specific to each codebase",
+            "MCP (system-wide): structured access to internal systems — Notion, Jira, Slack, internal APIs — at call time, not baked into context"
+          ],
+          "tip": "Each layer has a different owner and a different lifespan. Plugin changes are org-wide. Repo changes are per-project. MCP access changes are per-system."
+        },
+        {
+          "id": "s3-knowledge-base",
+          "title": "The Company Knowledge Base",
+          "subtitle": "Three things agents — and new hires — need to be effective from day one",
+          "points": [
+            "How we work: norms, decision-making rituals, communication standards — the unwritten rules, written down",
+            "What we're building: glossary, domain context, architecture decisions — the shared vocabulary that prevents agents from hallucinating your domain",
+            "How we use agents: trusted workflows, known failure modes, what agents should never do autonomously"
+          ],
+          "tip": "If a new hire would be confused by it, an agent will be too. The knowledge base is the onboarding doc that both can read."
+        },
+        {
+          "id": "s3-onboarding",
+          "title": "Onboarding With Agents",
+          "subtitle": "A new hire should be productive with an agent in week one",
+          "points": [
+            "The bottleneck for new hires and new agents is identical: lack of shared context about how the organisation works",
+            "The knowledge base is the onboarding document that agents can also read — shared context accelerates both",
+            "A well-maintained CLAUDE.md means an agent can hit the ground running without one-on-one briefing",
+            "Shared context = faster ramp for humans and agents alike — you only write the answer once"
+          ]
+        },
+        {
+          "id": "s3-governance",
+          "title": "Agent Governance",
+          "subtitle": "Access, logging, review, and deprecation — the same rigour as code",
+          "points": [
+            "Permission scoping: least-privilege access per role and context — an agent should only reach what it needs for that task",
+            "MCP access logging: what agents retrieve and when — visibility into what your agents are actually doing",
+            "Change review: prompt and config changes go through the same process as code — treat a bad prompt like a bad deploy",
+            "Deprecation: stale context is worse than no context — remove what no longer reflects reality"
+          ],
+          "tip": "An ungoverned agent with broad access is a liability. The same instincts that drive good security engineering apply here."
+        },
+        {
+          "id": "s3-context-quality",
+          "title": "Context Quality Over Quantity",
+          "subtitle": "Every word in CLAUDE.md costs something — curate for signal, not coverage",
+          "points": [
+            "Agents read CLAUDE.md at session start — bloated context degrades performance before the first prompt",
+            "Context rot at the org level: too much noise in shared config degrades every agent session, not just yours",
+            "Curate for signal: include what agents consistently get wrong without it; remove what they consistently get right regardless",
+            "The best shared context is short, precise, and never needs to be repeated in a prompt"
+          ],
+          "tip": "If you haven't had to look at a CLAUDE.md line in a month, consider whether it's still earning its place."
+        },
+        {
+          "id": "s3-flywheel",
+          "title": "Compounding the Flywheel",
+          "subtitle": "One improvement to shared context benefits every agent session across the org",
+          "points": [
+            "In individual AI use, the best workflows stay with the person who discovered them",
+            "In shared alignment, the best insight from your best prompt engineer reaches the whole team — without a meeting",
+            "Agent quality compounds with knowledge base quality — the investment pays dividends on every future session",
+            "This is the compounding advantage that organisations can have that individuals cannot"
+          ]
+        },
+        {
+          "id": "s3-antipatterns",
+          "title": "Anti-Patterns to Avoid",
+          "subtitle": "The most common ways organisational AI alignment fails",
+          "points": [
+            "Prompt silos: each team hoards their best workflows — productivity gains don't spread, the org can't learn",
+            "Undifferentiated context dumps into CLAUDE.md: everything added, nothing curated — context rot at scale",
+            "Ungoverned MCP access without logging or scoping: agents reach everything, visibility is zero",
+            "Knowledge base as archive, not living system: stale context actively misleads agents and confuses new hires",
+            "Treating agent alignment as an IT project: it's 80% people and knowledge, 20% infrastructure"
+          ]
+        },
+        {
+          "id": "s3-open-questions",
+          "title": "The Hard Questions",
+          "subtitle": "What most organisations haven't figured out yet",
+          "points": [
+            "Who owns the knowledge base? If nobody owns it, it will rot. If one team owns it, it won't reflect the whole org.",
+            "How do teams contribute domain-specific context without fragmenting the shared standard?",
+            "Where does agent output go back into the knowledge base? Agents surface knowledge — if it disappears after the session, nothing compounds.",
+            "These aren't technical questions. They're organisational design questions."
+          ],
+          "tip": "Start with ownership. Everything else is easier once someone is accountable for keeping the knowledge base alive."
+        },
+        {
+          "id": "s3-takeaways",
+          "title": "Key Takeaways",
+          "subtitle": "What to carry out of this session",
+          "points": [
+            "Individual AI adoption doesn't compound — distribute alignment through plugin, repo, and MCP layers",
+            "The knowledge base is the onboarding document both new hires and agents can read — invest in it once, benefit on every session",
+            "Context quality beats context quantity — curate aggressively, deprecate stale entries, treat the knowledge base as a living system",
+            "Agent governance is the same discipline as code governance: least privilege, logging, review, deprecation",
+            "The compounding flywheel: one improvement to shared context benefits every agent session across the org",
+            "The hardest question is organisational, not technical: who owns the knowledge base?"
+          ]
+        }
+      ]
+    }
   ]
 }
