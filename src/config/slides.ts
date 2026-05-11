@@ -790,7 +790,9 @@ export const SLIDES: SlideData[] = [
     layout: 'author',
     title: `Created by ${CREATOR_CONFIG.name}`,
     role: CREATOR_CONFIG.role,
-    socialCall2Action: 'Follow me for more insights on leveraging AI',
+    backgroundStatement:
+      'Background in enterprise systems at multi-million-user scale across regulated finance & energy domains. Former AI practice lead and owner of the AI-Native SDLC strategic offering.',
+    socialCall2Action: 'Follow me for more insights on agentic AI',
     linkedinUrl: CREATOR_CONFIG.linkedinUrl,
     xUrl: CREATOR_CONFIG.xUrl,
     position: 'opening',

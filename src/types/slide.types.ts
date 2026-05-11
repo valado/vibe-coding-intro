@@ -86,6 +86,7 @@ export interface ClosingSlideData extends BaseSlide {
 export interface AuthorSlideData extends BaseSlide {
   layout: 'author';
   role: string;
+  backgroundStatement?: string;
   socialCall2Action: string;
   linkedinUrl: string;
   xUrl: string;

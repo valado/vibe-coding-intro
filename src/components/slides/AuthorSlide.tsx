@@ -58,6 +58,24 @@ export function AuthorSlide({ data }: AuthorSlideProps) {
           >
             {data.role}
           </p>
+          {data.backgroundStatement && (
+            <p
+              className="s3"
+              style={{
+                fontSize: '0.88rem',
+                color: theme.textMuted,
+                marginTop: 12,
+                lineHeight: 1.6,
+                maxWidth: 440,
+                margin: '12px auto 0',
+                fontStyle: 'italic',
+                opacity: 0.8,
+                textAlign: 'center',
+              }}
+            >
+              {data.backgroundStatement}
+            </p>
+          )}
         </div>
 
         {/* Social Section */}
