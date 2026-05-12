@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../theme/useTheme';
 
 const routes = [
@@ -13,7 +12,6 @@ const routes = [
 ];
 
 export function AdminPage() {
-  const navigate = useNavigate();
   const { theme } = useTheme();
 
   return (
@@ -26,9 +24,9 @@ export function AdminPage() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {routes.map(({ path, label, description }) => (
-            <button
+            <a
               key={path}
-              onClick={() => navigate(path)}
+              href={path}
               style={{
                 background: theme.surface,
                 border: `1px solid ${theme.border}`,
@@ -40,18 +38,19 @@ export function AdminPage() {
                 flexDirection: 'column',
                 gap: 3,
                 transition: 'border-color 0.15s',
+                textDecoration: 'none',
               }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLButtonElement).style.borderColor = theme.accent;
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = theme.accent;
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLButtonElement).style.borderColor = theme.border;
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = theme.border;
               }}
             >
               <span style={{ color: theme.accent, fontSize: 12, fontFamily: 'monospace' }}>{path}</span>
               <span style={{ color: theme.text, fontSize: 15, fontWeight: 600 }}>{label}</span>
               <span style={{ color: theme.textMuted, fontSize: 13 }}>{description}</span>
-            </button>
+            </a>
           ))}
         </div>
       </div>

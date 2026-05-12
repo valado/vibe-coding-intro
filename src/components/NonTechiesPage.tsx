@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTheme } from '../theme/useTheme';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
+import { useTouchNavigation } from '../hooks/useTouchNavigation';
 import { ThemeToggle } from './ui/ThemeToggle';
 import { NavigationControls } from './ui/NavigationControls';
 import { AuthorModal } from './ui/AuthorModal';
@@ -9,9 +10,9 @@ import { KeyboardHelp } from './ui/KeyboardHelp';
 import { ProgressBar } from './ui/ProgressBar';
 import { ParticleBackground } from './ui/ParticleBackground';
 import { Home, Printer, Maximize, Minimize, User, FileText, Map } from 'lucide-react';
-import session1 from '../config/contributing-to-production.json';
-import session2 from '../config/analytics-and-tracking.json';
-import session3 from '../config/agentic-business.json';
+import contributingToProduction from '../config/contributing-to-production.json';
+import analyticsAndTracking from '../config/analytics-and-tracking.json';
+import agenticBusiness from '../config/agentic-business.json';
 import { AuthorSlide } from './slides/AuthorSlide';
 import { CoverSlide } from './slides/CoverSlide';
 import { MarkdownDrawer } from './ui/MarkdownDrawer';
@@ -36,9 +37,11 @@ interface Session {
   slides: SessionSlide[];
 }
 
-const sessions = [session1, session2, session3] as Session[];
-
-const SESSION_PATHS = ['/contributing-to-production', '/analytics-and-tracking', '/agentic-business'];
+const SESSION_MAP: { path: string; content: Session }[] = [
+  { path: '/contributing-to-production', content: contributingToProduction as Session },
+  { path: '/analytics-and-tracking', content: analyticsAndTracking as Session },
+  { path: '/agentic-business', content: agenticBusiness as Session },
+];
 
 const formatSlideIndex = (index: number) => String(index).padStart(2, '0');
 
@@ -46,14 +49,14 @@ export function NonTechiesPage({ sessionIndex }: { sessionIndex: number }) {
   const navigate = useNavigate();
   const { slideIndex } = useParams<{ slideIndex: string }>();
   const { theme } = useTheme();
-  const sessionIdx = Math.max(0, Math.min(sessions.length - 1, sessionIndex));
-  const basePath = SESSION_PATHS[sessionIdx];
+  const sessionIdx = Math.max(0, Math.min(SESSION_MAP.length - 1, sessionIndex));
+  const basePath = SESSION_MAP[sessionIdx].path;
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
   const [showAuthor, setShowAuthor] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showNotesDrawer, setShowNotesDrawer] = useState(false);
 
-  const session = sessions[sessionIdx];
+  const session = SESSION_MAP[sessionIdx].content;
   const slides = session.slides;
   const total = slides.length;
   const current = Math.max(0, Math.min(total - 1, Number(slideIndex ?? '0')));
@@ -106,8 +109,12 @@ export function NonTechiesPage({ sessionIndex }: { sessionIndex: number }) {
     disabled: showKeyboardHelp || showAuthor || showNotesDrawer,
   });
 
+  const { handleTouchStart, handleTouchEnd } = useTouchNavigation({ onNext: handleNext, onPrev: handlePrev });
+
   return (
     <div
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       style={{
         width: '100vw',
         height: '100vh',
@@ -191,10 +198,9 @@ export function NonTechiesPage({ sessionIndex }: { sessionIndex: number }) {
         style={{
           flex: 1,
           display: 'flex',
-          alignItems: 'center',
           justifyContent: 'center',
           padding: '64px 40px 24px',
-          overflow: 'hidden',
+          overflow: 'auto',
           position: 'relative',
         }}
       >
@@ -217,6 +223,7 @@ export function NonTechiesPage({ sessionIndex }: { sessionIndex: number }) {
           {formatSlideIndex(current)}
         </div>
 
+        <div style={{ margin: 'auto', width: '100%', maxWidth: 820 }}>
         {slide.layout === 'cover' ? (
           <div style={{ width: '100%', maxWidth: 820, position: 'relative', zIndex: 1 }}>
             <CoverSlide data={slide as CoverSlideData} />
@@ -539,6 +546,7 @@ export function NonTechiesPage({ sessionIndex }: { sessionIndex: number }) {
             </div>
           </div>
         )}
+        </div>
       </main>
 
       {/* Bottom nav */}

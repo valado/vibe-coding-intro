@@ -4,6 +4,12 @@
   "subtitle": "Analytics, behaviour tracking, validation, and AI-assisted product decisions",
   "slides": [
     {
+      "id": "s2-cover",
+      "layout": "cover",
+      "title": "Validate Like a PM, Ship Like an Engineer",
+      "subtitle": "Analytics, behaviour tracking, validation, and AI-assisted product decisions"
+    },
+    {
       "id": "s2-arc",
       "title": "The Throughline",
       "subtitle": "Building is now cheap. Validation is the bottleneck.",
@@ -13,6 +19,11 @@
         "What to measure → How to measure it → How fast to move",
         "What questions to ask → What traps to avoid → How to find demand you can't see yet"
       ]
+    },
+    {
+      "id": "s2-author",
+      "layout": "author",
+      "title": "Author"
     },
     {
       "id": "s2-analytics",
@@ -245,6 +256,12 @@
       "layout": "mindmap-link",
       "title": "Full Session Overview",
       "subtitle": "Explore all concepts from this session in the interactive mind map"
+    },
+    {
+      "id": "s2-qa",
+      "layout": "qa",
+      "title": "Q & A",
+      "subtitle": "Thank you for joining"
     }
   ]
 }
