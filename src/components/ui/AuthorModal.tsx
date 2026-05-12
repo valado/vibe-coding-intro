@@ -47,7 +47,7 @@ export function AuthorModal({ onClose }: AuthorModalProps) {
         >
           <X size={18} />
         </button>
-        <AuthorSlide data={authorData} />
+        <AuthorSlide data={authorData} compact />
       </div>
     </div>
   );

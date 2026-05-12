@@ -788,7 +788,7 @@ export const SLIDES: SlideData[] = [
   },
   {
     layout: 'author',
-    title: `Created by ${CREATOR_CONFIG.name}`,
+    title: CREATOR_CONFIG.name,
     role: CREATOR_CONFIG.role,
     backgroundStatement:
       'Background in enterprise systems at multi-million-user scale across regulated finance & energy domains. Former AI practice lead and owner of the AI-Native SDLC strategic offering.',

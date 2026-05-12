@@ -17,5 +17,11 @@ export const CREATOR_CONFIG = {
       description: 'You ship products. We help you monitor them.',
       icon: 'https://vibesmonitor.com/assets/icons/logo.svg',
     },
+    {
+      name: '47agents.com',
+      url: 'https://47agents.com',
+      description: 'Agentic coding journey',
+      icon: '/47agents-logo.svg',
+    },
   ],
 } as const;

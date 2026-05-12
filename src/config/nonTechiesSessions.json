@@ -2,235 +2,168 @@
   "sessions": [
     {
       "id": "session-1",
-      "title": "Working With Existing Codebases",
+      "title": "Contributing to Production",
       "subtitle": "Collaborating with developers & contributing to production",
       "slides": [
         {
-          "id": "session-arc",
-          "title": "The Throughline",
-          "subtitle": "Non-engineers can now contribute to production. The question is how to do it without creating more work for engineers than you save.",
+          "id": "s1-cover",
+          "layout": "cover",
+          "title": "Contributing to Production",
+          "subtitle": "Collaborating with developers & contributing to production",
+          "badge": "Session 1"
+        },
+        {
+          "id": "s1-arc",
+          "title": "Framing",
+          "subtitle": "Contributing to production at AI speed — without breaking the team's trust",
           "points": [
-            "Real use cases — not demos that impress but don't ship",
-            "Connect to the tools your team already lives in",
-            "Design for reliability, not just the happy path",
-            "Navigate a codebase and work with Claude Code",
-            "Get your dev team on board and hand off cleanly"
+            "AI removes the barrier to writing code — but production systems have standards, conventions, and history that AI doesn't automatically know",
+            "The new constraint isn't coding ability; it's understanding how to collaborate effectively with development teams and existing codebases",
+            "This session covers the workflow, discipline, and context-setting that separates useful AI contributions from noise",
+            "What to know → How to work with developers → How to ship with confidence"
           ]
         },
         {
-          "id": "s1-forget-prompts",
-          "title": "Forget Perfect Prompts",
-          "subtitle": "The goal isn't a perfect sentence — it's a rich, relevant context",
+          "id": "s1-author",
+          "layout": "author",
+          "title": "Author"
+        },
+        {
+          "id": "s1-demo",
+          "title": "Tinytoolstack Demo",
+          "subtitle": "The example project we'll use throughout this session",
           "points": [
-            "A great prompt is not about syntax — it's about giving the model what it needs to do outstanding work",
-            "Best employee metaphor: you don't explain every task from scratch to your best employee — they're context-aware and need one sentence, not a manual",
-            "Context curation is the skill — deciding what information matters and surfacing it at the right moment",
-            "Prompt engineering is temporary; context engineering compounds over time"
+            "A real production codebase",
+            "Create a new application live",
+            "Design Token Brief"
+          ]
+        },
+        {
+          "id": "s1-production-rules",
+          "title": "Rules for Production Projects",
+          "subtitle": "The discipline that separates a contribution from a liability",
+          "points": [
+            "Prompt-requests: treat each AI-assisted task as a unit of work with a clear scope — open-ended requests create open-ended (unpredictable) output",
+            "Small changes: make one change at a time, ask the agent to commit after each logical unit — small diffs are reviewable, large diffs are accepted on trust",
+            "Traceability: always link your work to a ticket — 'why does this exist?' should always have an answer, and 'Claude made it' is not an answer",
+            "MCP with Jira/Linear: let the agent pull context from your project management system — no manual copy-paste of requirements into every prompt"
+          ],
+          "tip": "A change without a ticket is untraceable. A commit message without context is a question that will be asked in a post-mortem."
+        },
+        {
+          "id": "s1-context-mgmt",
+          "title": "Managing Context",
+          "subtitle": "Context is the product. Manage it like one.",
+          "points": [
+            "Context rot: every token you add to context has a cost — provide only what's strictly relevant, or the agent's performance degrades mid-task",
+            "Review changes: don't accept AI output uncritically — use a second agent with a clean, explicit context to review what the first one produced",
+            "Compact aggressively: start a new session for a new task rather than carrying the full history of a previous one into it"
           ],
           "tip": "You don't write better prompts. You build better context."
         },
         {
-          "id": "s1-context-size",
-          "title": "Context Size Matters",
-          "subtitle": "More isn't better — past ~30% of the window, performance degrades",
+          "id": "s1-planning-execution",
+          "title": "Plan First, Execute Second",
+          "subtitle": "Expensive judgment, cheap execution",
           "points": [
-            "Context windows are large, but technically available space ≠ usable space",
-            "Beyond roughly 30% fill, models produce significantly poorer output and start to drift — this is context rot",
-            "Context rot: the model loses track of earlier instructions, contradicts itself, or ignores constraints",
-            "Curate aggressively: remove noise, keep signal, start fresh sessions rather than letting context decay"
-          ],
-          "tip": "If output quality is drifting mid-session, start fresh — don't keep adding context on top of rot."
-        },
-        {
-          "id": "s1-onboarding-model",
-          "title": "Onboard Your Model Like a New Team Member",
-          "subtitle": "Provide context as if you're briefing someone excellent — not instructing a tool",
-          "points": [
-            "A new team member needs: what the project is, the standards, what not to touch, and why decisions were made",
-            "Give the model the same — project goals, constraints, conventions, known edge cases",
-            "CLAUDE.md is your onboarding doc: written once, read at the start of every session",
-            "The more relevant context you give upfront, the less correction you need mid-session"
-          ],
-          "tip": "Write your CLAUDE.md for a brilliant engineer who's never seen your codebase. That's your target reader."
-        },
-        {
-          "id": "s1-right-tools",
-          "title": "Using the Right Tool",
-          "subtitle": "The model is one layer. Sub-agents, skills, MCP, RAG, and memory are the leverage.",
-          "points": [
-            "Sub-agents: parallel tasks, isolated context, specialised roles — work done concurrently without context bloat",
-            "Skills / Slash commands: repeatable workflows triggered by a single phrase — your automation layer",
-            "MCP (Model Context Protocol): give the model live access to tools — databases, APIs, file systems — at call time",
-            "RAG (Retrieval-Augmented Generation): inject relevant external knowledge exactly when needed, not by default",
-            "Graph / Memory: persistent state across sessions — the model remembers what matters between conversations"
-          ],
-          "tip": "Most prompts are the wrong level of abstraction. Ask: should this be a sub-agent? A skill? A tool call?"
-        },
-        {
-          "id": "s1-subagents",
-          "title": "Sub-Agents: Your AI Team",
-          "subtitle": "Don't run everything through one conversation — parallelise and specialise",
-          "points": [
-            "A sub-agent is a separate model call with its own context, task, and output — a fresh mind on a focused problem",
-            "Use them for: parallel workstreams, isolated tasks, specialised roles (researcher, writer, reviewer, coder)",
-            "Orchestrator → sub-agent pattern: the main session delegates; sub-agents execute independently",
-            "Each sub-agent gets a focused context — no context rot, no drift, no contamination from other threads"
-          ],
-          "tip": "Think of sub-agents as team members you brief individually — not one person you overload with everything."
-        },
-        {
-          "id": "wow-demo-trap",
-          "title": "The Wow Demo Trap",
-          "subtitle": "Most agent demos are impressive and useless",
-          "points": [
-            "They show a capability without answering: does this solve a real problem, often enough to be worth maintaining?",
-            "Theatre: an agent that summarises a Slack thread on demand",
-            "Real: an agent that creates a Jira ticket from a Slack message, routes it, and pings after 48 hours",
-            "The difference isn't technical complexity — it's whether the automation removes friction people actually felt"
-          ],
-          "tip": "If nobody was complaining about doing it manually before, automating it produces nothing."
-        },
-        {
-          "id": "use-case-tests",
-          "title": "What Makes a Use Case Real",
-          "subtitle": "Three tests before you build",
-          "points": [
-            "Frequency — Does this happen at least weekly? Automation compounds; rare tasks don't justify maintenance cost",
-            "Pain — Does someone actually dread doing this manually?",
-            "Determinism — Can you define what 'correct' looks like? If every output needs judgment, you're shifting work, not removing it",
-            "Reversibility — How bad is a mistake? High stakes → add a human approval step"
-          ],
-          "tip": "High frequency + high pain + high determinism = build it first."
-        },
-        {
-          "id": "ops-glue",
-          "title": "The Ops Glue Category",
-          "subtitle": "The highest-value use cases for non-technical teams",
-          "points": [
-            "Automations that connect tools teams already use — moving data and triggering actions between them",
-            "New form submission (Typeform) → structured Jira ticket with auto-assigned labels",
-            "Notion status → 'Ready for Review' → Slack notification with a summary",
-            "Weekly Sheets data → automated Notion report with commentary",
-            "These aren't glamorous. They compound every week. They catch what falls through the cracks."
+            "Use a more capable model (Opus 4.7) to design the approach, then a faster model (Sonnet 4.6) to execute — don't pay for judgment you don't need on every line",
+            "Behaviour-Driven Development (BDD): write scenarios in plain language first — agent implements to a precise, human-readable spec",
+            "Specification-Driven Development (SDD): define the interface and expected behaviour before the implementation — reduces ambiguity, improves output reliability"
           ]
         },
         {
-          "id": "integration-stack",
-          "title": "Start Where Teams Already Are",
-          "subtitle": "The fastest path to adoption is zero migration",
+          "id": "s1-harness",
+          "title": "The Development Harness",
+          "subtitle": "The infrastructure that makes AI contributions reliable",
           "points": [
-            "If your team lives in Notion, Sheets, Jira, and Slack — those are your integration points",
-            "Make (formerly Integromat): visual workflow builder, 1000+ app connections, no code required — the right default",
-            "Zapier: simpler, fewer capabilities, good for very simple one-step automations",
-            "Claude API via Make/Zapier: add AI reasoning to any automation — classify, summarise, draft, decide"
+            "Hooks: automated actions that run before and after agent operations — linting, formatting, and security checks run without you asking",
+            "Permissions: least-privilege access scoped per task — an agent working on UI shouldn't be able to touch database migrations",
+            "Skills: reusable slash commands that encode your team's best workflows — /tidy, /review, /commit — so the agent behaves consistently on every session",
+            "CI/CD pipeline as the final gate: linter, tests, and E2E checks catch what agent review misses — quality gates that don't rely on human diligence"
           ],
-          "tip": "Every automation that requires teams to change their tools will be adopted slowly or not at all."
+          "tip": "The harness is what makes AI contributions production-safe. Without it, you're trusting the agent. With it, you're trusting the system."
         },
         {
-          "id": "integration-patterns",
-          "title": "Four Integration Patterns",
-          "subtitle": "Most ops automation fits one of these",
+          "id": "s1-alignment-setup",
+          "title": "Preparation & Onboarding",
+          "subtitle": "The context that runs before you say a word",
           "points": [
-            "Capture → Classify → Route: incoming data → Claude classifies → sent to the right place (Jira, Slack, Notion)",
-            "Status change → Notify + Summarise: something changes → Claude writes a human-readable summary → notification",
-            "Scheduled synthesis: every Monday at 9am → pull Sheets data → Claude writes a summary → post to Notion + Slack",
-            "Threshold trigger: metric crosses a value → agent drafts a response or creates a task"
+            "Alignment is provided by the development team: tech stack, conventions, libraries, and design patterns — the CLAUDE.md / AGENTS.md file is the entry point the agent reads at session start",
+            "Vision: what the project is trying to achieve and for whom — an agent that understands the goal makes better tradeoff decisions without being told",
+            "Once alignment is defined, the prompt isn't that important — you don't explain every task from scratch to your best employee; they're context-aware and need one sentence, not a manual"
+          ],
+          "tip": "A well-maintained CLAUDE.md is the highest-leverage investment in AI collaboration. It compounds on every future session.",
+          "externalLink": {
+            "label": "Agentic Alignment Tool",
+            "url": "https://tinytoolstack.com/app/agenticalignment"
+          }
+        },
+        {
+          "id": "s1-agents-feedback",
+          "title": "Specialised Agents & Feedback Loops",
+          "subtitle": "Scope the agent to the task, close the loop automatically",
+          "points": [
+            "Skills and sub-agents: specialised agents for specific roles (e.g., a React specialist with only frontend context) — scope the agent to the task, not the whole codebase",
+            "Computer-use and Playwright MCP: let the agent interact with the browser and get automated feedback from the running app — close the feedback loop without manual testing",
+            "Sub-agent boundaries also enforce least-privilege: a frontend agent with no access to database migrations can't accidentally touch them"
           ]
         },
         {
-          "id": "silent-failures",
-          "title": "Why Most Automations Quietly Break",
-          "subtitle": "Silent failures are more dangerous than loud ones",
-          "points": [
-            "Loud: error thrown, workflow stops, someone notices",
-            "Silent: workflow runs, produces wrong output, nobody checks for weeks",
-            "Design against silent failure first — failing loudly is better than failing quietly",
-            "Every automation needs an answer to: what happens when it fails?"
-          ],
-          "tip": "For consequential automations: add a dry run mode and a human approval step before going live."
-        },
-        {
-          "id": "monitoring",
-          "title": "Monitoring Your Automations",
-          "subtitle": "Treat them like a product — they need observability",
-          "points": [
-            "Log every run: timestamp, input, output, status (success/fail) — a Sheets tab works fine",
-            "A Slack alert for any failure — Make has a built-in error handler, use it",
-            "Weekly review of the log — are failures increasing? Is output quality drifting?",
-            "Schedule 30 min/month to review your top 3 automations — most problems surface here before they become incidents"
-          ]
-        },
-        {
-          "id": "terminal-basics",
-          "title": "Terminal Basics",
-          "subtitle": "You don't need to master it — you need to stop fearing it",
-          "points": [
-            "The terminal is a text interface to your filesystem and running programs. That's it.",
-            "pwd (where am I), ls (what's here), cd foldername (move around), cat file.txt (read a file)",
-            "git status (what changed), git log (recent commits), git diff (exactly what changed), git pull (sync latest)",
-            "Reading errors: read the last line first, look for file names and line numbers, paste the full output into Claude"
-          ],
-          "tip": "Commands are just programs. You run them by typing their name."
-        },
-        {
-          "id": "navigating-codebases",
-          "title": "Navigating an Unfamiliar Repo",
-          "subtitle": "Most codebases follow conventions — learn the conventions",
-          "points": [
-            "Start with: README.md (what is this), package.json (what tools/scripts exist), src/ (where code lives)",
-            "VS Code Cmd+Shift+F: search text across the whole codebase. Cmd+P: find files by name.",
-            "Before touching anything: branch first (git checkout -b my-change), read the file, make one change at a time",
-            "Ask Claude Code: 'Give me a tour of this repo structure and explain what the main parts do'"
-          ],
-          "tip": "A PM who can read the codebase is worth more to an engineering team than one who can write a bit of code without understanding the system."
-        },
-        {
-          "id": "claude-code",
-          "title": "Claude Code as Your Engineering Partner",
-          "subtitle": "An AI coding assistant with access to your actual files",
-          "points": [
-            "Unlike chat, Claude Code reads your codebase directly — no copy-pasting code in and out",
-            "Can read, explain, and edit files; fix bugs from error messages; run commands and tests",
-            "Weak prompt: 'Fix the login page'",
-            "Strong prompt: describe the current behaviour, the expected behaviour, and any constraints — then Claude Code can execute it"
-          ],
-          "tip": "The more consequential the change, the more you need to understand what Claude did — not just that it did it."
-        },
-        {
-          "id": "dev-team",
+          "id": "s1-dev-resistance",
           "title": "Getting Your Dev Team on Board",
-          "subtitle": "Don't confirm the scepticism — don't give them a reason to",
+          "subtitle": "The resistance is real — and usually justified",
           "points": [
-            "Developers are sceptical because AI-generated code often creates rework — that's rational, not hostile",
-            "They want: a clear problem description, context on why it matters, scope boundaries, and validation",
-            "Write the spec before you build the prototype — show you can articulate the problem first",
-            "Label prototype quality honestly: 'This is a proof of concept. I expect the real implementation to look different.'"
+            "Non-determinism is a fair concern — but developers are also not deterministic, and the same argument for consistent, reviewable output applies to human work too",
+            "The real problem is usually alignment investment: if CLAUDE.md, conventions, and quality gates aren't set up, AI output can't meet the bar — that's a setup problem, not an AI problem",
+            "Since Sonnet 4.6 and Codex 5.2, there has been a step change in output quality and capability — resistance based on experiences with earlier models may be outdated",
+            "The best alignment is written by the people who own the domain: a test engineer encodes what good tests look like into a testing skill or sub-agent; a backend developer defines API conventions; a security engineer writes the security review hook — each role makes the AI permanently smarter in their area"
           ],
-          "tip": "The PM who brings a well-structured problem with user evidence is infinitely more useful than one who brings a prototype that sort-of works."
+          "tip": "Example: the test engineer doesn't just describe good tests in a doc — they write a /create-tests skill that embeds coverage rules, naming conventions, and edge-case patterns, so every agent session gets their expertise automatically."
         },
         {
-          "id": "handoff",
-          "title": "Preparing for Engineering Handoff",
-          "subtitle": "The most useful artifact is not polished code",
+          "id": "s1-dev-trust",
+          "title": "The Process That Earns Trust",
+          "subtitle": "Show the gates, not just the speed",
           "points": [
-            "What this does (1–2 sentences, user perspective) + the problem it solves with evidence",
-            "Key decisions made and why + what was explicitly not solved (scope boundary)",
-            "Known weaknesses and shortcuts + open questions for engineering",
-            "CLAUDE.md in your repo is your best handoff doc — precise, unambiguous language engineers can act on"
+            "Existing code quality matters: agents replicate the patterns they see — a codebase with consistent, clean conventions produces better AI output than a tangled one",
+            "CI/CD with quality gates (linter, tests, E2E) is the handshake: developers approve the process, not individual AI lines — they trust the gate, not the generator",
+            "The strongest argument for AI adoption isn't speed — it's that good AI setup forces the team to document what 'good' looks like, and that benefits everyone"
           ],
-          "tip": "Before handoff: remove hardcoded credentials, replace placeholder data, record a Loom walkthrough — more useful than any written doc."
+          "tip": "Don't demo the output. Demo the process — the gates, the review step, the traceability. That's what a developer can trust."
         },
         {
-          "id": "takeaways",
+          "id": "s1-handoff",
+          "title": "Dev Handoff",
+          "subtitle": "Close out work the way a good engineer would",
+          "points": [
+            "Let the agent generate lightweight documentation — arc42 sections, README updates, architecture decision records — as part of the task, not as an afterthought",
+            "The agent should generate a PR description that explains what changed and why — reviewers shouldn't have to reconstruct intent from a diff",
+            "A well-written PR is a forcing function: if the agent can't explain what it did and why, the scope was probably too broad",
+            "Traceability closes the loop: ticket → PR → commit → documentation — any link missing is a liability in production"
+          ]
+        },
+        {
+          "id": "s1-future-team",
+          "title": "The Future Team",
+          "subtitle": "Smaller teams, higher leverage, faster compounding",
+          "points": [
+            "The teams that invest in alignment — vision, context, skills, and infrastructure — compound their advantage on every subsequent task",
+            "Smaller 3-4 person teams with strong AI collaboration outperform traditional larger teams on well-defined problem spaces",
+            "The focus shifts to building and deeply understanding the domain — AI handles mechanical execution, humans handle judgment and discovery",
+            "The bottleneck is no longer headcount; it's the quality of the context your team has built and maintains"
+          ]
+        },
+        {
+          "id": "s1-takeaways",
           "title": "Key Takeaways",
           "subtitle": "What to carry out of this session",
           "points": [
-            "Ops glue — connecting tools teams already use — is the highest-value, lowest-risk automation category",
-            "Design every automation for silent failure. Log everything. Alert on errors. Review monthly.",
-            "Context is the product — curating what you give the model beats crafting the perfect prompt every time",
-            "Past ~30% context fill, quality degrades — start fresh rather than letting sessions drift into context rot",
-            "Non-engineers who can read code are more valuable to dev teams than ones who can write a little of it",
-            "The highest-value handoff artifact is a clear problem definition with evidence — not polished code"
+            "Production contributions require production discipline: small changes, linked tickets, committing after each logical unit",
+            "Context quality is the product: provide only what's relevant, review AI output, plan with the best model and execute with the fastest",
+            "The harness — hooks, permissions, skills, and CI/CD gates — is what makes AI contributions safe without constant human vigilance",
+            "Alignment is built once and compounds on every session: CLAUDE.md, vision, skills, sub-agents — invest here first",
+            "Getting your dev team on board means demonstrating the process, not just the output — show the gates, not just the speed",
+            "The future advantage is organisational: teams that invest in shared context and alignment will outperform those running individual AI in isolation"
           ]
         }
       ]
@@ -478,8 +411,7 @@
           ]
         }
       ]
-    }
-    ,
+    },
     {
       "id": "session-3",
       "title": "Aligning Humans and Agents Across an Organisation",

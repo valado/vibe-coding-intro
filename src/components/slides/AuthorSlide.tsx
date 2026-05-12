@@ -3,9 +3,10 @@ import { useTheme } from '../../theme/useTheme';
 
 interface AuthorSlideProps {
   data: AuthorSlideData;
+  compact?: boolean;
 }
 
-export function AuthorSlide({ data }: AuthorSlideProps) {
+export function AuthorSlide({ data, compact }: AuthorSlideProps) {
   const { theme } = useTheme();
 
   return (
@@ -46,6 +47,19 @@ export function AuthorSlide({ data }: AuthorSlideProps) {
       >
         {/* Author Identity */}
         <div>
+          <p
+            style={{
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '0.12em',
+              color: theme.textMuted,
+              margin: '0 0 10px',
+              opacity: 0.7,
+            }}
+          >
+            About the author
+          </p>
           <h2
             className="t-md s1"
             style={{ fontSize: '2.4rem', fontWeight: 900, color: theme.text, lineHeight: 1.15 }}
@@ -195,6 +209,7 @@ export function AuthorSlide({ data }: AuthorSlideProps) {
               className="s5 author-tools"
               style={{
                 display: 'flex',
+                flexDirection: compact ? 'column' : 'row',
                 gap: 16,
                 justifyContent: 'center',
                 width: '100%',
@@ -217,8 +232,7 @@ export function AuthorSlide({ data }: AuthorSlideProps) {
                     textDecoration: 'none',
                     transition: 'all 0.2s',
                     cursor: 'pointer',
-                    flex: '1 1 0',
-                    maxWidth: 260,
+                    ...(compact ? {} : { flex: '1 1 0', maxWidth: 260 }),
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = theme.accentBorder;
