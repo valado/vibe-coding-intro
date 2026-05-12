@@ -19,6 +19,12 @@ const EXPLOSION_RADIUS = 200;
 const EXPLOSION_FORCE = 8;
 const FRICTION = 0.97;
 
+const ORBS = [
+  { cx: 0.28, cy: 0.38, r: 0.50, sx: 0.0003, sy: 0.00022, ax: 0.12, ay: 0.10 },
+  { cx: 0.74, cy: 0.62, r: 0.42, sx: 0.00038, sy: 0.00028, ax: 0.11, ay: 0.13 },
+  { cx: 0.52, cy: 0.18, r: 0.38, sx: 0.00032, sy: 0.00027, ax: 0.09, ay: 0.09 },
+];
+
 function createParticles(w: number, h: number): Particle[] {
   return Array.from({ length: PARTICLE_COUNT }, () => ({
     x: Math.random() * w,
@@ -34,6 +40,7 @@ export function ParticleBackground() {
   const particles = useRef<Particle[]>([]);
   const mouse = useRef({ x: -9999, y: -9999 });
   const animRef = useRef<number>(0);
+  const timeRef = useRef<number>(0);
   const { isDark } = useTheme();
 
   const accentColor = isDark ? '249,115,22' : '234,88,12';
@@ -42,42 +49,49 @@ export function ParticleBackground() {
     (ctx: CanvasRenderingContext2D, w: number, h: number) => {
       ctx.clearRect(0, 0, w, h);
 
+      // Animated gradient orbs
+      const t = timeRef.current;
+      const orbAlpha = isDark ? 0.13 : 0.07;
+      for (const o of ORBS) {
+        const x = (o.cx + Math.sin(t * o.sx) * o.ax) * w;
+        const y = (o.cy + Math.cos(t * o.sy) * o.ay) * h;
+        const r = o.r * Math.max(w, h);
+        const grad = ctx.createRadialGradient(x, y, 0, x, y, r);
+        grad.addColorStop(0, `rgba(${accentColor},${orbAlpha})`);
+        grad.addColorStop(1, `rgba(${accentColor},0)`);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+      }
+
       const mx = mouse.current.x;
       const my = mouse.current.y;
 
       for (const p of particles.current) {
-        // Apply friction to slow down after explosion
         p.vx *= FRICTION;
         p.vy *= FRICTION;
 
-        // Clamp to base speed minimum so particles keep drifting
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
         if (speed < SPEED * 0.5 && speed > 0) {
           p.vx = (p.vx / speed) * SPEED * 0.5;
           p.vy = (p.vy / speed) * SPEED * 0.5;
         }
 
-        // Update position
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap around edges
         if (p.x < 0) p.x = w;
         if (p.x > w) p.x = 0;
         if (p.y < 0) p.y = h;
         if (p.y > h) p.y = 0;
 
-        // Distance to cursor
         const dx = p.x - mx;
         const dy = p.y - my;
         const dist = Math.sqrt(dx * dx + dy * dy);
         const proximity = Math.max(0, 1 - dist / GLOW_RADIUS);
 
-        // Interpolate alpha and size based on proximity
         const alpha = BASE_ALPHA + (GLOW_ALPHA - BASE_ALPHA) * proximity;
         const scale = 1 + proximity * 2;
 
-        // Draw glow halo when close to cursor
         if (proximity > 0.05) {
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius * scale * 4, 0, Math.PI * 2);
@@ -85,7 +99,6 @@ export function ParticleBackground() {
           ctx.fill();
         }
 
-        // Draw the particle
         ctx.save();
         if (proximity > 0.1) {
           ctx.shadowColor = `rgba(${accentColor},${proximity * 0.7})`;
@@ -98,7 +111,7 @@ export function ParticleBackground() {
         ctx.restore();
       }
     },
-    [accentColor]
+    [accentColor, isDark]
   );
 
   useEffect(() => {
@@ -150,6 +163,7 @@ export function ParticleBackground() {
     window.addEventListener('click', onClick);
 
     const loop = () => {
+      timeRef.current += 1;
       draw(ctx, window.innerWidth, window.innerHeight);
       animRef.current = requestAnimationFrame(loop);
     };

@@ -34,6 +34,15 @@ export function AuthorModal({ onClose }: AuthorModalProps) {
           position: 'relative',
         }}
       >
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: theme.heroGrad,
+            borderRadius: 16,
+            pointerEvents: 'none',
+          }}
+        />
         <button
           className="ib"
           onClick={onClose}

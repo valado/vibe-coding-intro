@@ -7,6 +7,7 @@ import { ShareButton } from './ui/ShareButton';
 import { AuthorModal } from './ui/AuthorModal';
 import { DiscountModal } from './ui/DiscountModal';
 import { ArrowLeft, Download, Bot, FileText, Brain, Wrench, Code, Rocket, CheckCircle, User, Gift, Maximize, Minimize, Home } from 'lucide-react';
+import { ParticleBackground } from './ui/ParticleBackground';
 
 const STEPS = [
   {
@@ -115,16 +116,7 @@ export function InitialStepsPage() {
         position: 'relative',
       }}
     >
-      {/* Background gradient */}
-      <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          background: theme.heroGrad,
-          pointerEvents: 'none',
-        }}
-      />
-
+      <ParticleBackground />
       {/* Header */}
       <header
         style={{

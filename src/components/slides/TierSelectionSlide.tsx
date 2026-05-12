@@ -3,6 +3,7 @@ import { TierSelectionSlideData, TierId } from '../../types';
 import { MIND_MAP } from '../../config/mindmap';
 import { getChapterStartIndex } from '../../config/slideAssembler';
 import { ChevronRight } from 'lucide-react';
+import { SlideLayout } from '../ui/SlideLayout';
 
 interface TierSelectionSlideProps {
   data: TierSelectionSlideData;
@@ -54,173 +55,147 @@ export function TierSelectionSlide({ data, onGoTo, enabledChapters, onToggleChap
   const chapters = getChapterCards();
 
   return (
-    <div
-      className="r-pad slide-scroll"
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        height: '100%',
-        width: '100%',
-        padding: '40px 32px',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: theme.subtleGrad,
-          pointerEvents: 'none',
-        }}
-      />
-      <div
-        style={{ position: 'relative', zIndex: 1, maxWidth: 960, margin: '0 auto', width: '100%' }}
+    <SlideLayout variant="content" maxWidth={960} innerStyle={{ width: '100%' }}>
+      <h2
+        className="t-md s1"
+        style={{ fontSize: '2.2rem', fontWeight: 800, color: theme.text, textAlign: 'center' }}
       >
-        <h2
-          className="t-md s1"
-          style={{ fontSize: '2.2rem', fontWeight: 800, color: theme.text, textAlign: 'center' }}
-        >
-          {data.title}
-        </h2>
-        <p
-          className="s2"
-          style={{
-            fontSize: '1.05rem',
-            lineHeight: 1.7,
-            color: theme.textMuted,
-            marginTop: 12,
-            textAlign: 'center',
-          }}
-        >
-          {data.subtitle}
-        </p>
+        {data.title}
+      </h2>
+      <p
+        className="s2"
+        style={{
+          fontSize: '1.05rem',
+          lineHeight: 1.7,
+          color: theme.textMuted,
+          marginTop: 12,
+          textAlign: 'center',
+        }}
+      >
+        {data.subtitle}
+      </p>
 
-        <div
-          className="s3 tier-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: 16,
-            marginTop: 36,
-          }}
-        >
-          {chapters.map((ch) => {
-            const enabled = enabledChapters.has(ch.id);
-            // Philosophical spans full width on its own row
-            const isPhilosophical = ch.id === 'philosophical';
-            return (
-              <div
-                key={ch.id}
-                style={{
-                  padding: '20px 20px',
-                  borderRadius: 16,
-                  background: theme.surface,
-                  border: `2px solid ${enabled ? ch.color + '55' : theme.border}`,
-                  opacity: enabled ? 1 : 0.5,
-                  transition: 'border-color 0.2s, box-shadow 0.2s, opacity 0.2s',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'stretch',
-                  gap: 8,
-                  gridColumn: isPhilosophical ? '1 / -1' : undefined,
-                }}
-                onMouseEnter={(e) => {
-                  if (enabled) {
-                    e.currentTarget.style.borderColor = ch.color;
-                    e.currentTarget.style.boxShadow = `0 4px 24px ${ch.color}22`;
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = enabled ? ch.color + '55' : theme.border;
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                {/* Header: checkbox + label + complexity */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); onToggleChapter(ch.id); }}
-                    style={{
-                      width: 20,
-                      height: 20,
-                      borderRadius: 5,
-                      border: `2px solid ${enabled ? ch.color : theme.border}`,
-                      background: enabled ? ch.color : 'transparent',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      transition: 'all 0.15s',
-                      padding: 0,
-                    }}
-                    title={enabled ? `Disable ${ch.label} chapter` : `Enable ${ch.label} chapter`}
-                  >
-                    {enabled && (
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    )}
-                  </button>
-                  <span style={{ fontWeight: 700, fontSize: '1.1rem', color: theme.text }}>
-                    {ch.label}
-                  </span>
-                  {ch.complexity > 0 && (
-                    <div style={{ display: 'flex', gap: 3, marginLeft: 'auto' }}>
-                      {Array.from({ length: 4 }).map((_, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            width: 6,
-                            height: 6,
-                            borderRadius: '50%',
-                            backgroundColor: i < ch.complexity ? ch.color : theme.border,
-                          }}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <div style={{ fontSize: '0.78rem', fontWeight: 600, color: ch.color, letterSpacing: '0.03em' }}>
-                  {ch.subtitle}
-                </div>
-                <div style={{ fontSize: '0.82rem', color: theme.textMuted, lineHeight: 1.5 }}>
-                  {ch.vision}
-                </div>
-
-                {/* Jump button — always rendered to prevent layout shift */}
+      <div
+        className="s3 tier-grid"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: 16,
+          marginTop: 36,
+        }}
+      >
+        {chapters.map((ch) => {
+          const enabled = enabledChapters.has(ch.id);
+          const isPhilosophical = ch.id === 'philosophical';
+          return (
+            <div
+              key={ch.id}
+              style={{
+                padding: '20px 20px',
+                borderRadius: 16,
+                background: theme.surface,
+                border: `2px solid ${enabled ? ch.color + '55' : theme.border}`,
+                opacity: enabled ? 1 : 0.5,
+                transition: 'border-color 0.2s, box-shadow 0.2s, opacity 0.2s',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'stretch',
+                gap: 8,
+                gridColumn: isPhilosophical ? '1 / -1' : undefined,
+              }}
+              onMouseEnter={(e) => {
+                if (enabled) {
+                  e.currentTarget.style.borderColor = ch.color;
+                  e.currentTarget.style.boxShadow = `0 4px 24px ${ch.color}22`;
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = enabled ? ch.color + '55' : theme.border;
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              {/* Header: checkbox + label + complexity */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <button
-                  onClick={() => enabled && onGoTo(getChapterStartIndex(ch.id, enabledChapters))}
-                  disabled={!enabled}
+                  onClick={(e) => { e.stopPropagation(); onToggleChapter(ch.id); }}
                   style={{
-                    display: 'inline-flex',
+                    width: 20,
+                    height: 20,
+                    borderRadius: 5,
+                    border: `2px solid ${enabled ? ch.color : theme.border}`,
+                    background: enabled ? ch.color : 'transparent',
+                    cursor: 'pointer',
+                    display: 'flex',
                     alignItems: 'center',
-                    alignSelf: 'flex-start',
-                    gap: 4,
-                    padding: '6px 14px',
-                    borderRadius: 8,
-                    background: enabled ? `${ch.color}15` : 'transparent',
-                    border: `1px solid ${enabled ? ch.color + '33' : theme.border}`,
-                    color: enabled ? ch.color : theme.textMuted,
-                    fontWeight: 600,
-                    fontSize: '0.8rem',
-                    cursor: enabled ? 'pointer' : 'default',
-                    transition: 'background 0.15s, opacity 0.15s',
-                    opacity: enabled ? 1 : 0.4,
+                    justifyContent: 'center',
                     flexShrink: 0,
+                    transition: 'all 0.15s',
+                    padding: 0,
                   }}
-                  onMouseEnter={(e) => { if (enabled) e.currentTarget.style.background = `${ch.color}25`; }}
-                  onMouseLeave={(e) => { if (enabled) e.currentTarget.style.background = `${ch.color}15`; }}
+                  title={enabled ? `Disable ${ch.label} chapter` : `Enable ${ch.label} chapter`}
                 >
-                  Go to chapter <ChevronRight size={14} />
+                  {enabled && (
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  )}
                 </button>
+                <span style={{ fontWeight: 700, fontSize: '1.1rem', color: theme.text }}>
+                  {ch.label}
+                </span>
+                {ch.complexity > 0 && (
+                  <div style={{ display: 'flex', gap: 3, marginLeft: 'auto' }}>
+                    {Array.from({ length: 4 }).map((_, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: '50%',
+                          backgroundColor: i < ch.complexity ? ch.color : theme.border,
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
-            );
-          })}
-        </div>
+
+              <div style={{ fontSize: '0.78rem', fontWeight: 600, color: ch.color, letterSpacing: '0.03em' }}>
+                {ch.subtitle}
+              </div>
+              <div style={{ fontSize: '0.82rem', color: theme.textMuted, lineHeight: 1.5 }}>
+                {ch.vision}
+              </div>
+
+              <button
+                onClick={() => enabled && onGoTo(getChapterStartIndex(ch.id, enabledChapters))}
+                disabled={!enabled}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  alignSelf: 'flex-start',
+                  gap: 4,
+                  padding: '6px 14px',
+                  borderRadius: 8,
+                  background: enabled ? `${ch.color}15` : 'transparent',
+                  border: `1px solid ${enabled ? ch.color + '33' : theme.border}`,
+                  color: enabled ? ch.color : theme.textMuted,
+                  fontWeight: 600,
+                  fontSize: '0.8rem',
+                  cursor: enabled ? 'pointer' : 'default',
+                  transition: 'background 0.15s, opacity 0.15s',
+                  opacity: enabled ? 1 : 0.4,
+                  flexShrink: 0,
+                }}
+                onMouseEnter={(e) => { if (enabled) e.currentTarget.style.background = `${ch.color}25`; }}
+                onMouseLeave={(e) => { if (enabled) e.currentTarget.style.background = `${ch.color}15`; }}
+              >
+                Go to chapter <ChevronRight size={14} />
+              </button>
+            </div>
+          );
+        })}
       </div>
-    </div>
+    </SlideLayout>
   );
 }

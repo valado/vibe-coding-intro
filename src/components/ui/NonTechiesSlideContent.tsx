@@ -46,15 +46,6 @@ export function NonTechiesSlideContent({ slide, session }: Props) {
           gap: 32,
         }}
       >
-        <div
-          style={{
-            position: 'absolute',
-            inset: '-60px -80px',
-            background: theme.heroGrad,
-            pointerEvents: 'none',
-            borderRadius: 32,
-          }}
-        />
         <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
           <h1
             style={{
@@ -103,15 +94,6 @@ export function NonTechiesSlideContent({ slide, session }: Props) {
           gap: 32,
         }}
       >
-        <div
-          style={{
-            position: 'absolute',
-            inset: '-60px -80px',
-            background: theme.heroGrad,
-            pointerEvents: 'none',
-            borderRadius: 32,
-          }}
-        />
         <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
           <h1
             style={{

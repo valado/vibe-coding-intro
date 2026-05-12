@@ -1,4 +1,5 @@
 import { useTheme } from '../theme/useTheme';
+import { ParticleBackground } from './ui/ParticleBackground';
 
 const routes = [
   { path: '/', label: 'Presentation (Home)', description: 'Main presentation slides' },
@@ -15,8 +16,9 @@ export function AdminPage() {
   const { theme } = useTheme();
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: theme.bg, color: theme.text, fontFamily: "'Inter', system-ui, sans-serif" }}>
-      <div style={{ maxWidth: 720, margin: '0 auto', padding: '48px 24px' }}>
+    <main style={{ minHeight: '100vh', backgroundColor: theme.bg, color: theme.text, fontFamily: "'Inter', system-ui, sans-serif", position: 'relative' }}>
+      <ParticleBackground />
+      <div style={{ maxWidth: 720, margin: '0 auto', padding: '48px 24px', position: 'relative', zIndex: 1 }}>
         <div style={{ marginBottom: 32 }}>
           <h1 style={{ fontSize: 24, fontWeight: 700, color: theme.text }}>Admin</h1>
           <p style={{ color: theme.textMuted, fontSize: 14, marginTop: 4 }}>All registered routes</p>

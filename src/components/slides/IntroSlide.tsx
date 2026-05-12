@@ -3,6 +3,7 @@ import { Settings, Sparkles, Compass, Layers } from 'lucide-react';
 import { useTheme } from '../../theme/useTheme';
 import { IntroSlideData, ContinuumStop } from '../../types';
 import { parseGlossaryTerms } from '../../utils/glossaryParser';
+import { SlideLayout } from '../ui/SlideLayout';
 
 const iconMap: Record<string, LucideIcon> = {
   Sparkles,
@@ -28,7 +29,6 @@ function ContinuumCard({
 }) {
   const { theme } = useTheme();
   const Icon = iconMap[stop.icon];
-  // Interpolate from light to full accent opacity
   const progress = total > 1 ? index / (total - 1) : 0;
   const opacity = 0.35 + progress * 0.65;
 
@@ -137,102 +137,78 @@ export function IntroSlide({ data }: IntroSlideProps) {
   const stops = data.continuum;
 
   return (
-    <div
-      className="r-pad slide-scroll"
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        height: '100%',
-        width: '100%',
-        padding: '40px 32px',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      <div
+    <SlideLayout variant="content" maxWidth={1000} innerStyle={{ width: '100%' }}>
+      <h2 className="t-md s1" style={{ fontSize: '2.2rem', fontWeight: 800, color: theme.text }}>
+        {data.title}
+      </h2>
+      <p
+        className="s2"
         style={{
-          position: 'absolute',
-          inset: 0,
-          background: theme.subtleGrad,
-          pointerEvents: 'none',
+          fontSize: '1.02rem',
+          lineHeight: 1.7,
+          color: theme.textMuted,
+          marginTop: 12,
+          maxWidth: 720,
         }}
-      />
-      <div
-        style={{ position: 'relative', zIndex: 1, maxWidth: 1000, margin: '0 auto', width: '100%' }}
       >
-        <h2 className="t-md s1" style={{ fontSize: '2.2rem', fontWeight: 800, color: theme.text }}>
-          {data.title}
-        </h2>
-        <p
-          className="s2"
+        {parseGlossaryTerms(data.description)}
+      </p>
+
+      {/* Continuum arrow bar */}
+      <div className="s3" style={{ position: 'relative', marginTop: 32 }}>
+        {/* Gradient bar behind cards */}
+        <div
           style={{
-            fontSize: '1.02rem',
-            lineHeight: 1.7,
-            color: theme.textMuted,
-            marginTop: 12,
-            maxWidth: 720,
+            position: 'absolute',
+            top: '50%',
+            left: 24,
+            right: 24,
+            height: 3,
+            borderRadius: 2,
+            background: `linear-gradient(to right, ${theme.accentBorder}, ${theme.accent})`,
+            transform: 'translateY(-50%)',
+            zIndex: 0,
+            opacity: 0.4,
+          }}
+        />
+        {/* Arrow tip */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            right: 14,
+            transform: 'translateY(-50%)',
+            width: 0,
+            height: 0,
+            borderTop: '6px solid transparent',
+            borderBottom: '6px solid transparent',
+            borderLeft: `10px solid ${theme.accent}`,
+            opacity: 0.4,
+            zIndex: 0,
+          }}
+        />
+
+        {/* Cards row */}
+        <div
+          className="intro-row"
+          style={{
+            display: 'flex',
+            gap: 14,
+            position: 'relative',
+            zIndex: 1,
           }}
         >
-          {parseGlossaryTerms(data.description)}
-        </p>
-
-        {/* Continuum arrow bar */}
-        <div className="s3" style={{ position: 'relative', marginTop: 32 }}>
-          {/* Gradient bar behind cards */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: 24,
-              right: 24,
-              height: 3,
-              borderRadius: 2,
-              background: `linear-gradient(to right, ${theme.accentBorder}, ${theme.accent})`,
-              transform: 'translateY(-50%)',
-              zIndex: 0,
-              opacity: 0.4,
-            }}
-          />
-          {/* Arrow tip */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              right: 14,
-              transform: 'translateY(-50%)',
-              width: 0,
-              height: 0,
-              borderTop: '6px solid transparent',
-              borderBottom: '6px solid transparent',
-              borderLeft: `10px solid ${theme.accent}`,
-              opacity: 0.4,
-              zIndex: 0,
-            }}
-          />
-
-          {/* Cards row */}
-          <div
-            className="intro-row"
-            style={{
-              display: 'flex',
-              gap: 14,
-              position: 'relative',
-              zIndex: 1,
-            }}
-          >
-            {stops.map((stop, i) => (
-              <ContinuumCard
-                key={stop.label}
-                stop={stop}
-                index={i}
-                total={stops.length}
-                accentColor={theme.accent}
-              />
-            ))}
-          </div>
+          {stops.map((stop, i) => (
+            <ContinuumCard
+              key={stop.label}
+              stop={stop}
+              index={i}
+              total={stops.length}
+              accentColor={theme.accent}
+            />
+          ))}
         </div>
       </div>
-    </div>
+    </SlideLayout>
   );
 }

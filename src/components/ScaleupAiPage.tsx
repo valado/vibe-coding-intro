@@ -140,22 +140,6 @@ export function ScaleupAiPage() {
         overflow: 'hidden',
       }}
     >
-      <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          background: theme.heroGrad,
-          pointerEvents: 'none',
-        }}
-      />
-      <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          background: theme.subtleGrad,
-          pointerEvents: 'none',
-        }}
-      />
       <div className="scaleup-noise-bg" />
 
       <div

@@ -1,5 +1,6 @@
 import { SummarySlideData } from '../../types';
 import { useTheme } from '../../theme/useTheme';
+import { SlideLayout } from '../ui/SlideLayout';
 
 interface SummarySlideProps {
   data: SummarySlideData;
@@ -13,19 +14,7 @@ export function SummarySlide({ data, onGoTo, ruleStartIndex }: SummarySlideProps
   const cols = data.rules.length <= 6 ? 2 : data.rules.length <= 9 ? 3 : 4;
 
   return (
-    <div
-      className="r-pad slide-scroll"
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        height: '100%',
-        width: '100%',
-        padding: '40px 32px',
-        maxWidth: 800,
-        margin: '0 auto',
-      }}
-    >
+    <SlideLayout variant="content" maxWidth={800}>
       <h2
         className="t-md s1"
         style={{ fontSize: '2.2rem', fontWeight: 800, color: theme.text, textAlign: 'center' }}
@@ -78,6 +67,6 @@ export function SummarySlide({ data, onGoTo, ruleStartIndex }: SummarySlideProps
           </div>
         ))}
       </div>
-    </div>
+    </SlideLayout>
   );
 }
