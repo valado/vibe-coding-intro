@@ -56,6 +56,7 @@
         "Review changes: don't accept AI output uncritically — use a second agent with a clean, explicit context to review what the first one produced",
         "Compact aggressively: start a new session for a new task rather than carrying the full history of a previous one into it"
       ],
+      "ascii": "context window usage\n[▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░]\n ◄─ ~30% ─►  target max — degrade zone past here",
       "tip": "You don't write better prompts. You build better context."
     },
     {

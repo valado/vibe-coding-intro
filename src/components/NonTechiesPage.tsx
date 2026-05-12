@@ -24,6 +24,7 @@ export interface SessionSlide {
   subtitle?: string;
   badge?: string;
   points?: string[];
+  ascii?: string;
   tip?: string;
   externalLink?: { label: string; url: string };
 }

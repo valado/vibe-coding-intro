@@ -229,6 +229,26 @@ export function NonTechiesSlideContent({ slide, session }: Props) {
           </ul>
         )}
 
+        {slide.ascii && (
+          <pre
+            style={{
+              fontFamily: "'Courier New', Courier, monospace",
+              fontSize: 'clamp(0.75rem, 1.4vw, 0.9rem)',
+              lineHeight: 1.6,
+              color: theme.textMuted,
+              background: theme.surface,
+              border: `1px solid ${theme.border}`,
+              borderRadius: 8,
+              padding: '14px 18px',
+              margin: 0,
+              overflowX: 'auto',
+              whiteSpace: 'pre',
+            }}
+          >
+            {slide.ascii}
+          </pre>
+        )}
+
         {slide.tip && (
           <div
             style={{
