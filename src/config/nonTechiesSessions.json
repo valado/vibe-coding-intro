@@ -2,7 +2,7 @@
   "sessions": [
     {
       "id": "session-1",
-      "title": "Session 1 — Working With Existing Codebases",
+      "title": "Working With Existing Codebases",
       "subtitle": "Collaborating with developers & contributing to production",
       "slides": [
         {
@@ -237,7 +237,7 @@
     },
     {
       "id": "session-2",
-      "title": "Session 2 — Validate Like a PM, Ship Like an Engineer",
+      "title": "Validate Like a PM, Ship Like an Engineer",
       "subtitle": "Analytics, behaviour tracking, validation, and AI-assisted product decisions",
       "slides": [
         {
@@ -482,7 +482,7 @@
     ,
     {
       "id": "session-3",
-      "title": "Session 3 — Aligning Humans and Agents Across an Organisation",
+      "title": "Aligning Humans and Agents Across an Organisation",
       "subtitle": "Making AI adoption compound at the team level, not just the individual level",
       "slides": [
         {
