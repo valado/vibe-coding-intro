@@ -9,8 +9,7 @@
           "id": "s1-cover",
           "layout": "cover",
           "title": "Contributing to Production",
-          "subtitle": "Collaborating with developers & contributing to production",
-          "badge": "Session 1"
+          "subtitle": "Collaborating with developers & contributing to production"
         },
         {
           "id": "s1-arc",
@@ -62,6 +61,18 @@
           "tip": "You don't write better prompts. You build better context."
         },
         {
+          "id": "s1-prd",
+          "title": "Writing PRDs with an Agent",
+          "subtitle": "The spec the agent implements against — written with the agent, not handed to it",
+          "points": [
+            "Use the agent as a thinking partner, not a document generator — start with your rough idea, then ask it to surface missing requirements, edge cases, and conflicting assumptions before a line of code is written",
+            "Structure that works: problem statement, target user and their context, success criteria (how will you know it worked?), explicit scope and non-scope, open questions",
+            "Challenge your own PRD: 'What's the weakest assumption here?', 'What would a user try that we haven't handled?', 'What does this spec leave ambiguous for an engineer reading it?'",
+            "The PRD becomes the session context — paste or link it at the start of every implementation session so the agent knows the goal, not just the task"
+          ],
+          "tip": "A PRD written with an agent surfaces questions you forgot to ask — the agent has no familiarity with 'how we usually do it', so it asks what a first-time reader would."
+        },
+        {
           "id": "s1-planning-execution",
           "title": "Plan First, Execute Second",
           "subtitle": "Expensive judgment, cheap execution",
@@ -107,6 +118,18 @@
             "Computer-use and Playwright MCP: let the agent interact with the browser and get automated feedback from the running app — close the feedback loop without manual testing",
             "Sub-agent boundaries also enforce least-privilege: a frontend agent with no access to database migrations can't accidentally touch them"
           ]
+        },
+        {
+          "id": "s1-debugging",
+          "title": "Debugging with AI",
+          "subtitle": "Using agents when things break — without losing hours to trial and error",
+          "points": [
+            "Feed the full error trace, not a summary — agents diagnose from exact stack traces, file paths, and line numbers; paraphrased errors lose the signal that matters",
+            "Rubber duck prompting: explain the problem to the agent as if it knows nothing — the act of articulating what should be happening versus what is happening often surfaces the bug before the agent even replies",
+            "Bisect strategy: ask the agent 'what changed between the last working state and now?' — narrow the search space before asking for a fix, or you'll get a fix for the wrong problem",
+            "Isolate before you fix: paste the minimal failing snippet, not the entire file — agents produce better diagnoses on a 20-line reproduction than on a 500-line context dump"
+          ],
+          "tip": "If the agent's first fix doesn't work, don't just retry — ask it to explain its reasoning first. Wrong fixes usually come from wrong assumptions about the root cause, not from bad code."
         },
         {
           "id": "s1-dev-resistance",
@@ -162,9 +185,23 @@
             "Context quality is the product: provide only what's relevant, review AI output, plan with the best model and execute with the fastest",
             "The harness — hooks, permissions, skills, and CI/CD gates — is what makes AI contributions safe without constant human vigilance",
             "Alignment is built once and compounds on every session: CLAUDE.md, vision, skills, sub-agents — invest here first",
+            "PRDs with an agent: draft the spec collaboratively before any code — use the agent to challenge assumptions, surface edge cases, and structure success criteria",
+            "Debugging with AI: feed full error traces, use rubber duck prompting to surface assumptions, bisect to narrow scope before asking for a fix",
             "Getting your dev team on board means demonstrating the process, not just the output — show the gates, not just the speed",
             "The future advantage is organisational: teams that invest in shared context and alignment will outperform those running individual AI in isolation"
           ]
+        },
+        {
+          "id": "s1-mindmap",
+          "layout": "mindmap-link",
+          "title": "Full Session Overview",
+          "subtitle": "Explore all concepts from this session in the interactive mind map"
+        },
+        {
+          "id": "s1-qa",
+          "layout": "qa",
+          "title": "Q & A",
+          "subtitle": "Thank you for joining"
         }
       ]
     },
@@ -409,6 +446,12 @@
             "AI-speed development makes inconsistency compound faster — a design system is infrastructure for agents, not just humans",
             "Roadmap question: 'What would users do if this was free of friction, effort, and time?' That gap is your roadmap."
           ]
+        },
+        {
+          "id": "s2-mindmap",
+          "layout": "mindmap-link",
+          "title": "Full Session Overview",
+          "subtitle": "Explore all concepts from this session in the interactive mind map"
         }
       ]
     },
@@ -532,6 +575,12 @@
             "The compounding flywheel: one improvement to shared context benefits every agent session across the org",
             "The hardest question is organisational, not technical: who owns the knowledge base?"
           ]
+        },
+        {
+          "id": "s3-mindmap",
+          "layout": "mindmap-link",
+          "title": "Full Session Overview",
+          "subtitle": "Explore all concepts from this session in the interactive mind map"
         }
       ]
     }

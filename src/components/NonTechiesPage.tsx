@@ -8,8 +8,10 @@ import { AuthorModal } from './ui/AuthorModal';
 import { KeyboardHelp } from './ui/KeyboardHelp';
 import { ProgressBar } from './ui/ProgressBar';
 import { ParticleBackground } from './ui/ParticleBackground';
-import { Home, Printer, Maximize, Minimize, User, ChevronDown, FileText } from 'lucide-react';
-import sessionsData from '../config/nonTechiesSessions.json';
+import { Home, Printer, Maximize, Minimize, User, FileText, Map } from 'lucide-react';
+import session1 from '../config/contributing-to-production.json';
+import session2 from '../config/analytics-and-tracking.json';
+import session3 from '../config/agentic-business.json';
 import { AuthorSlide } from './slides/AuthorSlide';
 import { CoverSlide } from './slides/CoverSlide';
 import { MarkdownDrawer } from './ui/MarkdownDrawer';
@@ -34,30 +36,28 @@ interface Session {
   slides: SessionSlide[];
 }
 
-const sessions = sessionsData.sessions as Session[];
+const sessions = [session1, session2, session3] as Session[];
+
+const SESSION_PATHS = ['/contributing-to-production', '/analytics-and-tracking', '/agentic-business'];
 
 const formatSlideIndex = (index: number) => String(index).padStart(2, '0');
 
-export function NonTechiesPage() {
+export function NonTechiesPage({ sessionIndex }: { sessionIndex: number }) {
   const navigate = useNavigate();
-  const { sessionId } = useParams<{ sessionId: string }>();
+  const { slideIndex } = useParams<{ slideIndex: string }>();
   const { theme } = useTheme();
-  const sessionIdx = Math.max(0, Math.min(sessions.length - 1, Number(sessionId ?? '1') - 1));
-  const [current, setCurrent] = useState(0);
+  const sessionIdx = Math.max(0, Math.min(sessions.length - 1, sessionIndex));
+  const basePath = SESSION_PATHS[sessionIdx];
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
   const [showAuthor, setShowAuthor] = useState(false);
-  const [showSessionMenu, setShowSessionMenu] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showNotesDrawer, setShowNotesDrawer] = useState(false);
 
   const session = sessions[sessionIdx];
   const slides = session.slides;
   const total = slides.length;
+  const current = Math.max(0, Math.min(total - 1, Number(slideIndex ?? '0')));
   const slide = slides[current];
-
-  useEffect(() => {
-    setCurrent(0);
-  }, [sessionIdx]);
 
   useEffect(() => {
     const handler = () => setIsFullscreen(!!document.fullscreenElement);
@@ -73,25 +73,28 @@ export function NonTechiesPage() {
     }
   }, []);
 
-  const switchSession = useCallback(
-    (idx: number) => {
-      setShowSessionMenu(false);
-      navigate(`/non-techies/${idx + 1}`);
-    },
-    [navigate]
+  const handleNext = useCallback(
+    () => navigate(`${basePath}/${Math.min(total - 1, current + 1)}`),
+    [navigate, basePath, total, current]
   );
-
-  const handleNext = useCallback(() => setCurrent((c) => Math.min(total - 1, c + 1)), [total]);
-  const handlePrev = useCallback(() => setCurrent((c) => Math.max(0, c - 1)), []);
-  const handleFirst = useCallback(() => setCurrent(0), []);
-  const handleLast = useCallback(() => setCurrent(total - 1), [total]);
+  const handlePrev = useCallback(
+    () => navigate(`${basePath}/${Math.max(0, current - 1)}`),
+    [navigate, basePath, current]
+  );
+  const handleFirst = useCallback(
+    () => navigate(`${basePath}/0`),
+    [navigate, basePath]
+  );
+  const handleLast = useCallback(
+    () => navigate(`${basePath}/${total - 1}`),
+    [navigate, basePath, total]
+  );
   const handleHelp = useCallback(() => setShowKeyboardHelp((v) => !v), []);
   const handleEscape = useCallback(() => {
     if (showKeyboardHelp) setShowKeyboardHelp(false);
     else if (showAuthor) setShowAuthor(false);
-    else if (showSessionMenu) setShowSessionMenu(false);
     else if (showNotesDrawer) setShowNotesDrawer(false);
-  }, [showKeyboardHelp, showAuthor, showSessionMenu, showNotesDrawer]);
+  }, [showKeyboardHelp, showAuthor, showNotesDrawer]);
 
   useKeyboardNavigation({
     onNext: handleNext,
@@ -100,7 +103,7 @@ export function NonTechiesPage() {
     onLast: handleLast,
     onHelp: handleHelp,
     onEscape: handleEscape,
-    disabled: showKeyboardHelp || showAuthor || showSessionMenu || showNotesDrawer,
+    disabled: showKeyboardHelp || showAuthor || showNotesDrawer,
   });
 
   return (
@@ -138,74 +141,6 @@ export function NonTechiesPage() {
           alignItems: 'center',
         }}
       >
-        {/* Session switcher */}
-        <div style={{ position: 'relative' }}>
-          <button
-            className="ib"
-            onClick={() => setShowSessionMenu((v) => !v)}
-            style={{
-              color: theme.textMuted,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4,
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              padding: '4px 8px',
-            }}
-            title="Switch session"
-          >
-            S{sessionIdx + 1}
-            <ChevronDown size={13} />
-          </button>
-          {showSessionMenu && (
-            <div
-              style={{
-                position: 'absolute',
-                top: '100%',
-                right: 0,
-                marginTop: 6,
-                backgroundColor: theme.surface,
-                border: `1px solid ${theme.border}`,
-                borderRadius: 10,
-                overflow: 'hidden',
-                minWidth: 260,
-                boxShadow: `0 8px 24px rgba(0,0,0,0.3)`,
-                zIndex: 30,
-              }}
-            >
-              {sessions.map((s, i) => (
-                <button
-                  key={s.id}
-                  onClick={() => switchSession(i)}
-                  style={{
-                    width: '100%',
-                    display: 'block',
-                    textAlign: 'left',
-                    padding: '10px 16px',
-                    background: i === sessionIdx ? theme.accentSoft : 'none',
-                    border: 'none',
-                    borderBottom: i < sessions.length - 1 ? `1px solid ${theme.border}` : 'none',
-                    color: i === sessionIdx ? theme.accent : theme.text,
-                    fontSize: '0.82rem',
-                    fontWeight: i === sessionIdx ? 600 : 400,
-                    cursor: 'pointer',
-                    fontFamily: 'inherit',
-                    transition: 'background 0.15s',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (i !== sessionIdx) e.currentTarget.style.background = theme.surfaceHover;
-                  }}
-                  onMouseLeave={(e) => {
-                    if (i !== sessionIdx) e.currentTarget.style.background = 'none';
-                  }}
-                >
-                  {s.title}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
         <button
           className="ib"
           onClick={() => navigate('/')}
@@ -248,14 +183,6 @@ export function NonTechiesPage() {
         </button>
         <ThemeToggle />
       </div>
-
-      {/* Click-away to close session menu */}
-      {showSessionMenu && (
-        <div
-          style={{ position: 'fixed', inset: 0, zIndex: 19 }}
-          onClick={() => setShowSessionMenu(false)}
-        />
-      )}
 
       {/* Slide */}
       <main
@@ -328,6 +255,141 @@ export function NonTechiesPage() {
         ) : slide.layout === 'author' ? (
           <div style={{ width: '100%', maxWidth: 820, position: 'relative', zIndex: 1 }}>
             <AuthorSlide data={SLIDES.find((s) => s.layout === 'author') as AuthorSlideData} />
+          </div>
+        ) : slide.layout === 'qa' ? (
+          <div
+            style={{
+              width: '100%',
+              maxWidth: 820,
+              position: 'relative',
+              zIndex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              gap: 32,
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                inset: '-60px -80px',
+                background: theme.heroGrad,
+                pointerEvents: 'none',
+                borderRadius: 32,
+              }}
+            />
+            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
+              <h1
+                style={{
+                  fontSize: 'clamp(3rem, 8vw, 5.5rem)',
+                  fontWeight: 900,
+                  lineHeight: 1.0,
+                  margin: 0,
+                  color: theme.text,
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                {slide.title}
+              </h1>
+              {slide.subtitle && (
+                <p
+                  style={{
+                    fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
+                    color: theme.textMuted,
+                    margin: 0,
+                    maxWidth: 480,
+                    lineHeight: 1.6,
+                    fontWeight: 500,
+                  }}
+                >
+                  {slide.subtitle}
+                </p>
+              )}
+            </div>
+          </div>
+        ) : slide.layout === 'mindmap-link' ? (
+          <div
+            style={{
+              width: '100%',
+              maxWidth: 820,
+              position: 'relative',
+              zIndex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              gap: 32,
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                inset: '-60px -80px',
+                background: theme.heroGrad,
+                pointerEvents: 'none',
+                borderRadius: 32,
+              }}
+            />
+            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
+              <h1
+                style={{
+                  fontSize: 'clamp(2rem, 5vw, 3.2rem)',
+                  fontWeight: 900,
+                  lineHeight: 1.1,
+                  margin: 0,
+                  color: theme.text,
+                }}
+              >
+                {slide.title}
+              </h1>
+              {slide.subtitle && (
+                <p
+                  style={{
+                    fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+                    color: theme.textMuted,
+                    margin: 0,
+                    maxWidth: 540,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {slide.subtitle}
+                </p>
+              )}
+              <button
+                onClick={() => navigate('/mindmap')}
+                style={{
+                  marginTop: 12,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '16px 36px',
+                  borderRadius: 14,
+                  background: `linear-gradient(135deg, ${theme.accent}, ${theme.accent}cc)`,
+                  color: '#fff',
+                  fontWeight: 700,
+                  fontSize: '1.05rem',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
+                  boxShadow: `0 4px 24px ${theme.accentGlow}`,
+                  transition: 'all 0.2s',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px) scale(1.03)';
+                  e.currentTarget.style.boxShadow = `0 8px 32px ${theme.accentGlow}`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.boxShadow = `0 4px 24px ${theme.accentGlow}`;
+                }}
+              >
+                <Map size={18} />
+                Open Mind Map
+              </button>
+            </div>
           </div>
         ) : (
           <div

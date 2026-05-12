@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 import { X } from 'lucide-react';
 import { useTheme } from '../../theme/useTheme';
 
-const PLACEHOLDER_MD = `# Session 1 — Speaker Notes
+const PLACEHOLDER_MD = `# Speaker Notes
 
 # introduce the author
 

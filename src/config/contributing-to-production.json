@@ -1,0 +1,205 @@
+{
+  "id": "session-1",
+  "title": "Contributing to Production",
+  "subtitle": "Collaborating with developers & contributing to production",
+  "slides": [
+    {
+      "id": "s1-cover",
+      "layout": "cover",
+      "title": "Contributing to Production",
+      "subtitle": "Collaborating with developers & contributing to production"
+    },
+    {
+      "id": "s1-arc",
+      "title": "Framing",
+      "subtitle": "Contributing to production at AI speed — without breaking the team's trust",
+      "points": [
+        "AI removes the barrier to writing code — but production systems have standards, conventions, and history that AI doesn't automatically know",
+        "The new constraint isn't coding ability; it's understanding how to collaborate effectively with development teams and existing codebases",
+        "This session covers the workflow, discipline, and context-setting that separates useful AI contributions from noise",
+        "What to know → How to work with developers → How to ship with confidence"
+      ]
+    },
+    {
+      "id": "s1-author",
+      "layout": "author",
+      "title": "Author"
+    },
+    {
+      "id": "s1-demo",
+      "title": "Tinytoolstack Demo",
+      "subtitle": "The example project we'll use throughout this session",
+      "points": [
+        "A real production codebase",
+        "Create a new application live",
+        "Design Token Brief"
+      ]
+    },
+    {
+      "id": "s1-production-rules",
+      "title": "Rules for Production Projects",
+      "subtitle": "The discipline that separates a contribution from a liability",
+      "points": [
+        "Prompt-requests: treat each AI-assisted task as a unit of work with a clear scope — open-ended requests create open-ended (unpredictable) output",
+        "Small changes: make one change at a time, ask the agent to commit after each logical unit — small diffs are reviewable, large diffs are accepted on trust",
+        "Traceability: always link your work to a ticket — 'why does this exist?' should always have an answer, and 'Claude made it' is not an answer",
+        "MCP with Jira/Linear: let the agent pull context from your project management system — no manual copy-paste of requirements into every prompt"
+      ],
+      "tip": "A change without a ticket is untraceable. A commit message without context is a question that will be asked in a post-mortem."
+    },
+    {
+      "id": "s1-context-mgmt",
+      "title": "Managing Context",
+      "subtitle": "Context is the product. Manage it like one.",
+      "points": [
+        "Context rot: every token you add to context has a cost — provide only what's strictly relevant, or the agent's performance degrades mid-task",
+        "Review changes: don't accept AI output uncritically — use a second agent with a clean, explicit context to review what the first one produced",
+        "Compact aggressively: start a new session for a new task rather than carrying the full history of a previous one into it"
+      ],
+      "tip": "You don't write better prompts. You build better context."
+    },
+    {
+      "id": "s1-prd",
+      "title": "Writing PRDs with an Agent",
+      "subtitle": "The spec the agent implements against — written with the agent, not handed to it",
+      "points": [
+        "Use the agent as a thinking partner, not a document generator — start with your rough idea, then ask it to surface missing requirements, edge cases, and conflicting assumptions before a line of code is written",
+        "Structure that works: problem statement, target user and their context, success criteria (how will you know it worked?), explicit scope and non-scope, open questions",
+        "Challenge your own PRD: 'What's the weakest assumption here?', 'What would a user try that we haven't handled?', 'What does this spec leave ambiguous for an engineer reading it?'",
+        "The PRD becomes the session context — paste or link it at the start of every implementation session so the agent knows the goal, not just the task"
+      ],
+      "tip": "A PRD written with an agent surfaces questions you forgot to ask — the agent has no familiarity with 'how we usually do it', so it asks what a first-time reader would."
+    },
+    {
+      "id": "s1-planning-execution",
+      "title": "Plan First, Execute Second",
+      "subtitle": "Expensive judgment, cheap execution",
+      "points": [
+        "Use a more capable model (Opus 4.7) to design the approach, then a faster model (Sonnet 4.6) to execute — don't pay for judgment you don't need on every line",
+        "Behaviour-Driven Development (BDD): write scenarios in plain language first — agent implements to a precise, human-readable spec",
+        "Specification-Driven Development (SDD): define the interface and expected behaviour before the implementation — reduces ambiguity, improves output reliability"
+      ]
+    },
+    {
+      "id": "s1-harness",
+      "title": "The Development Harness",
+      "subtitle": "The infrastructure that makes AI contributions reliable",
+      "points": [
+        "Hooks: automated actions that run before and after agent operations — linting, formatting, and security checks run without you asking",
+        "Permissions: least-privilege access scoped per task — an agent working on UI shouldn't be able to touch database migrations",
+        "Skills: reusable slash commands that encode your team's best workflows — /tidy, /review, /commit — so the agent behaves consistently on every session",
+        "CI/CD pipeline as the final gate: linter, tests, and E2E checks catch what agent review misses — quality gates that don't rely on human diligence"
+      ],
+      "tip": "The harness is what makes AI contributions production-safe. Without it, you're trusting the agent. With it, you're trusting the system."
+    },
+    {
+      "id": "s1-alignment-setup",
+      "title": "Preparation & Onboarding",
+      "subtitle": "The context that runs before you say a word",
+      "points": [
+        "Alignment is provided by the development team: tech stack, conventions, libraries, and design patterns — the CLAUDE.md / AGENTS.md file is the entry point the agent reads at session start",
+        "Vision: what the project is trying to achieve and for whom — an agent that understands the goal makes better tradeoff decisions without being told",
+        "Once alignment is defined, the prompt isn't that important — you don't explain every task from scratch to your best employee; they're context-aware and need one sentence, not a manual"
+      ],
+      "tip": "A well-maintained CLAUDE.md is the highest-leverage investment in AI collaboration. It compounds on every future session.",
+      "externalLink": {
+        "label": "Agentic Alignment Tool",
+        "url": "https://tinytoolstack.com/app/agenticalignment"
+      }
+    },
+    {
+      "id": "s1-agents-feedback",
+      "title": "Specialised Agents & Feedback Loops",
+      "subtitle": "Scope the agent to the task, close the loop automatically",
+      "points": [
+        "Skills and sub-agents: specialised agents for specific roles (e.g., a React specialist with only frontend context) — scope the agent to the task, not the whole codebase",
+        "Computer-use and Playwright MCP: let the agent interact with the browser and get automated feedback from the running app — close the feedback loop without manual testing",
+        "Sub-agent boundaries also enforce least-privilege: a frontend agent with no access to database migrations can't accidentally touch them"
+      ]
+    },
+    {
+      "id": "s1-debugging",
+      "title": "Debugging with AI",
+      "subtitle": "Using agents when things break — without losing hours to trial and error",
+      "points": [
+        "Feed the full error trace, not a summary — agents diagnose from exact stack traces, file paths, and line numbers; paraphrased errors lose the signal that matters",
+        "Rubber duck prompting: explain the problem to the agent as if it knows nothing — the act of articulating what should be happening versus what is happening often surfaces the bug before the agent even replies",
+        "Bisect strategy: ask the agent 'what changed between the last working state and now?' — narrow the search space before asking for a fix, or you'll get a fix for the wrong problem",
+        "Isolate before you fix: paste the minimal failing snippet, not the entire file — agents produce better diagnoses on a 20-line reproduction than on a 500-line context dump"
+      ],
+      "tip": "If the agent's first fix doesn't work, don't just retry — ask it to explain its reasoning first. Wrong fixes usually come from wrong assumptions about the root cause, not from bad code."
+    },
+    {
+      "id": "s1-dev-resistance",
+      "title": "Getting Your Dev Team on Board",
+      "subtitle": "The resistance is real — and usually justified",
+      "points": [
+        "Non-determinism is a fair concern — but developers are also not deterministic, and the same argument for consistent, reviewable output applies to human work too",
+        "The real problem is usually alignment investment: if CLAUDE.md, conventions, and quality gates aren't set up, AI output can't meet the bar — that's a setup problem, not an AI problem",
+        "Since Sonnet 4.6 and Codex 5.2, there has been a step change in output quality and capability — resistance based on experiences with earlier models may be outdated",
+        "The best alignment is written by the people who own the domain: a test engineer encodes what good tests look like into a testing skill or sub-agent; a backend developer defines API conventions; a security engineer writes the security review hook — each role makes the AI permanently smarter in their area"
+      ],
+      "tip": "Example: the test engineer doesn't just describe good tests in a doc — they write a /create-tests skill that embeds coverage rules, naming conventions, and edge-case patterns, so every agent session gets their expertise automatically."
+    },
+    {
+      "id": "s1-dev-trust",
+      "title": "The Process That Earns Trust",
+      "subtitle": "Show the gates, not just the speed",
+      "points": [
+        "Existing code quality matters: agents replicate the patterns they see — a codebase with consistent, clean conventions produces better AI output than a tangled one",
+        "CI/CD with quality gates (linter, tests, E2E) is the handshake: developers approve the process, not individual AI lines — they trust the gate, not the generator",
+        "The strongest argument for AI adoption isn't speed — it's that good AI setup forces the team to document what 'good' looks like, and that benefits everyone"
+      ],
+      "tip": "Don't demo the output. Demo the process — the gates, the review step, the traceability. That's what a developer can trust."
+    },
+    {
+      "id": "s1-handoff",
+      "title": "Dev Handoff",
+      "subtitle": "Close out work the way a good engineer would",
+      "points": [
+        "Let the agent generate lightweight documentation — arc42 sections, README updates, architecture decision records — as part of the task, not as an afterthought",
+        "The agent should generate a PR description that explains what changed and why — reviewers shouldn't have to reconstruct intent from a diff",
+        "A well-written PR is a forcing function: if the agent can't explain what it did and why, the scope was probably too broad",
+        "Traceability closes the loop: ticket → PR → commit → documentation — any link missing is a liability in production"
+      ]
+    },
+    {
+      "id": "s1-future-team",
+      "title": "The Future Team",
+      "subtitle": "Smaller teams, higher leverage, faster compounding",
+      "points": [
+        "The teams that invest in alignment — vision, context, skills, and infrastructure — compound their advantage on every subsequent task",
+        "Smaller 3-4 person teams with strong AI collaboration outperform traditional larger teams on well-defined problem spaces",
+        "The focus shifts to building and deeply understanding the domain — AI handles mechanical execution, humans handle judgment and discovery",
+        "The bottleneck is no longer headcount; it's the quality of the context your team has built and maintains"
+      ]
+    },
+    {
+      "id": "s1-takeaways",
+      "title": "Key Takeaways",
+      "subtitle": "What to carry out of this session",
+      "points": [
+        "Production contributions require production discipline: small changes, linked tickets, committing after each logical unit",
+        "Context quality is the product: provide only what's relevant, review AI output, plan with the best model and execute with the fastest",
+        "The harness — hooks, permissions, skills, and CI/CD gates — is what makes AI contributions safe without constant human vigilance",
+        "Alignment is built once and compounds on every session: CLAUDE.md, vision, skills, sub-agents — invest here first",
+        "PRDs with an agent: draft the spec collaboratively before any code — use the agent to challenge assumptions, surface edge cases, and structure success criteria",
+        "Debugging with AI: feed full error traces, use rubber duck prompting to surface assumptions, bisect to narrow scope before asking for a fix",
+        "Getting your dev team on board means demonstrating the process, not just the output — show the gates, not just the speed",
+        "The future advantage is organisational: teams that invest in shared context and alignment will outperform those running individual AI in isolation"
+      ]
+    },
+    {
+      "id": "s1-mindmap",
+      "layout": "mindmap-link",
+      "title": "Agentic Coding Mind Map",
+      "subtitle": "Explore the relevant concepts from the Agentic Coding Journey based on the scale of your project and team"
+    },
+    {
+      "id": "s1-qa",
+      "layout": "qa",
+      "title": "Q & A",
+      "subtitle": "Thank you for joining"
+    }
+  ]
+}
