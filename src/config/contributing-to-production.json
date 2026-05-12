@@ -41,11 +41,11 @@
       "subtitle": "The discipline that separates a contribution from a liability",
       "points": [
         "Prompt-requests: treat each AI-assisted task as a unit of work with a clear scope — open-ended requests create open-ended (unpredictable) output",
-        "Small changes: make one change at a time, ask the agent to commit after each logical unit — small diffs are reviewable, large diffs are accepted on trust",
+        "Small changes: make one change at a time, ask the agent to commit/pull-request after each logical unit — small diffs are reviewable, large diffs are accepted on trust",
         "Traceability: always link your work to a ticket — 'why does this exist?' should always have an answer, and 'Claude made it' is not an answer",
         "MCP with Jira/Linear: let the agent pull context from your project management system — no manual copy-paste of requirements into every prompt"
       ],
-      "tip": "A change without a ticket is untraceable. A commit message without context is a question that will be asked in a post-mortem."
+      "tip": "A change without a ticket is untraceable. A commit message without context is a question that will be asked in a post-mortem. Learning git is practically mandatory"
     },
     {
       "id": "s1-context-mgmt",
@@ -75,22 +75,10 @@
       "title": "Plan First, Execute Second",
       "subtitle": "Expensive judgment, cheap execution",
       "points": [
-        "Use a more capable model (Opus 4.7) to design the approach, then a faster model (Sonnet 4.6) to execute — don't pay for judgment you don't need on every line",
+        "Use a more capable model (Opus 4.6) to design the approach, then a faster model (Sonnet 4.6) to execute — don't pay for judgment you don't need on every line",
         "Behaviour-Driven Development (BDD): write scenarios in plain language first — agent implements to a precise, human-readable spec",
         "Specification-Driven Development (SDD): define the interface and expected behaviour before the implementation — reduces ambiguity, improves output reliability"
       ]
-    },
-    {
-      "id": "s1-harness",
-      "title": "The Development Harness",
-      "subtitle": "The infrastructure that makes AI contributions reliable",
-      "points": [
-        "Hooks: automated actions that run before and after agent operations — linting, formatting, and security checks run without you asking",
-        "Permissions: least-privilege access scoped per task — an agent working on UI shouldn't be able to touch database migrations",
-        "Skills: reusable slash commands that encode your team's best workflows — /tidy, /review, /commit — so the agent behaves consistently on every session",
-        "CI/CD pipeline as the final gate: linter, tests, and E2E checks catch what agent review misses — quality gates that don't rely on human diligence"
-      ],
-      "tip": "The harness is what makes AI contributions production-safe. Without it, you're trusting the agent. With it, you're trusting the system."
     },
     {
       "id": "s1-alignment-setup",
@@ -106,6 +94,30 @@
         "label": "Agentic Alignment Tool",
         "url": "https://tinytoolstack.com/app/agenticalignment"
       }
+    },
+    {
+      "id": "s1-dev-resistance",
+      "title": "Getting Your Dev Team on Board",
+      "subtitle": "The resistance is real — and usually justified",
+      "points": [
+        "Non-determinism is a fair concern — but developers are also not deterministic, and the same argument for consistent, reviewable output applies to human work too",
+        "The real problem is usually alignment investment: if CLAUDE.md, conventions, and quality gates aren't set up, AI output can't meet the bar — that's a setup problem, not an AI problem",
+        "Since Sonnet 4.6 and Codex 5.2, there has been a step change in output quality and capability — resistance based on experiences with earlier models may be outdated",
+        "The best alignment is written by the people who own the domain: a test engineer encodes what good tests look like into a testing skill or sub-agent; a backend developer defines API conventions; a security engineer writes the security review hook — each role makes the AI permanently smarter in their area"
+      ],
+      "tip": "Example: the test engineer doesn't just describe good tests in a doc — they write a /create-tests skill that embeds coverage rules, naming conventions, and edge-case patterns, so every agent session gets their expertise automatically."
+    },
+    {
+      "id": "s1-harness",
+      "title": "The Development Harness",
+      "subtitle": "The infrastructure that makes AI contributions reliable",
+      "points": [
+        "Hooks: automated actions that run before and after agent operations — linting, formatting, and security checks run without you asking",
+        "Permissions: least-privilege access scoped per task — an agent working on UI shouldn't be able to touch database migrations",
+        "Skills: reusable slash commands that encode your team's best workflows — /tidy, /review, /commit — so the agent behaves consistently on every session",
+        "CI/CD pipeline as the final gate: linter, tests, and E2E checks catch what agent review misses — quality gates that don't rely on human diligence"
+      ],
+      "tip": "The harness is what makes AI contributions production-safe. Without it, you're trusting the agent. With it, you're trusting the system."
     },
     {
       "id": "s1-agents-feedback",
@@ -128,18 +140,6 @@
         "Isolate before you fix: paste the minimal failing snippet, not the entire file — agents produce better diagnoses on a 20-line reproduction than on a 500-line context dump"
       ],
       "tip": "If the agent's first fix doesn't work, don't just retry — ask it to explain its reasoning first. Wrong fixes usually come from wrong assumptions about the root cause, not from bad code."
-    },
-    {
-      "id": "s1-dev-resistance",
-      "title": "Getting Your Dev Team on Board",
-      "subtitle": "The resistance is real — and usually justified",
-      "points": [
-        "Non-determinism is a fair concern — but developers are also not deterministic, and the same argument for consistent, reviewable output applies to human work too",
-        "The real problem is usually alignment investment: if CLAUDE.md, conventions, and quality gates aren't set up, AI output can't meet the bar — that's a setup problem, not an AI problem",
-        "Since Sonnet 4.6 and Codex 5.2, there has been a step change in output quality and capability — resistance based on experiences with earlier models may be outdated",
-        "The best alignment is written by the people who own the domain: a test engineer encodes what good tests look like into a testing skill or sub-agent; a backend developer defines API conventions; a security engineer writes the security review hook — each role makes the AI permanently smarter in their area"
-      ],
-      "tip": "Example: the test engineer doesn't just describe good tests in a doc — they write a /create-tests skill that embeds coverage rules, naming conventions, and edge-case patterns, so every agent session gets their expertise automatically."
     },
     {
       "id": "s1-dev-trust",
