@@ -1,5 +1,3 @@
-import { useTheme } from '../../theme/useTheme';
-
 interface SlideLayoutProps {
   children: React.ReactNode;
   /** 'hero' = centered. 'content' = left-aligned. */
@@ -22,7 +20,6 @@ export function SlideLayout({
   innerStyle,
   decorations,
 }: SlideLayoutProps) {
-  const { theme } = useTheme();
   const isHero = variant === 'hero';
 
   return (
