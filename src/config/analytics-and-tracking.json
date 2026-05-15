@@ -11,7 +11,7 @@
     },
     {
       "id": "s2-arc",
-      "title": "The Throughline",
+      "title": "Framing",
       "subtitle": "Building is now cheap. Validation is the bottleneck.",
       "points": [
         "AI makes execution faster and cheaper — which means the quality of your decisions matters more, not less",
@@ -35,7 +35,40 @@
         "Analytics tells you what users did. It doesn't tell you what they wanted to do but couldn't.",
         "The gap between 'what users do' and 'what users want' is where product decisions live"
       ],
-      "tip": "Instrument before you ship. The first week of data — often the most important — is gone if you add tracking retroactively."
+      "tip": "Instrument before you ship. All data is important even from the first 5 customers."
+    },
+    {
+      "id": "s2-analytics-types",
+      "title": "The Analytics Stack — Know What You're Solving For",
+      "subtitle": "Different questions require different tools — and different instrumentation",
+      "points": [
+        "Traffic analytics — where do users arrive from, which channels convert, what is the landing page doing? Answers demand and acquisition questions.",
+        "Behaviour analytics — are users getting stuck or completing intended flows? Session recordings and heatmaps reveal what aggregate metrics hide.",
+        "Funnel & retention analytics — which steps leak users, where does the conversion break, who comes back and why?",
+        "User feedback — context-aware prompts at the right moment in the journey; qualitative signal that explains the quantitative drop-off.",
+        "Client-side error monitoring — JS crashes, failed API calls, and silent errors on user devices. Without this, a whole category of churn is invisible to you.",
+        "Service & uptime monitoring — is your product actually reachable and performing? Slow APIs kill conversion as surely as a broken UI."
+      ],
+      "tip": "The insight is in the gap between what traffic analytics says users did and what behaviour analytics shows they actually experienced."
+    },
+    {
+      "id": "s2-analytics-tools",
+      "title": "The Tool Landscape",
+      "subtitle": "Most tools cover multiple categories — the hard part is knowing what to configure, not which to choose",
+      "points": [
+        "Google Analytics — traffic, acquisition channels, landing page conversion, basic funnels",
+        "Hotjar — behaviour recordings, heatmaps, in-context feedback widgets",
+        "Sentry — client-side and server-side error monitoring, performance tracing, release health",
+        "Datadog — infrastructure, APM, logs, uptime monitoring, alerting across services",
+        "PostHog — product analytics, session replay, feature flags, funnels — open source and self-hostable",
+        "Mixpanel / Amplitude — deep funnel analytics, retention cohorts, event-driven user journey analysis",
+        "Vibesmonitor — traffic analytics, behaviour recordings, in-context feedback, and error tracking in one setup"
+      ],
+      "tip": "Setting up all of these across multiple projects requires deep configuration knowledge and often a dedicated team. Vibesmonitor covers the critical 80% — traffic, errors, behaviour signals, and feedback — in a single lightweight setup. Worth evaluating before committing to the full stack.",
+      "externalLink": {
+        "label": "vibesmonitor.com",
+        "url": "https://vibesmonitor.com"
+      }
     },
     {
       "id": "s2-instrument",
@@ -43,8 +76,8 @@
       "subtitle": "Five categories that cover most product insight",
       "points": [
         "Entry points — how did they arrive? (channel, referrer, campaign)",
-        "Activation events — the first action that correlates with long-term retention",
-        "Friction points — where do users stop, slow down, or retry?",
+        "Activation events — the first action that correlates with long-term retention (high value delivery points)",
+        "Friction points — where do users stop, slow down, or bounce?",
         "Feature usage — which features are actually used, by whom, how often",
         "Exit events — the last action before churning"
       ]
@@ -94,18 +127,7 @@
         "Reversible + low stakes → ship fast and learn. Irreversible + high stakes → high rigor, no shortcuts.",
         "Shared language with engineering: 'This is a Category 1 — ship dirty and measure. That one is Category 3 — slow down.'"
       ],
-      "tip": "'If I'm wrong about this, how long does it take to undo it and what does it cost?' — If the answer is 'a day and nothing', ship."
-    },
-    {
-      "id": "s2-three-categories",
-      "title": "Three Decision Categories",
-      "subtitle": "Calibrate rigor to the type of decision",
-      "points": [
-        "Category 1 — Latency-sensitive: landing page copy, onboarding flow, UI variations. Ship fast, learn fast.",
-        "Category 2 — Trust-sensitive: agents acting on behalf of users, health/legal advice, personal data. Validate before shipping.",
-        "Category 3 — Infrastructure: data model, auth architecture, agent orchestration, API contracts. High rigor, slow down.",
-        "Category 3 decisions are irreversible in practice — 'quick and dirty' here creates years of debt"
-      ]
+      "tip": "Bezos's two-way door: Type 2 decisions are reversible — walk through, don't like it, walk back. Type 1 are one-way doors — once you're through, you can't return. Most decisions are Type 2. | 'If I'm wrong about this, how long does it take to undo it and what does it cost?' — If the answer is 'a day and nothing', ship."
     },
     {
       "id": "s2-pm-superpower",
@@ -121,59 +143,56 @@
     {
       "id": "s2-uncomfortable-questions",
       "title": "The Uncomfortable Question Protocol",
-      "subtitle": "The best validation question is the one you don't want to ask",
+      "subtitle": "What people do is the signal. What they say is noise.",
       "points": [
-        "'Do you actually need this feature, or would you just use it if it existed?'",
-        "'If this product went away tomorrow, what would you do instead?'",
-        "'Would you pay for this if it wasn't free?'",
-        "'Have you ever actually used the feature we're building around?'"
+        "Opinions lie, behaviour doesn't — 'I would definitely use that' means nothing; 'I've been doing this manually every week for a year' means everything",
+        "'Walk me through the last time you dealt with this problem' — anchor to a real event, not a hypothetical",
+        "'What did you do about it?' — if they didn't act on the problem, it wasn't painful enough",
+        "'How much time/money are you spending on this today?' — current behaviour reveals real priority, not stated priority"
       ],
-      "tip": "For every major product decision: state the belief explicitly, then ask the question you least want users to answer honestly — and ask that question."
+      "tip": "The Mom Test: ask about specific past behaviour, not future intentions. 'Would you use this?' is a bad question. 'Show me how you do it now' is a good one."
     },
     {
-      "id": "s2-antipatterns",
-      "title": "Anti-patterns: Using AI to Confirm What You Already Believe",
-      "subtitle": "AI is helpful and agreeable by default — if you prompt with your conclusion baked in, you'll get confirmation",
+      "id": "s2-latent-demand-1",
+      "title": "We Can Build Anything. Should We?",
+      "subtitle": "Speed is now a given — value is still the constraint",
       "points": [
-        "The leading prompt: 'Our users really value speed — suggest ways to highlight it.' Fix: ask what users care about, then test the assumption.",
-        "Survivorship bias: AI pattern-matches to successful products, not your specific users and market",
-        "Validating the wrong assumption: users said they want it, but won't change their workflow to get it",
-        "Moving fast past uncomfortable signals: running a test and ignoring a slightly negative result"
+        "With agents, implementation velocity is near-infinite: the question shifts from 'can we build it?' to 'should we?'",
+        "Every feature request is now achievable — that makes prioritisation more important, not less",
+        "The product owner's job is to separate signal from noise: what creates real value vs. what fills a backlog",
+        "Fast execution amplifies bad decisions just as much as good ones — a wrong bet ships in days, not months"
       ],
-      "tip": "Define your decision rule before running the test. Write it down. Hold to it."
+      "tip": "Velocity without judgment is just faster chaos. The product owner's instinct is now the binding constraint."
     },
     {
-      "id": "s2-red-teaming",
-      "title": "Red-Teaming Your Product with AI",
-      "subtitle": "If an AI conversation isn't challenging your assumptions, something is wrong",
+      "id": "s2-latent-demand-2",
+      "title": "Agents Expand the Latent Demand Surface",
+      "subtitle": "What was cumbersome becomes automated — new behaviours emerge",
       "points": [
-        "Pre-mortem: 'Imagine it's 6 months from now. This feature failed. What happened?'",
-        "Failed user narrative: 'You are a user who tried this and stopped after 2 weeks. Walk me through what happened.'",
-        "Contrarian investor: 'You are an investor who passed on funding this. What was your reasoning?'",
-        "Explicit pushback: 'What's the strongest case against this?' or 'Argue against this feature decision.'"
-      ]
+        "An embedded agent is a general problem solver with full access to the product — it makes tasks that were 'not worth doing manually' suddenly trivial",
+        "Latent demand unlocks: users start attempting workflows they never would have tried before",
+        "What to watch: prompt patterns, task delegation frequency, abandoned flows, and 'Can it also...?' moments",
+        "Prompt monitoring and task delegation monitoring become first-class analytics — they reveal unspoken demand in real time"
+      ],
+      "tip": "The agent's conversation log is your richest source of unsolicited product feedback."
     },
     {
-      "id": "s2-latent-demand",
-      "title": "Latent Demand in the Agent Era",
-      "subtitle": "Demand suppressed by friction, unfamiliarity, or lack of vocabulary",
+      "id": "s2-decision-surfacing",
+      "title": "What Decisions Do You Surface?",
+      "subtitle": "Automation is the easy part — knowing when to hand control back is the hard part",
       "points": [
-        "When agents drop friction 10x: tasks that were 'not worth it' become trivial, problems users learned to live with become solvable",
-        "Signal types: awkward asks, edge-case workarounds, unexpected usage patterns, 'Can it also...?' questions",
-        "The question you're not letting users ask is the question that will reveal latent demand",
-        "Anti-pattern: building only for expressed demand — nobody asked for the iPod; they wanted 1000 songs in their pocket"
-      ]
+        "An agent can automate end-to-end, but full automation isn't always the right call — some decisions need a human in the loop",
+        "Product decision: which actions are safe to run silently, which need confirmation, and which should always pause for the user?",
+        "Risk and reversibility are the axes: low-risk + reversible = automate; high-stakes + irreversible = always surface",
+        "Over-surfacing erodes trust (alert fatigue); under-surfacing erodes confidence (users feel out of control) — calibration is the product work"
+      ],
+      "tip": "Design the decision surface deliberately. 'Show the plan before execution' is not a UX nicety — it's trust infrastructure."
     },
     {
-      "id": "s2-ai-product-design",
-      "title": "AI-First Product Design Patterns",
-      "subtitle": "When execution is near-free, the product assumptions change",
-      "points": [
-        "The 10x friction question: 'What would our users do with this if it was 10x faster and 10x cheaper?'",
-        "Designing for delegation, not just automation — user hands off judgment, not just a task",
-        "Confirmation steps: show the plan before execution, especially for irreversible actions",
-        "Interrupt points, trust calibration, explainability on demand: 'Why did you do that?' should always have an answer"
-      ]
+      "id": "s2-design-systems-topic",
+      "layout": "topic",
+      "title": "Design Systems in the Agentic World",
+      "subtitle": "When AI writes your UI, consistency doesn't happen by accident"
     },
     {
       "id": "s2-design-system-why",
@@ -240,6 +259,7 @@
     },
     {
       "id": "s2-takeaways",
+      "layout": "takeaways",
       "title": "Key Takeaways",
       "subtitle": "What to carry out of this session",
       "points": [
@@ -247,15 +267,15 @@
         "Speed vs. rigor isn't a values debate — it's a function of reversibility and stakes",
         "The PM superpower is knowing what to validate, not how. AI handles the how.",
         "The most valuable validation questions are the ones you don't want to ask",
-        "AI-speed development makes inconsistency compound faster — a design system is infrastructure for agents, not just humans",
-        "Roadmap question: 'What would users do if this was free of friction, effort, and time?' That gap is your roadmap."
+        "Your agent's conversation log is unsolicited product feedback — monitor prompt patterns, rephrasing attempts, and abandoned flows to surface latent demand you'd never find in a survey",
+        "AI-speed development makes inconsistency compound faster — a design system is infrastructure for agents, not just humans"
       ]
     },
     {
-      "id": "s2-mindmap",
+      "id": "s1-mindmap",
       "layout": "mindmap-link",
-      "title": "Full Session Overview",
-      "subtitle": "Explore all concepts from this session in the interactive mind map"
+      "title": "Agentic Coding Mind Map",
+      "subtitle": "Explore the relevant concepts from the Agentic Coding Journey based on the scale of your project and team"
     },
     {
       "id": "s2-qa",
@@ -263,5 +283,6 @@
       "title": "Q & A",
       "subtitle": "Thank you for joining"
     }
-  ]
+  ],
+  "notes": "# Validate Like a PM, Ship Like an Engineer\n\n## Intro\n\n- Recap session 1 key takeaways\n- Why analytics and tracking matter for AI-assisted products\n\n## Analytics Fundamentals\n\n- Define what you want to measure before you build\n- Event taxonomy: page views, clicks, funnels, retention\n- Tools: PostHog, Mixpanel, Amplitude — pick one and stick to it\n\n## Behaviour Tracking with AI\n\n- Use LLMs to summarise user session patterns\n- Automatic anomaly detection on key metrics\n- Prompt the agent with your analytics schema for targeted queries\n\n## Validation Loops\n\n- A/B testing: hypothesis → experiment → decision\n- Feature flags as a prerequisite (ship dark, validate, roll out)\n- Kill criteria — know when to kill a feature before you build it\n\n## AI-Assisted Product Decisions\n\n- Feed usage data back into the agent context\n- Agent generates weekly insight summaries\n- Pair quantitative data with qualitative user feedback (recordings, tickets)\n\n## Ship Like an Engineer\n\n- Treat analytics events like API contracts — version them\n- Test analytics in CI (schema validation, missing events)\n- Document your event taxonomy in CLAUDE.md so agents stay consistent\n"
 }

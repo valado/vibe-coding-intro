@@ -65,9 +65,10 @@ TODO - brainstorm what app to generate
 
 interface MarkdownDrawerProps {
   onClose: () => void;
+  content?: string;
 }
 
-export function MarkdownDrawer({ onClose }: MarkdownDrawerProps) {
+export function MarkdownDrawer({ onClose, content }: MarkdownDrawerProps) {
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -336,7 +337,7 @@ export function MarkdownDrawer({ onClose }: MarkdownDrawerProps) {
                 ),
               }}
             >
-              {PLACEHOLDER_MD}
+              {content ?? PLACEHOLDER_MD}
             </ReactMarkdown>
           </div>
         </div>

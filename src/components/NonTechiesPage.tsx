@@ -34,6 +34,7 @@ export interface Session {
   title: string;
   subtitle: string;
   slides: SessionSlide[];
+  notes?: string;
 }
 
 const SESSION_MAP: { path: string; content: Session }[] = [
@@ -314,7 +315,7 @@ export function NonTechiesPage({ sessionIndex }: { sessionIndex: number }) {
       {/* Modals */}
       {showAuthor && <AuthorModal onClose={() => setShowAuthor(false)} />}
       {showKeyboardHelp && <KeyboardHelp onClose={() => setShowKeyboardHelp(false)} />}
-      {showNotesDrawer && <MarkdownDrawer onClose={() => setShowNotesDrawer(false)} />}
+      {showNotesDrawer && <MarkdownDrawer content={session.notes} onClose={() => setShowNotesDrawer(false)} />}
 
       <NonTechiesPrintAllSlides session={session} />
     </div>

@@ -78,6 +78,155 @@ export function NonTechiesSlideContent({ slide, session }: Props) {
     );
   }
 
+  if (slide.layout === 'topic') {
+    return (
+      <div
+        style={{
+          width: '100%',
+          maxWidth: 820,
+          position: 'relative',
+          zIndex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          gap: 24,
+          padding: '48px 0',
+        }}
+      >
+        <div
+          style={{
+            width: 48,
+            height: 3,
+            borderRadius: 2,
+            background: theme.accent,
+            marginBottom: 8,
+          }}
+        />
+        <h1
+          style={{
+            fontSize: 'clamp(2rem, 5vw, 3.4rem)',
+            fontWeight: 900,
+            lineHeight: 1.1,
+            margin: 0,
+            color: theme.text,
+            letterSpacing: '-0.02em',
+          }}
+        >
+          {slide.title}
+        </h1>
+        {slide.subtitle && (
+          <p
+            style={{
+              fontSize: 'clamp(1rem, 2vw, 1.25rem)',
+              color: theme.textMuted,
+              margin: 0,
+              maxWidth: 520,
+              lineHeight: 1.6,
+              fontWeight: 500,
+            }}
+          >
+            {slide.subtitle}
+          </p>
+        )}
+      </div>
+    );
+  }
+
+  if (slide.layout === 'takeaways') {
+    return (
+      <div style={{ width: '100%', maxWidth: 820, position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <div
+              style={{
+                fontSize: '0.72rem',
+                fontWeight: 700,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: theme.accent,
+              }}
+            >
+              {session.title}
+            </div>
+            <h1
+              style={{
+                fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)',
+                fontWeight: 800,
+                lineHeight: 1.15,
+                margin: 0,
+                color: theme.text,
+              }}
+            >
+              {slide.title}
+            </h1>
+            {slide.subtitle && (
+              <p
+                style={{
+                  fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)',
+                  color: theme.textMuted,
+                  margin: 0,
+                  fontWeight: 400,
+                }}
+              >
+                {slide.subtitle}
+              </p>
+            )}
+          </div>
+
+          {slide.points && slide.points.length > 0 && (
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: 12,
+              }}
+            >
+              {slide.points.map((point, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: 14,
+                    background: theme.surface,
+                    border: `1px solid ${theme.border}`,
+                    borderRadius: 12,
+                    padding: '14px 16px',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: '1.1rem',
+                      fontWeight: 800,
+                      color: theme.accent,
+                      lineHeight: 1,
+                      minWidth: 24,
+                      marginTop: '0.1em',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {i + 1}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 'clamp(0.82rem, 1.5vw, 0.97rem)',
+                      color: theme.text,
+                      lineHeight: 1.55,
+                    }}
+                  >
+                    {point}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   if (slide.layout === 'mindmap-link') {
     return (
       <div

@@ -177,6 +177,7 @@
     },
     {
       "id": "s1-takeaways",
+      "layout": "takeaways",
       "title": "Key Takeaways",
       "subtitle": "What to carry out of this session",
       "points": [
@@ -202,5 +203,6 @@
       "title": "Q & A",
       "subtitle": "Thank you for joining"
     }
-  ]
+  ],
+  "notes": "# Contributing to Production\n\n## Intro\n\n- Introduce the author\n- Introduce tinytoolstack & vibesmonitor\n- Start generation of a tinytoolstack app\n\n## Basic Rules Working on a Production Project\n\n- prompt-requests\n- small changes (ask claude to commit)\n- always link to a ticket (traceability)\n- MCP with Jira/Linear etc.\n\n## Working with LLMs\n\n- Be conscious about the context usage (context rot — provide only strictly relevant information)\n- Review of changes (by agent with clear context)\n- Plan (Opus 4.7) and then execute (Sonnet 4.6) — advanced techniques with BDD, SDD\n\n## Harness\n\n- Codex, Claude Code, opencode, pi, openclaw\n\n## Preparation & Onboarding\n\n- Alignment (provided by the dev team: tech-stack, conventions, libraries, design, CLAUDE/AGENTS.md as entry point)\n- Vision for the project\n- Skills & sub-agents (very specific, e.g. react-dev)\n- computer-use, playwright MCP (let the agent get automated feedback)\n- Once alignment is defined the prompt is not that important\n- `/tidy` (slash command) — improve quality on each change (boy/girl-scout rule)\n- You don't write better prompts. You build better context.\n\n## Dev Push-Back → Getting Your Dev Team on Board\n\n- Non-determinism (devs are also not deterministic)\n- Not putting in the work to set up alignment → generated output can't live up to expectations\n- Since Sonnet 4.6 and Codex 5.2 there was a step change in quality and capabilities\n- Current code quality is important (agents replicate existing patterns)\n- CI/CD pipeline with quality gates (linter, tests, E2E)\n\n## Dev Hand-off\n\n- Let the agent generate lightweight documentation (arc42)\n- The agent should generate an overview of the changes as a PR description\n"
 }

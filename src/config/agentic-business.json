@@ -108,6 +108,7 @@
     },
     {
       "id": "s3-takeaways",
+      "layout": "takeaways",
       "title": "Key Takeaways",
       "subtitle": "What to carry out of this session",
       "points": [
@@ -125,5 +126,6 @@
       "title": "Full Session Overview",
       "subtitle": "Explore all concepts from this session in the interactive mind map"
     }
-  ]
+  ],
+  "notes": "# Aligning Humans and Agents Across an Organisation\n\n## Intro\n\n- Why individual AI adoption doesn't compound\n- The goal: productivity gains at the team level, not just personal\n\n## The Alignment Layer\n\n- CLAUDE.md / AGENTS.md as the organisational contract with agents\n- Who owns it? Engineering lead + product lead together\n- Review cadence — treat it like a living document, not a one-off setup\n\n## Team Structures in an Agentic World\n\n- Smaller 3–4 person teams with broader ownership\n- Focus on domain expertise and problem framing, not ticket grinding\n- Roles: context curator, reviewer, shipper — not just developer\n\n## Scaling AI Adoption\n\n- Start with one team, measure output quality and velocity\n- Share alignment docs and prompt patterns across teams\n- Create an internal AI guild or practice group\n\n## Organisational Risks\n\n- Context drift: agents inherit bad patterns from messy codebases\n- Over-reliance without understanding (the black-box problem)\n- Compliance and IP — know what data your agents touch\n\n## Future Team Composition\n\n- Spending time upfront on alignment, vision, and infrastructure pays compound dividends\n- The best human contribution shifts to taste, judgement, and stakeholder context\n- Hiring changes: value systems thinkers and clear communicators alongside engineers\n"
 }
